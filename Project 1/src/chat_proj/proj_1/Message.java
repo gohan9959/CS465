@@ -2,6 +2,10 @@ package proj_1;
 
 import java.io.Serializable;
 
-public class Message implements Serializable {
-  
+/**
+ * TODO: Document this class
+ */
+public class Message implements MessageTypes, Serializable {
+  // TODO: Implement this class
+
 }
