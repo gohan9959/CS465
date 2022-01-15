@@ -2,6 +2,7 @@ package proj_1;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 
 /**
@@ -35,6 +36,8 @@ public class ChatServer {
 
     serverSocket = new ServerSocket(port);
 
+    System.out.format("Starting socket on IP %s", serverSocket.getInetAddress());
+
     runServerLoop();
   }
 
@@ -43,7 +46,24 @@ public class ChatServer {
    */
   public static void runServerLoop() {
 
-    // TODO: Complete server loop
+    Socket newClient;
+    Thread newThread;
+
+    while (true) {
+
+      try {
+
+        newClient = serverSocket.accept();
+        newThread = new Thread(new ServerThread(newClient));
+        newThread.start();
+
+      }
+      
+      catch (IOException ioe) {
+
+        ioe.printStackTrace();
+      }
+    }
   }
 
   /**
@@ -51,7 +71,17 @@ public class ChatServer {
    * 
    * @param user NodeInfo object containing user info.
    */
-  public void registerUser(NodeInfo user) {
+  public void joinUser(NodeInfo user) {
+
+    // TODO
+  }
+
+  /**
+   * Remove user from list of registered users.
+   * 
+   * @param user NodeInfo object containing user info.
+   */
+  public void leaveUser(NodeInfo user) {
 
     // TODO
   }

@@ -1,7 +1,9 @@
 package proj_1;
 
 /**
- * TODO: Document this interface
+ * Interface of all message types.
+ * 
+ * @author Conrad Murphy
  */
 public interface MessageTypes {
   
