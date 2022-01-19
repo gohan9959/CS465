@@ -1,4 +1,4 @@
-package proj_1;
+package chat;
 
 /**
  * TODO: Document this class

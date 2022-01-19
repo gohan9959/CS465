@@ -1,4 +1,6 @@
-package proj_1;
+package chat;
+
+import message.Message;
 
 import java.io.IOException;
 import java.net.ServerSocket;

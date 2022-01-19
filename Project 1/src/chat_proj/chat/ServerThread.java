@@ -1,4 +1,7 @@
-package proj_1;
+package chat;
+
+import message.Message;
+import message.MessageTypes;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
