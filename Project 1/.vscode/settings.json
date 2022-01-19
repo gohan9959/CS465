@@ -1,0 +1,7 @@
+{
+    "java.dependency.syncWithFolderExplorer": false,
+    "java.project.sourcePaths": [
+        "ChatClient/src",
+        "ChatServer/src"
+    ]
+}

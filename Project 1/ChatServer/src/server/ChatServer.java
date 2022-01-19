@@ -1,5 +1,7 @@
-package chat;
+package server;
 
+import chat.NodeInfo;
+import chat.ServerThread;
 import message.Message;
 
 import java.io.IOException;
