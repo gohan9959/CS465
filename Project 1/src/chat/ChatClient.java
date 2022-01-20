@@ -5,4 +5,6 @@ package chat;
  */
 public class ChatClient {
   // TODO: Implement this class
+
+  
 }

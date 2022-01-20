@@ -59,10 +59,6 @@ public class ServerThread implements Runnable {
 
         }
 
-        case MessageTypes.TYPE_SHUTDOWN_ALL: {
-
-        }
-
         default: {
 
         }

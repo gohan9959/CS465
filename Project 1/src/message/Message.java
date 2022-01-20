@@ -27,4 +27,16 @@ public class Message implements MessageTypes, Serializable {
     
     return messageType;
   }
+
+  /**
+   * Get message object.
+   * 
+   * @return Object content which can be casted depending on message type.
+   * Castable to NodeInfo if type JOIN or LEAVE; castable to String if type
+   * NOTE.
+   */
+  public Object getMessageContent() {
+
+    return content;
+  }
 }
