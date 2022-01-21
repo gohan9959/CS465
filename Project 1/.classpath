@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src/chat_proj"/>
+	<classpathentry kind="src" path="ChatServer/src/server"/>
+	<classpathentry kind="src" path="ChatClient/src/server"/>
+	<classpathentry excluding="server/" kind="src" path="ChatClient/src"/>
+	<classpathentry excluding="src/server/|src/" kind="src" path="ChatClient"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,7 +1,13 @@
+package chat;
+
+import message.Message;
+import message.MessageTypes;
+import server.ChatServer;
+import message.*;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-
 
 /**
  * TODO: Document this class
@@ -65,10 +71,6 @@ public class ServerThread implements Runnable {
         }
 
         case MessageTypes.TYPE_SHUTDOWN: {
-
-        }
-
-        case MessageTypes.TYPE_SHUTDOWN_ALL: {
 
         }
 

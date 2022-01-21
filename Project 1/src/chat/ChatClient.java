@@ -1,3 +1,7 @@
+package chat;
+
+import message.*;
+
 import java.net.Socket;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,7 +11,7 @@ import java.io.ObjectOutputStream;
 import java.io.BufferedReader;
 /**
  * TODO: Document this class
- * */
+ */
 public class ChatClient {
   // TODO: Implement this class
   private static Socket socket;

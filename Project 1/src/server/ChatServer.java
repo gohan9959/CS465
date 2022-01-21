@@ -1,7 +1,13 @@
+package server;
+
+import chat.ServerThread;
+import message.*;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+
 /**
  * TODO: Document this class
  */
