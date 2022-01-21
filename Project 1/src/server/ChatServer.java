@@ -1,12 +1,15 @@
 package server;
 
+import chat.Sender;
 import chat.ServerThread;
 import message.Message;
+import message.MessageTypes;
 import message.NodeInfo;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 /**
@@ -17,10 +20,20 @@ public class ChatServer {
 
   private static final int DEFAULT_PORT = 8881;
 
+  /**
+   * Port number on which the server socket is initialized.
+   */
   private static int port;
 
+  /**
+   * Array list containing NodeInfo objects representing users
+   * registered into the chat.
+   */
   private static ArrayList<NodeInfo> registeredUsers;
 
+  /**
+   * ServerSocket object accepting connections to the server.
+   */
   private static ServerSocket serverSocket;
 
   /**
@@ -50,24 +63,15 @@ public class ChatServer {
    */
   public static void runServerLoop() {
 
-    Socket newClient;
-    Thread newThread;
-
     while (true) {
-
-      try {
-
-        newClient = serverSocket.accept();
-        newThread = new Thread(new ServerThread(newClient));
-        newThread.start();
-
-      }
       
-      catch (IOException ioe) {
-
-        ioe.printStackTrace();
-      }
+      
     }
+  }
+
+  public static Socket acceptConnection() throws IOException {
+
+    return serverSocket.accept();
   }
 
   /**
@@ -75,9 +79,10 @@ public class ChatServer {
    * 
    * @param user NodeInfo object containing user info.
    */
-  public void joinUser(NodeInfo user) {
+  public static void joinUser(NodeInfo user) {
 
-    // TODO
+    // Add NodeInfo object to array
+    registeredUsers.add(user);
   }
 
   /**
@@ -85,9 +90,12 @@ public class ChatServer {
    * 
    * @param user NodeInfo object containing user info.
    */
-  public void leaveUser(NodeInfo user) {
+  public static void leaveUser(NodeInfo user) {
 
-    // TODO
+    // Check each item in the list and remove if if matches up with
+    // the requested user
+    registeredUsers.removeIf((registeredUser) -> 
+        registeredUser.isEqual(user));
   }
 
   /**
@@ -95,8 +103,34 @@ public class ChatServer {
    * 
    * @param note Message object containing the note to send out.
    */
-  public void sendNoteToAll(Message note) {
+  public static void sendNoteToAll(Message note) {
 
-    // TODO
+    // Lambda function which performs the specified action for each user
+    registeredUsers.forEach((user) -> {
+
+      try {
+
+        // Establish socket connection to client
+        Socket userSocket = new Socket(user.getIp(), user.getPort());
+
+        // Alter note message to include the logical name of the user who
+        // sent it
+        // - Format: "<user>: <note>"
+        String userNoteMessage = user.getLogicalName() + ": "
+            + (String) note.getMessageContent();
+        
+        // Create altered note message to be sent
+        Message userNote = new Message(
+            MessageTypes.TYPE_NOTE, userNoteMessage);
+
+        // Start Sender thread which sends the message
+        new Thread(new Sender(userSocket, userNote)).start();
+      }
+      
+      catch (IOException ioe) {
+
+        ioe.printStackTrace();
+      }
+    });
   }
 }
