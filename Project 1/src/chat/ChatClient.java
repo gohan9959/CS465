@@ -34,15 +34,15 @@ public class ChatClient {
       // TODO: Implement listening and receiving threads
       System.out.print("Enter Message: ");
       userinput = read.nextLine();
-      if(userinput == "JOIN"){
-        clientSocket = new Socket(InetAddress.getLocalHost(), SERVER_DEFAULT_PORT);
+      if(userinput.split(" ")[0].equals("JOIN")){
+        clientSocket = new Socket(userinput.split(" ")[1], Integer.parseInt(userinput.split(" ")[2]));
         NodeInfo nodeinfo = new NodeInfo(serverSocket.getInetAddress().getHostAddress(), serverSocket.getLocalPort(), logicalName);
         message = new Message(MessageTypes.TYPE_JOIN, nodeinfo);
         //Start sender thread.
         //Start reciever thread.
         clientSocket.close();
       }
-      else if(userinput == "LEAVE"){
+      else if(userinput.equals("LEAVE")){
         clientSocket = new Socket(InetAddress.getLocalHost(), SERVER_DEFAULT_PORT);
         NodeInfo nodeinfo = new NodeInfo(serverSocket.getInetAddress().getHostAddress(), serverSocket.getLocalPort(), logicalName);
         message = new Message(MessageTypes.TYPE_LEAVE, nodeinfo);
@@ -51,7 +51,7 @@ public class ChatClient {
         clientSocket.close();
         serverSocket.close();
       }
-      else if(userinput == "SHUTDOWN"){
+      else if(userinput.equals("SHUTDOWN")){
         clientSocket = new Socket(InetAddress.getLocalHost(), SERVER_DEFAULT_PORT);
         NodeInfo nodeinfo = new NodeInfo(serverSocket.getInetAddress().getHostAddress(), serverSocket.getLocalPort(), logicalName);
         message = new Message(MessageTypes.TYPE_SHUTDOWN, nodeinfo);
