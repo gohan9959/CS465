@@ -1,11 +1,14 @@
 package server;
 
-import chat.ServerThread;
-import message.*;
+import chat.Sender;
+import message.Message;
+import message.MessageTypes;
+import message.NodeInfo;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 /**
@@ -16,10 +19,20 @@ public class ChatServer {
 
   private static final int DEFAULT_PORT = 8881;
 
+  /**
+   * Port number on which the server socket is initialized.
+   */
   private static int port;
 
+  /**
+   * Array list containing NodeInfo objects representing users
+   * registered into the chat.
+   */
   private static ArrayList<NodeInfo> registeredUsers;
 
+  /**
+   * ServerSocket object accepting connections to the server.
+   */
   private static ServerSocket serverSocket;
 
   /**
@@ -48,26 +61,28 @@ public class ChatServer {
    * Run continuous server loop.
    */
   public static void runServerLoop() {
-
     Socket newClient;
     Thread newThread;
-
     while (true) {
-
-      try {
-
-        newClient = serverSocket.accept();
-        System.out.println("\nClient Connected!");
-        newThread = new Thread(new ServerThread(newClient));
-        newThread.start();
-
-      }
-      
-      catch (IOException ioe) {
-
+      try{
+      newClient = serverSocket.accept();
+      newThread = new Thread(new ServerThread(newClient));
+      newThread.start();
+      newThread.join();
+      } catch(IOException ioe) {
         ioe.printStackTrace();
+        System.exit(1);
+      }
+      catch(InterruptedException ie){
+        ie.printStackTrace();
+        System.exit(1);
       }
     }
+  }
+
+  public static Socket acceptConnection() throws IOException {
+
+    return serverSocket.accept();
   }
 
   /**
@@ -75,12 +90,15 @@ public class ChatServer {
    * 
    * @param user NodeInfo object containing user info.
    */
-  public void joinUser(NodeInfo user) {
+  public static void joinUser(NodeInfo user) {
 
-    // TODO
+    // Add NodeInfo object to array
     registeredUsers.add(user);
     System.out.println(user.getLogicalName() + " Added Succesfully!");
-    return;
+    System.out.println("List of Users is: ");
+    registeredUsers.forEach((u) -> {
+      System.out.println(u.getLogicalName());
+    });
   }
 
   /**
@@ -88,16 +106,17 @@ public class ChatServer {
    * 
    * @param user NodeInfo object containing user info.
    */
-  public void leaveUser(NodeInfo user) {
+  public static void leaveUser(NodeInfo user) {
 
-    // TODO
-    for(int i = 0; i < registeredUsers.size(); i++){
-      if(user.getLogicalName() == registeredUsers.get(i).getLogicalName()){
-        registeredUsers.remove(i);
-        break;
-      }
-    }
-    return;
+    // Check each item in the list and remove if if matches up with
+    // the requested user
+    registeredUsers.removeIf((registeredUser) -> 
+        registeredUser.isEqual(user));
+        System.out.println(user.getLogicalName() + " Removed Succesfully!");
+        System.out.println("List of Users is: ");
+        registeredUsers.forEach((u) -> {
+          System.out.println(u.getLogicalName());
+        });
   }
 
   /**
@@ -105,11 +124,39 @@ public class ChatServer {
    * 
    * @param note Message object containing the note to send out.
    */
-  public void sendNoteToAll(Message note) {
+  public static void sendNoteToAll(Message note) {
 
-    // TODO
-    for(int i = 0; i < registeredUsers.size(); i++){
-      new Thread(new SendNote(registeredUsers.get(i), note)).start();
-    }
+    // Lambda function which performs the specified action for each user
+    registeredUsers.forEach((user) -> {
+
+      try {
+
+        // Establish socket connection to client
+        Socket userSocket = new Socket(user.getIp(), user.getPort());
+
+        // Alter note message to include the logical name of the user who
+        // sent it
+        // - Format: "<user>: <note>"
+        String userNoteMessage = user.getLogicalName() + ": "
+            + (String) note.getMessageContent();
+        
+        // Create altered note message to be sent
+        Message userNote = new Message(
+            MessageTypes.TYPE_NOTE, userNoteMessage);
+
+        // Start Sender thread which sends the message
+        new Thread(new Sender(userSocket, userNote)).start();
+      }
+      
+      catch (IOException ioe) {
+
+        ioe.printStackTrace();
+      }
+    });
+    System.out.println("Message Sent to All Users Succesfully!");
+  }
+  public static void shutDown(){
+    System.out.println("Server Shutdown Successfully!");
+    System.exit(0);
   }
 }

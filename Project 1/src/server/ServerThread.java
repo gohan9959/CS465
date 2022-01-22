@@ -1,9 +1,8 @@
-package chat;
+package server;
 
 import message.Message;
 import message.MessageTypes;
-import server.ChatServer;
-import message.*;
+import message.NodeInfo;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -15,7 +14,6 @@ import java.net.Socket;
 public class ServerThread implements Runnable {
 
   private Socket clientSocket;
-  private Message outmessage;
 
   /**
    * TODO: Document
@@ -35,47 +33,35 @@ public class ServerThread implements Runnable {
 
     ObjectInputStream input;
     Message message;
-    ChatServer chatServer = new ChatServer();
     System.out.println("ServerThread Started!");
-    while(true){
     try {
-      System.out.println("In Try!");
       input = new ObjectInputStream(clientSocket.getInputStream());
+
       message = (Message) input.readObject();
+
       input.close();
-      System.out.println("Message Object Recieved!");
 
       switch (message.getMessageType()) {
 
         case MessageTypes.TYPE_JOIN: {
-          if(message.getContent() instanceof NodeInfo){
-            chatServer.joinUser((NodeInfo)message.getContent());
-            outmessage = new Message(MessageTypes.TYPE_NOTE, "Joined Server Successfully!");
-            new Thread(new SendNote((NodeInfo)message.getContent(), outmessage)).start();;
-            //clientSocket.close();
-          }
+          ChatServer.joinUser((NodeInfo)message.getMessageContent());
         }
 
         case MessageTypes.TYPE_LEAVE: {
-          if(message.getContent() instanceof NodeInfo){
-            chatServer.leaveUser((NodeInfo)message.getContent());
-            outmessage = new Message(MessageTypes.TYPE_NOTE, "Left Server Successfully!");
-            new Thread(new SendNote((NodeInfo)message.getContent(), outmessage)).start();
-            //clientSocket.close();
-          }
+          ChatServer.leaveUser((NodeInfo)message.getMessageContent());
         }
 
         case MessageTypes.TYPE_NOTE: {
-          chatServer.sendNoteToAll(message);
-          //clientSocket.close();
+          ChatServer.sendNoteToAll((Message)message);
+
         }
 
         case MessageTypes.TYPE_SHUTDOWN: {
-
+          ChatServer.shutDown();
         }
 
         default: {
-
+          System.out.println("Unknown Message Type");
         }
       }
     }
@@ -99,6 +85,5 @@ public class ServerThread implements Runnable {
       ioe.printStackTrace();
     }
   }
-}
   
 }
