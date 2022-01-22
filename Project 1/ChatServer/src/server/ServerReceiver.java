@@ -16,9 +16,7 @@ public class ServerReceiver implements Runnable {
 
                 Socket client = ChatServer.acceptConnection();
                 (new Thread(new ReceiverWorker(client))).start();
-            }
-
-            catch (IOException ioe) {
+            } catch (IOException ioe) {
 
                 ioe.printStackTrace();
             }

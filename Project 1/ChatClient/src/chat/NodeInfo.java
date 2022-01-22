@@ -28,8 +28,8 @@ public class NodeInfo implements Serializable {
     /**
      * NodeInfo constructor.
      *
-     * @param ip IP address
-     * @param port Port number
+     * @param ip          IP address
+     * @param port        Port number
      * @param logicalName Logical name or username
      */
     public NodeInfo(String ip, int port, String logicalName) {
@@ -50,7 +50,7 @@ public class NodeInfo implements Serializable {
      */
     public boolean isEqual(NodeInfo otherNode) {
 
-        return (ip == otherNode.getIp() && port == otherNode.getPort());
+        return (ip.equals(otherNode.getIp()) && port == otherNode.getPort());
     }
 
     /**

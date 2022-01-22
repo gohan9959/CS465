@@ -44,14 +44,10 @@ public class ReceiverWorker implements Runnable {
 
             // Attempt to parse message
             processMessage(message);
-        }
-
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
 
             ioe.printStackTrace();
-        }
-
-        catch (ClassNotFoundException cfne) {
+        } catch (ClassNotFoundException cfne) {
 
             cfne.printStackTrace();
         }

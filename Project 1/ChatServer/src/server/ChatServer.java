@@ -18,118 +18,116 @@ import java.util.ArrayList;
 @SuppressWarnings("unused")
 public class ChatServer {
 
-  private static final int DEFAULT_PORT = 8881;
+    private static final int DEFAULT_PORT = 8881;
 
-  /**
-   * Port number on which the server socket is initialized.
-   */
-  private static int port;
+    /**
+     * Port number on which the server socket is initialized.
+     */
+    private static int port;
 
-  /**
-   * Array list containing NodeInfo objects representing users
-   * registered into the chat.
-   */
-  private static ArrayList<NodeInfo> registeredUsers;
+    /**
+     * Array list containing NodeInfo objects representing users
+     * registered into the chat.
+     */
+    private static ArrayList<NodeInfo> registeredUsers;
 
-  /**
-   * ServerSocket object accepting connections to the server.
-   */
-  private static ServerSocket serverSocket;
+    /**
+     * ServerSocket object accepting connections to the server.
+     */
+    private static ServerSocket serverSocket;
 
-  /**
-   * Main method.
-   * 
-   * @param args Command line arguments.
-   * @throws IOException I/O exception from ServerSocket initialization.
-   */
-  public static void main(String[] args) throws IOException {
+    /**
+     * Main method.
+     *
+     * @param args Command line arguments.
+     * @throws IOException I/O exception from ServerSocket initialization.
+     */
+    public static void main(String[] args) throws IOException {
 
-    // Determine the server port based on the config file.
-      // TODO: Write config parsing, initialize port.
-    port = DEFAULT_PORT;
+        // Determine the server port based on the config file.
+        // TODO: Write config parsing, initialize port.
+        port = DEFAULT_PORT;
 
-    // Initialize list of registered users with max capacity 25.
-    registeredUsers = new ArrayList<NodeInfo>(25);
+        // Initialize list of registered users with max capacity 25.
+        registeredUsers = new ArrayList<NodeInfo>(25);
 
-    serverSocket = new ServerSocket(port);
+        serverSocket = new ServerSocket(port);
 
-    System.out.format("Starting socket on IP %s", serverSocket.getInetAddress());
+        System.out.format("Starting socket on IP %s", serverSocket.getInetAddress());
 
-    runServerLoop();
-  }
+        runServerLoop();
+    }
 
-  /**
-   * Run continuous server loop.
-   */
-  public static void runServerLoop() {
+    /**
+     * Run continuous server loop.
+     */
+    public static void runServerLoop() {
 
-    while (true) {
+        while (true) {
+
+        }
 
     }
 
-  }
+    public static Socket acceptConnection() throws IOException {
 
-  public static Socket acceptConnection() throws IOException {
+        return serverSocket.accept();
+    }
 
-    return serverSocket.accept();
-  }
+    /**
+     * Add user to the list of registered users.
+     *
+     * @param user NodeInfo object containing user info.
+     */
+    public static void joinUser(NodeInfo user) {
 
-  /**
-   * Add user to the list of registered users.
-   * 
-   * @param user NodeInfo object containing user info.
-   */
-  public static void joinUser(NodeInfo user) {
+        // Add NodeInfo object to array
+        registeredUsers.add(user);
+    }
 
-    // Add NodeInfo object to array
-    registeredUsers.add(user);
-  }
+    /**
+     * Remove user from list of registered users.
+     *
+     * @param user NodeInfo object containing user info.
+     */
+    public static void leaveUser(NodeInfo user) {
 
-  /**
-   * Remove user from list of registered users.
-   * 
-   * @param user NodeInfo object containing user info.
-   */
-  public static void leaveUser(NodeInfo user) {
+        // Check each item in the list and remove if if matches up with
+        // the requested user
+        registeredUsers.removeIf((registeredUser) ->
+                registeredUser.isEqual(user));
+    }
 
-    // Check each item in the list and remove if if matches up with
-    // the requested user
-    registeredUsers.removeIf((registeredUser) ->
-            registeredUser.isEqual(user));
-  }
+    /**
+     * Send a note to all registered users.
+     *
+     * @param note Message object containing the note to send out.
+     */
+    public static void sendNoteToAll(Message note) {
 
-  /**
-   * Send a note to all registered users.
-   * 
-   * @param note Message object containing the note to send out.
-   */
-  public static void sendNoteToAll(Message note) {
+        // Lambda function which performs the specified action for each user
+        registeredUsers.forEach((user) -> {
 
-    // Lambda function which performs the specified action for each user
-    registeredUsers.forEach((user) -> {
+            try {
+                // Establish socket connection to client
+                Socket userSocket = new Socket(user.getIp(), user.getPort());
 
-      try {
-        // Establish socket connection to client
-        Socket userSocket = new Socket(user.getIp(), user.getPort());
+                // Alter note message to include the logical name of the user who
+                // sent it
+                // - Format: "<user>: <note>"
+                String userNoteMessage = user.getLogicalName() + ": "
+                        + (String) note.getMessageContent();
 
-        // Alter note message to include the logical name of the user who
-        // sent it
-        // - Format: "<user>: <note>"
-        String userNoteMessage = user.getLogicalName() + ": "
-                + (String) note.getMessageContent();
+                // Create altered note message to be sent
+                Message userNote = new Message(
+                        MessageTypes.TYPE_NOTE, userNoteMessage);
 
-        // Create altered note message to be sent
-        Message userNote = new Message(
-                MessageTypes.TYPE_NOTE, userNoteMessage);
+                // Start Sender thread which sends the message
+                new Thread(new Sender(userSocket, userNote)).start();
+            } catch (IOException ioe) {
 
-        // Start Sender thread which sends the message
-        new Thread(new Sender(userSocket, userNote)).start();
-      }
-
-      catch (IOException ioe) {
-
-        ioe.printStackTrace();
-      }
-    });
-  }
+                ioe.printStackTrace();
+            }
+        });
+    }
 }

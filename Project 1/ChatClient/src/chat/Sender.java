@@ -48,9 +48,7 @@ public class Sender implements Runnable {
 
             // Close connection
             socket.close();
-        }
-
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
 
             ioe.printStackTrace();
         }
