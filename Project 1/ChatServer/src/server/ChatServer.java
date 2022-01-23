@@ -9,15 +9,18 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import utils.PropertyHandler;
+
 
 /**
  * TODO: Document this class
  */
-@SuppressWarnings("unused")
 public class ChatServer
 {
-
-    private static final int DEFAULT_PORT = 8881;
 
     /**
      * Port number on which the server socket is initialized.
@@ -36,59 +39,73 @@ public class ChatServer
     private static ServerSocket serverSocket;
 
     /**
-     * Main method.
+     * Constructor
      *
-     * @param args Command line arguments.
-     * @throws IOException I/O exception from ServerSocket initialization.
+     * @param propertiesFile String of a file on relative path containing properties
      */
-    public static void main(String[] args) throws IOException
-    {
+    public ChatServer(String propertiesFile) {
 
-        // Determine the server port based on the config file.
-        // TODO: Write config parsing, initialize port.
-        port = DEFAULT_PORT;
+        Properties properties = null;
+
+        // open properties
+        try
+        {
+            properties = new PropertyHandler(propertiesFile);
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(ChatServer.class.getName()).log(Level.SEVERE, "Cannot open properties file", ex);
+            System.exit(1);
+        }
+
+        // get server port number
+        try
+        {
+            //port = Integer.parseInt(properties.getProperty("SERVER_PORT"));
+            port = 8881;
+        }
+        catch (NumberFormatException ex)
+        {
+            Logger.getLogger(ChatServer.class.getName()).log(Level.SEVERE, "Cannot read server port", ex);
+            System.exit(1);
+        }
+
+        // open server socket
+        try
+        {
+            serverSocket = new ServerSocket(port);
+        }
+        catch(IOException ex)
+        {
+            Logger.getLogger(ChatServer.class.getName()).log(Level.SEVERE, "Cannot start server socket", ex);
+        }
 
         // Initialize list of registered users with max capacity 25.
         registeredUsers = new ArrayList<NodeInfo>(25);
-
-        serverSocket = new ServerSocket(port);
-
-        System.out.format("Starting socket on IP %s", serverSocket.getInetAddress());
-
-        runServerLoop();
     }
 
     /**
      * Run continuous server loop.
+     *
+     * @throws IOException in case of failure
      */
-    public static void runServerLoop()
+    public void runServerLoop() throws IOException
     {
+        System.out.printf("Chat Server Started on port: [%d]\n", port);
+        System.out.println("===================\n");
 
         Socket newClient;
         Thread newThread;
 
         while (true)
         {
-            try
-            {
-                newClient = serverSocket.accept();
-                newThread = new Thread(new ServerThread(newClient));
-                newThread.start();
-                newThread.join();
-            }
-            catch (IOException | InterruptedException ioe)
-            {
-                ioe.printStackTrace();
-                System.exit(1);
-            }
+            System.out.printf("Waiting for connections on port: [%d]\n", port);
+
+            // open up port to listen for messages
+            newClient = serverSocket.accept();
+            newThread = new Thread(new ServerReceiver(newClient));
+            newThread.start();
         }
-
-    }
-
-    public static Socket acceptConnection() throws IOException
-    {
-
-        return serverSocket.accept();
     }
 
     /**
@@ -102,7 +119,7 @@ public class ChatServer
         // Add NodeInfo object to array
         registeredUsers.add(user);
 
-        System.out.println(user.getLogicalName() + " Added Succesfully!");
+        System.out.println(user.getLogicalName() + " Added Successfully!");
         System.out.println("List of Users is: ");
 
         registeredUsers.forEach((u) ->
@@ -124,13 +141,14 @@ public class ChatServer
         registeredUsers.removeIf((registeredUser) ->
                                          registeredUser.isEqual(user));
 
-        System.out.println(user.getLogicalName() + " Removed Succesfully!");
+        System.out.println(user.getLogicalName() + " Removed Successfully!");
         System.out.println("List of Users is: ");
 
         registeredUsers.forEach((u) ->
                                 {
                                     System.out.println(u.getLogicalName());
                                 });
+        System.out.println();
     }
 
     /**
@@ -144,38 +162,41 @@ public class ChatServer
         // Lambda function which performs the specified action for each user
         registeredUsers.forEach((user) ->
                                 {
-
                                     try
                                     {
-
                                         // Establish socket connection to client
                                         Socket userSocket = new Socket(user.getIp(), user.getPort());
 
-                                        // Alter note message to include the logical name of the user who
-                                        // sent it
-                                        // - Format: "<user>: <note>"
-                                        String userNoteMessage = user.getLogicalName() + ": "
-                                                                 + (String) note.getMessageContent();
-
-                                        // Create altered note message to be sent
-                                        Message userNote = new Message(
-                                                MessageTypes.TYPE_NOTE, userNoteMessage);
-
                                         // Start Sender thread which sends the message
-                                        new Thread(new Sender(userSocket, userNote)).start();
+                                        new Thread(new ServerSender(userSocket, note)).start();
                                     }
                                     catch (IOException ioe)
                                     {
-
                                         ioe.printStackTrace();
                                     }
                                 });
-        System.out.println("Message Sent to All Users Succesfully!");
+
+        System.out.println("Message Sent to All Users Successfully!\n");
     }
 
     public static void shutDown()
     {
         System.out.println("Server Shutdown Successfully!");
         System.exit(0);
+    }
+
+    /**
+     * Main method.
+     *
+     * @param args Command line arguments.
+     * @throws IOException I/O exception from ServerSocket initialization.
+     */
+    public static void main(String[] args) throws Exception {
+        // create instance of echo server
+        // note that hardcoding the port is bad, here we do it just for simplicity reasons
+        ChatServer chatServer = new ChatServer("ChatServer/config/Server.properties");
+
+        // fire up server loop
+        chatServer.runServerLoop();
     }
 }

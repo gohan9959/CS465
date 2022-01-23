@@ -28,6 +28,7 @@ public class ClientSender extends Thread
     String serverIP;
     int serverPort;
     String logicalName;
+    boolean joining;
 
     /**
      * Object used for reading input
@@ -36,19 +37,36 @@ public class ClientSender extends Thread
 
     /**
      * Constructor that sets up sender thread
-     *
-     * @param serverIP    ip of server connecting to
+     *  @param serverIP    ip of server connecting to
      * @param serverPort  port of server connecting to
      * @param logicalName logical name of client/user
+     * @param joining
      */
-    public ClientSender(String serverIP, int serverPort, String logicalName)
+    public ClientSender(String serverIP, int serverPort, String logicalName, boolean joining)
     {
         this.serverIP = serverIP;
         this.serverPort = serverPort;
         this.logicalName = logicalName;
+        this.joining = joining;
 
         // open up stdin
         userInput = new Scanner(System.in);
+    }
+
+    /**
+     * closes server connection
+     */
+    public void closeConnection()
+    {
+        try
+        {
+            serverConnection.close();
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, "Cannot close connection", ex);
+            System.exit(1);
+        }
     }
 
     /**
@@ -66,9 +84,6 @@ public class ClientSender extends Thread
             Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, "Cannot connect to server", ex);
             System.exit(1);
         }
-
-        System.out.println("\nConnection Successful...");
-        System.out.printf("Alias: [%s] on Server: [%s]:[%d]\n\n", logicalName, serverIP, serverPort);
     }
 
     /**
@@ -79,11 +94,29 @@ public class ClientSender extends Thread
     {
         Message message;
         boolean active = true;
+        NodeInfo nodeInfo;
+
+        System.out.println("\nConnection Successful...");
+        System.out.printf("Alias: [%s] on Server: [%s]:[%d]\n\n", logicalName, serverIP, serverPort);
+
+
+        // if the user wants to join the server send a join message
+        if(joining)
+        {
+            connectToServer();
+
+            nodeInfo = new NodeInfo(serverIP, serverPort, logicalName);
+
+            message = new Message(MessageTypes.TYPE_JOIN, nodeInfo);
+            sendMessageToServer(message);
+
+            closeConnection();
+        }
 
         // loop as long as sender should be open
         while (active)
         {
-            connectToServer();
+            nodeInfo = new NodeInfo(serverConnection.getInetAddress().getHostAddress(), serverConnection.getLocalPort(), logicalName);
 
             String userInputString = "";
 
@@ -99,22 +132,19 @@ public class ClientSender extends Thread
             {
                 Logger.getLogger(ClientSender.class.getName()).log(Level.SEVERE, null, e);
             }
-            System.out.println("Input Received: " + userInput);
 
-            NodeInfo nodeinfo = new NodeInfo(serverConnection.getInetAddress().getHostAddress(),
-                                             serverConnection.getLocalPort(), logicalName);
-
+            connectToServer();
 
             // Handles User Inputs
             if (userInputString.equals("LEAVE"))
             {
                 // TODO: Reset property values to show client as not in a server
-                message = new Message(MessageTypes.TYPE_LEAVE, nodeinfo);
+                message = new Message(MessageTypes.TYPE_LEAVE, nodeInfo);
                 active = false;
             }
             else if (userInputString.equals("SHUTDOWN"))
             {
-                message = new Message(MessageTypes.TYPE_SHUTDOWN, nodeinfo, logicalName);
+                message = new Message(MessageTypes.TYPE_SHUTDOWN, nodeInfo, logicalName);
                 active = false;
             }
             else // NOTE Message
@@ -123,26 +153,29 @@ public class ClientSender extends Thread
             }
 
             // Send message to server
-            try
-            {
-                toServer.writeObject(message);
-            }
-            catch (IOException ex)
-            {
-                Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, "Cannot send message", ex);
-                System.exit(1);
-            }
+            sendMessageToServer(message);
 
             // close connection to server after sending message
-            try
-            {
-                serverConnection.close();
-            }
-            catch (IOException ex)
-            {
-                Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, "Cannot close connection", ex);
-                System.exit(1);
-            }
+            closeConnection();
+        }
+    }
+
+    /**
+     * Sends a given message to the connected server
+     *
+     * @param message server connected to
+     */
+    public void sendMessageToServer(Message message)
+    {
+        try
+        {
+            toServer.writeObject(message);
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, "Cannot send message", ex);
+            System.exit(1);
         }
     }
 }
+

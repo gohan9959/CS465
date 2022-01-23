@@ -15,6 +15,7 @@ import java.util.logging.Logger;
  */
 public class ClientReceiver extends Thread
 {
+
     /**
      * Objects used to handle server connectivity
      */

@@ -117,12 +117,18 @@ public class ChatClient implements Runnable
         System.out.println("Chat Client Started");
         System.out.println("===================\n");
 
+        // init whether the user is attempting to join a server
+        boolean joining = false;
+
         // If user not recognized as Joined to a server
         if (!joinedStatus)
         {
             System.out.println("Currently not connected to a chat server.\n");
             System.out.println("Please enter which server you would like to join");
             System.out.println("Use the following format: 'JOIN <IP Address> <Port Number>'\n");
+
+            // since user not already joined then they are attempting to join a server now
+            joining = true;
 
             // handle user join
             Scanner read = new Scanner(System.in);
@@ -145,8 +151,8 @@ public class ChatClient implements Runnable
                     }
 
                     // update IP and port to user inputs
-                    serverIP = inputArr[1];
-                    serverPort = Integer.parseInt(inputArr[2]);
+                    //serverIP = inputArr[1];
+                    //serverPort = Integer.parseInt(inputArr[2]);
 
                     // TODO: Fix this, not updating file
                     // update property file
@@ -178,15 +184,14 @@ public class ChatClient implements Runnable
 
         // start the sender/receiver threads
         (new ClientReceiver(serverIP, serverPort, logicalName)).start();
-        (new ClientSender(serverIP, serverPort, logicalName)).start();
+        (new ClientSender(serverIP, serverPort, logicalName, joining)).start();
     }
 
     /**
      * Load in property file info and then run the constructor
      *
-     * @throws IOException if cannot import properties
      */
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args)
     {
 
         String propertiesFile;

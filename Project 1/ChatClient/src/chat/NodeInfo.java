@@ -35,7 +35,6 @@ public class NodeInfo implements Serializable
      */
     public NodeInfo(String ip, int port, String logicalName)
     {
-
         // Initialize object fields
         this.ip = ip;
         this.port = port;
@@ -52,7 +51,6 @@ public class NodeInfo implements Serializable
      */
     public boolean isEqual(NodeInfo otherNode)
     {
-
         return (ip.equals(otherNode.getIp()) && port == otherNode.getPort());
     }
 
@@ -63,7 +61,6 @@ public class NodeInfo implements Serializable
      */
     public String getIp()
     {
-
         return ip;
     }
 
@@ -74,7 +71,6 @@ public class NodeInfo implements Serializable
      */
     public int getPort()
     {
-
         return port;
     }
 
@@ -85,7 +81,6 @@ public class NodeInfo implements Serializable
      */
     public String getLogicalName()
     {
-
         return logicalName;
     }
 
