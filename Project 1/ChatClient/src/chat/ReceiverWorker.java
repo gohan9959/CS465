@@ -9,7 +9,8 @@ import message.Message;
 /**
  * TODO: Document this class
  */
-public class ReceiverWorker implements Runnable {
+public class ReceiverWorker implements Runnable
+{
 
     /**
      * Socket object from which the message will be received.
@@ -21,7 +22,8 @@ public class ReceiverWorker implements Runnable {
      *
      * @param socket Socket object from which the message will be rceived.
      */
-    public ReceiverWorker(Socket socket) {
+    public ReceiverWorker(Socket socket)
+    {
 
         // Initialize object fields
         this.socket = socket;
@@ -31,9 +33,11 @@ public class ReceiverWorker implements Runnable {
      * Run ReceiverWorker thread.
      */
     @Override
-    public void run() {
+    public void run()
+    {
 
-        try {
+        try
+        {
 
             // Open socket input stream
             ObjectInputStream input = new ObjectInputStream(
@@ -44,10 +48,14 @@ public class ReceiverWorker implements Runnable {
 
             // Attempt to parse message
             processMessage(message);
-        } catch (IOException ioe) {
+        }
+        catch (IOException ioe)
+        {
 
             ioe.printStackTrace();
-        } catch (ClassNotFoundException cfne) {
+        }
+        catch (ClassNotFoundException cfne)
+        {
 
             cfne.printStackTrace();
         }
@@ -58,7 +66,8 @@ public class ReceiverWorker implements Runnable {
      *
      * @param message
      */
-    public void processMessage(Message message) {
+    public void processMessage(Message message)
+    {
 
         // TODO: Figure out what to do here
     }

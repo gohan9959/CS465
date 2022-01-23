@@ -13,7 +13,8 @@ import message.Message;
  *
  * @author Conrad Murphy
  */
-public class Sender implements Runnable {
+public class Sender implements Runnable
+{
 
     /**
      * Socket object to which the message will be sent.
@@ -25,7 +26,8 @@ public class Sender implements Runnable {
      */
     private Message message;
 
-    public Sender(Socket socket, Message message) {
+    public Sender(Socket socket, Message message)
+    {
 
         // Initialize object variables
         this.socket = socket;
@@ -33,9 +35,11 @@ public class Sender implements Runnable {
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
 
-        try {
+        try
+        {
 
             // Open stream
             ObjectOutputStream output = new ObjectOutputStream(
@@ -48,7 +52,9 @@ public class Sender implements Runnable {
 
             // Close connection
             socket.close();
-        } catch (IOException ioe) {
+        }
+        catch (IOException ioe)
+        {
 
             ioe.printStackTrace();
         }

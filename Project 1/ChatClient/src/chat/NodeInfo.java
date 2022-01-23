@@ -8,7 +8,8 @@ import java.io.Serializable;
  *
  * @author Conrad Murphy
  */
-public class NodeInfo implements Serializable {
+public class NodeInfo implements Serializable
+{
 
     /**
      * String IP address where socket is located.
@@ -32,7 +33,8 @@ public class NodeInfo implements Serializable {
      * @param port        Port number
      * @param logicalName Logical name or username
      */
-    public NodeInfo(String ip, int port, String logicalName) {
+    public NodeInfo(String ip, int port, String logicalName)
+    {
 
         // Initialize object fields
         this.ip = ip;
@@ -48,7 +50,8 @@ public class NodeInfo implements Serializable {
      * @return Boolean result of test; true if values are the same, false
      * otherwise
      */
-    public boolean isEqual(NodeInfo otherNode) {
+    public boolean isEqual(NodeInfo otherNode)
+    {
 
         return (ip.equals(otherNode.getIp()) && port == otherNode.getPort());
     }
@@ -58,7 +61,8 @@ public class NodeInfo implements Serializable {
      *
      * @return String IP address
      */
-    public String getIp() {
+    public String getIp()
+    {
 
         return ip;
     }
@@ -68,7 +72,8 @@ public class NodeInfo implements Serializable {
      *
      * @return Integer port number
      */
-    public int getPort() {
+    public int getPort()
+    {
 
         return port;
     }
@@ -78,7 +83,8 @@ public class NodeInfo implements Serializable {
      *
      * @return String logical name or username
      */
-    public String getLogicalName() {
+    public String getLogicalName()
+    {
 
         return logicalName;
     }

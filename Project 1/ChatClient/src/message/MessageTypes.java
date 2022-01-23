@@ -5,7 +5,8 @@ package message;
  *
  * @author Conrad Murphy
  */
-public interface MessageTypes {
+public interface MessageTypes
+{
 
     public static final int TYPE_JOIN = 0;
     public static final int TYPE_LEAVE = 1;

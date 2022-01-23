@@ -5,18 +5,24 @@ import java.net.Socket;
 
 import chat.ReceiverWorker;
 
-public class ServerReceiver implements Runnable {
+public class ServerReceiver implements Runnable
+{
 
     @Override
-    public void run() {
+    public void run()
+    {
 
-        while (true) {
+        while (true)
+        {
 
-            try {
+            try
+            {
 
                 Socket client = ChatServer.acceptConnection();
                 (new Thread(new ReceiverWorker(client))).start();
-            } catch (IOException ioe) {
+            }
+            catch (IOException ioe)
+            {
 
                 ioe.printStackTrace();
             }

@@ -1,4 +1,4 @@
-package chat;
+package server;
 
 import message.Message;
 import message.MessageTypes;
@@ -10,16 +10,18 @@ import java.net.Socket;
 /**
  * TODO: Document this class
  */
-public class ServerThread implements Runnable {
+public class ServerThread implements Runnable
+{
 
-    private Socket clientSocket;
+    private final Socket clientSocket;
 
     /**
      * TODO: Document
      *
-     * @param clientSocket
+     * @param clientSocket given socket for thread to work with
      */
-    public ServerThread(Socket clientSocket) {
+    public ServerThread(Socket clientSocket)
+    {
 
         this.clientSocket = clientSocket;
     }
@@ -28,12 +30,14 @@ public class ServerThread implements Runnable {
      * TODO
      */
     @Override
-    public void run() {
+    public void run()
+    {
 
         ObjectInputStream input;
         Message message;
 
-        try {
+        try
+        {
             input = new ObjectInputStream(clientSocket.getInputStream());
             // clientSocket.getOutputStream();
 
@@ -41,39 +45,47 @@ public class ServerThread implements Runnable {
 
             input.close();
 
-            switch (message.getMessageType()) {
+            switch (message.getMessageType())
+            {
 
-                case MessageTypes.TYPE_JOIN: {
-
-                }
-
-                case MessageTypes.TYPE_LEAVE: {
+                case MessageTypes.TYPE_JOIN:
+                {
 
                 }
 
-                case MessageTypes.TYPE_NOTE: {
+                case MessageTypes.TYPE_LEAVE:
+                {
 
                 }
 
-                case MessageTypes.TYPE_SHUTDOWN: {
+                case MessageTypes.TYPE_NOTE:
+                {
 
                 }
 
-                default: {
+                case MessageTypes.TYPE_SHUTDOWN:
+                {
+
+                }
+
+                default:
+                {
 
                 }
             }
-        } catch (IOException ioe) {
+        }
+        catch (IOException | ClassNotFoundException ioe)
+        {
 
             ioe.printStackTrace();
-        } catch (ClassNotFoundException cnfe) {
-
-            cnfe.printStackTrace();
         }
 
-        try {
+        try
+        {
             clientSocket.close();
-        } catch (IOException ioe) {
+        }
+        catch (IOException ioe)
+        {
 
             ioe.printStackTrace();
         }

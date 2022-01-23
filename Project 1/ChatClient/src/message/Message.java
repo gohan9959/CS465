@@ -5,7 +5,8 @@ import java.io.Serializable;
 /**
  * TODO: Document this class
  */
-public class Message implements MessageTypes, Serializable {
+public class Message implements MessageTypes, Serializable
+{
 
     /**
      * Object content of message; can be a NodeInfo for user-based operations
@@ -25,7 +26,8 @@ public class Message implements MessageTypes, Serializable {
      * @param content     Object content of message; can be a NodeInfo for JOIN,
      *                    LEAVE, and SHUTDOWN message types or a String for NOTE type
      */
-    public Message(int messageType, Object content) {
+    public Message(int messageType, Object content)
+    {
 
         // Initialize object fields
         this.content = content;
@@ -37,7 +39,8 @@ public class Message implements MessageTypes, Serializable {
      *
      * @return integer symbolic constant representing message type
      */
-    public int getMessageType() {
+    public int getMessageType()
+    {
 
         return messageType;
     }
@@ -49,7 +52,8 @@ public class Message implements MessageTypes, Serializable {
      * Castable to NodeInfo if type JOIN, LEAVE, or SHUTDOWN; castable to
      * String if type NOTE.
      */
-    public Object getMessageContent() {
+    public Object getMessageContent()
+    {
 
         return content;
     }

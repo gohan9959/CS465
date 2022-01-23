@@ -1,4 +1,5 @@
 package chat;
 
-public class Receiver {
+public class Receiver
+{
 }
