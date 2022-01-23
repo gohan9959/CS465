@@ -1,0 +1,16 @@
+package message;
+
+/**
+ * Interface of all message types.
+ *
+ * @author Conrad Murphy
+ */
+public interface MessageTypes
+{
+
+    public static final int TYPE_JOIN = 0;
+    public static final int TYPE_LEAVE = 1;
+    public static final int TYPE_NOTE = 2;
+    public static final int TYPE_SHUTDOWN = 3;
+
+}
