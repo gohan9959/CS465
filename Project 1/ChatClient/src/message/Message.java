@@ -1,5 +1,7 @@
 package message;
 
+import chat.Sender;
+
 import java.io.Serializable;
 
 /**
@@ -20,6 +22,11 @@ public class Message implements MessageTypes, Serializable
     private int messageType;
 
     /**
+     * Alias of the sender of this message
+     */
+    private String sender;
+
+    /**
      * Constructor.
      *
      * @param messageType Symbolic constant for message type
@@ -28,10 +35,26 @@ public class Message implements MessageTypes, Serializable
      */
     public Message(int messageType, Object content)
     {
-
         // Initialize object fields
         this.content = content;
         this.messageType = messageType;
+        this.sender = "Anonymous";
+    }
+
+    /**
+     * Constructor with sender name included.
+     *
+     * @param messageType Symbolic constant for message type
+     * @param content     Object content of message; can be a NodeInfo for JOIN,
+     *                    LEAVE, and SHUTDOWN message types or a String for NOTE type
+     * @param sender      Name of user sending this message
+     */
+    public Message(int messageType, Object content, String sender)
+    {
+        // Initialize object fields
+        this.content = content;
+        this.messageType = messageType;
+        this.sender = sender;
     }
 
     /**
@@ -54,7 +77,16 @@ public class Message implements MessageTypes, Serializable
      */
     public Object getMessageContent()
     {
-
         return content;
+    }
+
+    /**
+     * Get message sender alias.
+     *
+     * @return string name of sender of this message
+     */
+    public String getSender()
+    {
+        return sender;
     }
 }

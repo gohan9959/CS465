@@ -1,103 +1,206 @@
 package chat;
 
-import message.Message;
-import message.MessageTypes;
-
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.io.*;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.Scanner;
 
+import utils.PropertyHandler;
+
+
 /**
- * TODO: Document this class
+ * Primary class to handle the chat client.
+ * Initializes client and call helper threads.
+ *
+ * @author Conrad Murphy, Harshith Shakelli, and Zachary Wilson-Long
  */
-public class ChatClient
+public class ChatClient implements Runnable
 {
 
-    private static final int USER_DEFAULT_PORT = 8882;
-    private static final int SERVER_DEFAULT_PORT = 8881;
+    /**
+     * server connectivity information
+     */
+    private static String serverIP = null;
+    private static int serverPort = 0;
+    private boolean joinedStatus;
 
+    /**
+     * alias of user to be recognized by
+     */
+    String logicalName;
+
+    /**
+     * Used to access property file to see if client has any stored information
+     */
+    private Properties properties;
+
+    /**
+     * Constructor.
+     * Handles property file to set up field variables
+     *
+     * @param propertiesFile
+     */
+    public ChatClient(String propertiesFile)
+    {
+        properties = null;
+
+        // open properties
+        try
+        {
+            properties = new PropertyHandler(propertiesFile);
+        }
+        catch (IOException ex)
+        {
+            Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, "Cannot open properties file", ex);
+            System.exit(1);
+        }
+
+        // get joined status
+        try
+        {
+            if (Integer.parseInt(properties.getProperty("JOINED")) == 1)
+            {
+                joinedStatus = true;
+            }
+            else
+            {
+                joinedStatus = false;
+            }
+        }
+        catch (NumberFormatException ex)
+        {
+            joinedStatus = false;
+        }
+
+        // get logical name
+        try
+        {
+            logicalName = properties.getProperty("NAME");
+        }
+        catch (NumberFormatException ignored)
+        {
+        }
+
+        // get server IP
+        try
+        {
+            serverIP = properties.getProperty("SERVER_IP");
+        }
+        catch (Exception ex)
+        {
+            Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, "Cannot read server IP", ex);
+            System.exit(1);
+        }
+
+        // get server port
+        try
+        {
+            serverPort = Integer.parseInt(properties.getProperty("SERVER_PORT"));
+        }
+        catch (NumberFormatException ex)
+        {
+            Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, "Cannot read server port", ex);
+            System.exit(1);
+        }
+    }
+
+    @Override
+    /**
+     * Implementation of interface Runnable
+     *
+     * Called by main() to handle client setup and then call sender and receiver threads
+     */
+    public void run()
+    {
+
+        System.out.println("Chat Client Started");
+        System.out.println("===================\n");
+
+        // If user not recognized as Joined to a server
+        if (!joinedStatus)
+        {
+            System.out.println("Currently not connected to a chat server.\n");
+            System.out.println("Please enter which server you would like to join");
+            System.out.println("Use the following format: 'JOIN <IP Address> <Port Number>'\n");
+
+            // handle user join
+            Scanner read = new Scanner(System.in);
+            while (true)
+            {
+                String userInput;
+
+                System.out.print("Command: ");
+                userInput = read.nextLine();
+                String[] inputArr = userInput.split(" ");
+
+                if (inputArr[0].equals("JOIN"))
+                {
+                    // handle invalid use of JOIN
+                    if (inputArr.length < 3)
+                    {
+                        System.out.println("Invalid number of arguments for join");
+                        System.out.println("Use the following format: 'JOIN <IP Address> <Port Number>'\n");
+                        continue;
+                    }
+
+                    // update IP and port to user inputs
+                    serverIP = inputArr[1];
+                    serverPort = Integer.parseInt(inputArr[2]);
+
+                    // TODO: Fix this, not updating file
+                    // update property file
+                    properties.setProperty("JOINED", "1");
+                    properties.setProperty("SERVER_IP", serverIP);
+                    properties.setProperty("SERVER_PORT", Integer.toString(serverPort));
+
+                    System.out.print("Please enter an alias for server to recognize you as: ");
+                    logicalName = read.nextLine();
+                    properties.setProperty("NAME", logicalName);
+
+                    // since entered valid JOIN statement we close the loop and start connecting
+                    break;
+                }
+                else if (userInput.equals("SHUTDOWN"))
+                {
+                    System.out.println("Shutting down client.");
+                    System.exit(1);
+                }
+                else // Invalid input
+                {
+                    System.out.println("Invalid argument at this time please enter a valid argument");
+                    System.out.println("Use the following format: 'JOIN <IP Address> <Port Number>'");
+                    System.out.println("Or to close the program: 'SHUTDOWN'\n");
+                }
+
+            }
+        }
+
+        // start the sender/receiver threads
+        (new ClientReceiver(serverIP, serverPort, logicalName)).start();
+        (new ClientSender(serverIP, serverPort, logicalName)).start();
+    }
+
+    /**
+     * Load in property file info and then run the constructor
+     *
+     * @throws IOException if cannot import properties
+     */
     public static void main(String[] args) throws IOException
     {
 
-        // Local variables
-        String logicalName;
-        ServerSocket serverSocket = new ServerSocket(USER_DEFAULT_PORT);
-        Scanner read = new Scanner(System.in);
+        String propertiesFile;
 
-        System.out.print("Enter Name: ");
-        logicalName = read.nextLine();
-
-        // main chat loop
-        boolean active = true;
-        while (active)
+        try
         {
-            // TODO: Implement listening and receiving threads
-
-            // Local variables
-            Socket clientSocket;
-            String userInput;
-            Message message;
-
-            System.out.print("Enter Message: ");
-            userInput = read.nextLine();
-
-
-            // Handles JOIN Message
-            if (userInput.split(" ")[0].equals("JOIN"))
-            {
-
-                clientSocket = new Socket(userInput.split(" ")[1], Integer.parseInt(userInput.split(" ")[2]));
-                NodeInfo nodeinfo = new NodeInfo(serverSocket.getInetAddress().getHostAddress(),
-                                                 serverSocket.getLocalPort(), logicalName);
-                message = new Message(MessageTypes.TYPE_JOIN, nodeinfo);
-
-                //Start sender thread.
-                //Start receiver thread.
-            }
-
-            // Handles LEAVE Message
-            else if (userInput.equals("LEAVE"))
-            {
-                clientSocket = new Socket(InetAddress.getLocalHost(), SERVER_DEFAULT_PORT);
-                NodeInfo nodeinfo = new NodeInfo(serverSocket.getInetAddress().getHostAddress(),
-                                                 serverSocket.getLocalPort(), logicalName);
-                message = new Message(MessageTypes.TYPE_LEAVE, nodeinfo);
-
-                //Start sender thread.
-                //Close receiver thread.
-
-                serverSocket.close();
-            }
-
-            // Handles SHUTDOWN Message
-            else if (userInput.equals("SHUTDOWN"))
-            {
-                clientSocket = new Socket(InetAddress.getLocalHost(), SERVER_DEFAULT_PORT);
-                NodeInfo nodeinfo = new NodeInfo(serverSocket.getInetAddress().getHostAddress(),
-                                                 serverSocket.getLocalPort(), logicalName);
-                message = new Message(MessageTypes.TYPE_SHUTDOWN, nodeinfo);
-
-                //Start sender thread.
-                //Close receiver thread.
-
-                serverSocket.close();
-                active = false;
-            }
-
-            // Handles NOTE Message
-            else
-            {
-                clientSocket = new Socket(InetAddress.getLocalHost(), SERVER_DEFAULT_PORT);
-                message = new Message(MessageTypes.TYPE_NOTE, userInput);
-
-                //Start sender thread.
-
-            }
-            clientSocket.close();
-
+            propertiesFile = args[0];
         }
+        catch (ArrayIndexOutOfBoundsException ex)
+        {
+            propertiesFile = "ChatClient/config/Server.properties";
+        }
+
+        (new ChatClient(propertiesFile)).run();
     }
 
 }

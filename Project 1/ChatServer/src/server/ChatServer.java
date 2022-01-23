@@ -155,7 +155,7 @@ public class ChatServer
                                         // sent it
                                         // - Format: "<user>: <note>"
                                         String userNoteMessage = user.getLogicalName() + ": "
-                                                + (String) note.getMessageContent();
+                                                                 + (String) note.getMessageContent();
 
                                         // Create altered note message to be sent
                                         Message userNote = new Message(
