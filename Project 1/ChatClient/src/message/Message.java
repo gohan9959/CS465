@@ -3,7 +3,7 @@ package message;
 import java.io.Serializable;
 
 /**
- * TODO: Document this class
+ * Class object that is meant to hold different messages for users to send between client and server
  */
 public class Message implements MessageTypes, Serializable
 {

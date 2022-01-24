@@ -16,7 +16,10 @@ import utils.PropertyHandler;
 
 
 /**
- * TODO: Document this class
+ * Primary class to handle the chat server.
+ * Initializes server and call helper threads.
+ *
+ * @author Conrad Murphy and Zachary Wilson-Long
  */
 public class ChatServer
 {
@@ -42,7 +45,8 @@ public class ChatServer
      *
      * @param propertiesFile String of a file on relative path containing properties
      */
-    public ChatServer(String propertiesFile) {
+    public ChatServer(String propertiesFile)
+    {
 
         Properties properties = null;
 
@@ -60,8 +64,7 @@ public class ChatServer
         // get server port number
         try
         {
-            //port = Integer.parseInt(properties.getProperty("SERVER_PORT"));
-            port = 8881;
+            port = Integer.parseInt(properties.getProperty("SERVER_PORT"));
         }
         catch (NumberFormatException ex)
         {
@@ -74,7 +77,7 @@ public class ChatServer
         {
             serverSocket = new ServerSocket(port);
         }
-        catch(IOException ex)
+        catch (IOException ex)
         {
             Logger.getLogger(ChatServer.class.getName()).log(Level.SEVERE, "Cannot start server socket", ex);
         }
@@ -104,9 +107,6 @@ public class ChatServer
             newClient = serverSocket.accept();
             newThread = new Thread(new ServerReceiver(newClient));
             newThread.start();
-            /*while(newThread.isAlive()){
-                System.out.println("Waiting to die..");
-            }*/
         }
     }
 
@@ -117,7 +117,6 @@ public class ChatServer
      */
     public static void joinUser(NodeInfo user)
     {
-
         // Add NodeInfo object to array
         registeredUsers.add(user);
 
@@ -137,7 +136,6 @@ public class ChatServer
      */
     public static void leaveUser(NodeInfo user)
     {
-
         // Check each item in the list and remove if if matches up with
         // the requested user
         registeredUsers.removeIf((registeredUser) ->
@@ -160,7 +158,6 @@ public class ChatServer
      */
     public static void sendNoteToAll(Message note)
     {
-
         // Lambda function which performs the specified action for each user
         registeredUsers.forEach((user) ->
                                 {
@@ -193,7 +190,8 @@ public class ChatServer
      * @param args Command line arguments.
      * @throws IOException I/O exception from ServerSocket initialization.
      */
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception
+    {
         // create instance of echo server
         // note that hardcoding the port is bad, here we do it just for simplicity reasons
         ChatServer chatServer = new ChatServer("ChatServer/config/Server.properties");

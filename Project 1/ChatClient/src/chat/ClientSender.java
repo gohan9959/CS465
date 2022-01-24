@@ -44,13 +44,14 @@ public class ClientSender extends Thread
 
     /**
      * Constructor that sets up sender thread
-     *  @param serverIP    ip of server connecting to
+     *
+     * @param serverIP    ip of server connecting to
      * @param serverPort  port of server connecting to
      * @param logicalName logical name of client/user
      * @param joining
      */
     public ClientSender(ServerSocket serverSocket, String serverIP, int serverPort, String logicalName, boolean joining)
-    {   
+    {
         this.serverSocket = serverSocket;
         this.serverIP = serverIP;
         this.serverPort = serverPort;
@@ -109,11 +110,12 @@ public class ClientSender extends Thread
 
 
         // if the user wants to join the server send a join message
-        if(joining)
+        if (joining)
         {
             connectToServer();
 
-            nodeInfo = new NodeInfo(serverSocket.getInetAddress().getHostAddress(), serverSocket.getLocalPort(), logicalName);
+            nodeInfo = new NodeInfo(serverSocket.getInetAddress().getHostAddress(), serverSocket.getLocalPort(),
+                                    logicalName);
 
             message = new Message(MessageTypes.TYPE_JOIN, nodeInfo);
             sendMessageToServer(message);
@@ -146,13 +148,15 @@ public class ClientSender extends Thread
             if (userInputString.equals("LEAVE"))
             {
                 // TODO: Reset property values to show client as not in a server
-                nodeInfo = new NodeInfo(serverSocket.getInetAddress().getHostAddress(), serverSocket.getLocalPort(), logicalName);
+                nodeInfo = new NodeInfo(serverSocket.getInetAddress().getHostAddress(), serverSocket.getLocalPort(),
+                                        logicalName);
                 message = new Message(MessageTypes.TYPE_LEAVE, nodeInfo);
                 active = false;
             }
             else if (userInputString.equals("SHUTDOWN"))
             {
-                nodeInfo = new NodeInfo(serverSocket.getInetAddress().getHostAddress(), serverSocket.getLocalPort(), logicalName);
+                nodeInfo = new NodeInfo(serverSocket.getInetAddress().getHostAddress(), serverSocket.getLocalPort(),
+                                        logicalName);
                 message = new Message(MessageTypes.TYPE_SHUTDOWN, nodeInfo, logicalName);
                 active = false;
                 System.out.println("Shutting down client.\n");
@@ -173,30 +177,38 @@ public class ClientSender extends Thread
 
     /**
      * Method from online which gets the system's IP address
-     * 
+     *
      * @return IP address, or null if an error occurred
      */
-    public String getMyIP() {
-        try {
+    public String getMyIP()
+    {
+        try
+        {
             Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
-            while (networkInterfaces.hasMoreElements()) {
+            while (networkInterfaces.hasMoreElements())
+            {
                 NetworkInterface networkInterface = networkInterfaces.nextElement();
                 if (networkInterface.isLoopback() || !networkInterface.isUp()
-                        || networkInterface.isVirtual() || networkInterface.isPointToPoint()) {
+                    || networkInterface.isVirtual() || networkInterface.isPointToPoint())
+                {
                     continue;
                 }
 
                 Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
-                while (addresses.hasMoreElements()) {
+                while (addresses.hasMoreElements())
+                {
                     InetAddress address = addresses.nextElement();
 
                     final String myIP = address.getHostAddress();
-                    if (Inet4Address.class == address.getClass()) {
+                    if (Inet4Address.class == address.getClass())
+                    {
                         return myIP;
                     }
                 }
             }
-        } catch (SocketException e) {
+        }
+        catch (SocketException e)
+        {
             throw new RuntimeException(e);
         }
         return null;

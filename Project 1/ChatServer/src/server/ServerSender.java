@@ -1,12 +1,8 @@
 package server;
 
-import chat.ChatClient;
-import chat.NodeInfo;
 import message.Message;
-import message.MessageTypes;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -69,9 +65,12 @@ public class ServerSender extends Thread
             System.exit(1);
         }
 
-        try {
+        try
+        {
             client.close();
-        } catch (IOException ignored) {
+        }
+        catch (IOException ignored)
+        {
         }
     }
 }

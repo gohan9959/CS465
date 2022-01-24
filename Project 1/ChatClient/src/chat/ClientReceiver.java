@@ -35,9 +35,7 @@ public class ClientReceiver extends Thread
     /**
      * Constructor that sets up sender thread
      *
-     * @param serverIP    ip of server connecting to
-     * @param serverPort  port of server connecting to
-     * @param logicalName logical name of client/user
+     * @param serverConnection the server socket
      */
     public ClientReceiver(ServerSocket serverConnection)
     {
@@ -69,7 +67,7 @@ public class ClientReceiver extends Thread
 
     /**
      * Close server connection and stop the thread.
-     * 
+     *
      * @throws IOException
      */
     public void closeConnection() throws IOException
@@ -86,8 +84,8 @@ public class ClientReceiver extends Thread
         Message message = null;
         boolean active = true;
 
-        try {
-
+        try
+        {
             // loop as long as receiver should be open
             while (active)
             {
@@ -114,8 +112,10 @@ public class ClientReceiver extends Thread
                     System.out.printf("[%s]: %s\n", message.getSender(), message.getMessageContent());
                 }
             }
-        } catch (InterruptedException interrupt) {
-
+        }
+        catch (InterruptedException interrupt)
+        {
+            System.exit(0);
             // Close thread
         }
     }

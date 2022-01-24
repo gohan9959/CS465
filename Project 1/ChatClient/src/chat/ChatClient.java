@@ -14,7 +14,7 @@ import utils.PropertyHandler;
  * Primary class to handle the chat client.
  * Initializes client and call helper threads.
  *
- * @author Conrad Murphy, Harshith Shakelli, and Zachary Wilson-Long
+ * @author Harshith Shakelli and Zachary Wilson-Long
  */
 public class ChatClient
 {
@@ -40,8 +40,6 @@ public class ChatClient
     /**
      * Constructor.
      * Handles property file to set up field variables
-     *
-     * @param propertiesFile
      */
     public ChatClient(String propertiesFile)
     {
@@ -108,9 +106,10 @@ public class ChatClient
     }
 
     //@Override
+
     /**
      * Implementation of interface Runnable
-     *
+     * <p>
      * Called by main() to handle client setup and then call sender and receiver threads
      */
     public void startClient() throws IOException
@@ -155,14 +154,8 @@ public class ChatClient
                         }
 
                         // update IP and port to user inputs
-                        //serverIP = inputArr[1];
-                        //serverPort = Integer.parseInt(inputArr[2]);
-
-                        // TODO: Fix this, not updating file
-                        // update property file
-                        properties.setProperty("JOINED", "1");
-                        properties.setProperty("SERVER_IP", serverIP);
-                        properties.setProperty("SERVER_PORT", Integer.toString(serverPort));
+                        serverIP = inputArr[1];
+                        serverPort = Integer.parseInt(inputArr[2]);
 
                         System.out.print("Please enter an alias for server to recognize you as: ");
                         logicalName = read.nextLine();
@@ -205,8 +198,8 @@ public class ChatClient
 
     /**
      * Load in property file info and then run the constructor
-     * @throws IOException
      *
+     * @throws IOException
      */
     public static void main(String[] args) throws IOException
     {

@@ -7,8 +7,6 @@ import message.MessageTypes;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Handles the receiving of messages by the server
@@ -32,19 +30,6 @@ public class ServerReceiver implements Runnable
     public ServerReceiver(Socket client)
     {
         this.client = client;
-
-//        try
-//        {
-//            System.out.println("TRYING");
-//
-//            System.out.println("TRIED");
-//        }
-//        catch (IOException ex)
-//        {
-//            System.out.println("FAILED");
-//            Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, "Cannot get input stream from client", ex);
-//            System.exit(1);
-//        }
     }
 
     /**
@@ -66,32 +51,37 @@ public class ServerReceiver implements Runnable
         }
 
         // now talk to the client
-            // read message from user
-            while(true){
-            try {
+        // read message from user
+        while (true)
+        {
+            try
+            {
                 message = (Message) fromClient.readObject();
-            } catch (IOException | ClassNotFoundException ignored) {
+            }
+            catch (IOException | ClassNotFoundException ignored)
+            {
             }
 
-            if(message instanceof Message){
-            if(message.getMessageType() == MessageTypes.TYPE_JOIN)
+            if (message instanceof Message)
             {
-                ChatServer.joinUser((NodeInfo) message.getMessageContent());
+                if (message.getMessageType() == MessageTypes.TYPE_JOIN)
+                {
+                    ChatServer.joinUser((NodeInfo) message.getMessageContent());
+                }
+                else if (message.getMessageType() == MessageTypes.TYPE_LEAVE
+                         || message.getMessageType() == MessageTypes.TYPE_SHUTDOWN)
+                {
+                    ChatServer.leaveUser((NodeInfo) message.getMessageContent());
+                    break;
+                }
+                else if (message.getMessageType() == MessageTypes.TYPE_NOTE) // type Note
+                {
+                    System.out.printf("Received Note: %s\n\n", message.getMessageContent());
+                    ChatServer.sendNoteToAll(message);
+                }
+                message = null;
             }
-            else if(message.getMessageType() == MessageTypes.TYPE_LEAVE
-                    || message.getMessageType() == MessageTypes.TYPE_SHUTDOWN)
-            {
-                ChatServer.leaveUser((NodeInfo) message.getMessageContent());
-                break;
-            }
-            else if(message.getMessageType() == MessageTypes.TYPE_NOTE) // type Note
-            {
-                System.out.printf("Received Note: %s\n\n", message.getMessageContent());
-                ChatServer.sendNoteToAll(message);
-            }
-            message = null;
         }
-        }
-            System.out.println("Thread Exited Succefully!");
+        System.out.println("Thread Exited Succefully!");
     }
 }
