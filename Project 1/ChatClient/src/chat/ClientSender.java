@@ -4,10 +4,15 @@ import message.Message;
 import message.MessageTypes;
 
 import java.io.*;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Enumeration;
 import java.util.Scanner;
 
 /**
@@ -164,6 +169,37 @@ public class ClientSender extends Thread
             // close connection to server after sending message
             closeConnection();
         }
+    }
+
+    /**
+     * Method from online which gets the system's IP address
+     * 
+     * @return IP address, or null if an error occurred
+     */
+    public String getMyIP() {
+        try {
+            Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+            while (networkInterfaces.hasMoreElements()) {
+                NetworkInterface networkInterface = networkInterfaces.nextElement();
+                if (networkInterface.isLoopback() || !networkInterface.isUp()
+                        || networkInterface.isVirtual() || networkInterface.isPointToPoint()) {
+                    continue;
+                }
+
+                Enumeration<InetAddress> addresses = networkInterface.getInetAddresses();
+                while (addresses.hasMoreElements()) {
+                    InetAddress address = addresses.nextElement();
+
+                    final String myIP = address.getHostAddress();
+                    if (Inet4Address.class == address.getClass()) {
+                        return myIP;
+                    }
+                }
+            }
+        } catch (SocketException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 
     /**

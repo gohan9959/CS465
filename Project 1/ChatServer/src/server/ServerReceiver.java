@@ -78,13 +78,10 @@ public class ServerReceiver implements Runnable
             {
                 ChatServer.joinUser((NodeInfo) message.getMessageContent());
             }
-            else if(message.getMessageType() == MessageTypes.TYPE_LEAVE)
+            else if(message.getMessageType() == MessageTypes.TYPE_LEAVE
+                    || message.getMessageType() == MessageTypes.TYPE_SHUTDOWN)
             {
                 ChatServer.leaveUser((NodeInfo) message.getMessageContent());
-                break;
-            }
-            else if(message.getMessageType() == MessageTypes.TYPE_SHUTDOWN)
-            {
                 break;
             }
             else if(message.getMessageType() == MessageTypes.TYPE_NOTE) // type Note
