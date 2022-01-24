@@ -6,6 +6,7 @@ import message.MessageTypes;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,20 +47,34 @@ public class ClientReceiver extends Thread
     /**
      * Handles server connection for the client
      */
-    public void connectToServer()
+    public void connectToServer() throws InterruptedException
     {
         try
         {
-            //serverConnection = new Socket(serverIP, serverPort);
             connection = serverConnection.accept();
             fromServer = new ObjectInputStream(connection.getInputStream());
         }
+        catch (SocketException connectionClosed)
+        {
+            throw (new InterruptedException());
+        }
+
         catch (IOException ex)
         {
             Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, "Cannot connect to server", ex);
             System.exit(1);
         }
 
+    }
+
+    /**
+     * Close server connection and stop the thread.
+     * 
+     * @throws IOException
+     */
+    public void closeConnection() throws IOException
+    {
+        serverConnection.close();
     }
 
     /**
@@ -71,42 +86,37 @@ public class ClientReceiver extends Thread
         Message message = null;
         boolean active = true;
 
-        // loop as long as receiver should be open
-        while (active)
-        {
-            connectToServer();
+        try {
 
-            try
+            // loop as long as receiver should be open
+            while (active)
             {
-                message = (Message) fromServer.readObject();
-            }
-            catch (IOException | ClassNotFoundException ex)
-            {
-                Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, "No input message found", ex);
-                System.exit(1);
-            }
+                connectToServer();
 
-            // Handles Received Message Types
-            if (message.getMessageType() == MessageTypes.TYPE_LEAVE ||
-                message.getMessageType() == MessageTypes.TYPE_SHUTDOWN)
-            {
-                active = false;
-            }
-            else // NOTE Message
-            {
-                System.out.printf("[%s]: %s\n", message.getSender(), message.getMessageContent());
-            }
+                try
+                {
+                    message = (Message) fromServer.readObject();
+                }
+                catch (IOException | ClassNotFoundException ex)
+                {
+                    Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, "No input message found", ex);
+                    System.exit(1);
+                }
 
-            // close connection to server after sending message
-            try
-            {
-                serverConnection.close();
+                // Handles Received Message Types
+                if (message.getMessageType() == MessageTypes.TYPE_LEAVE ||
+                    message.getMessageType() == MessageTypes.TYPE_SHUTDOWN)
+                {
+                    active = false;
+                }
+                else // NOTE Message
+                {
+                    System.out.printf("[%s]: %s\n", message.getSender(), message.getMessageContent());
+                }
             }
-            catch (IOException ex)
-            {
-                Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, "Cannot close connection", ex);
-                System.exit(1);
-            }
+        } catch (InterruptedException interrupt) {
+
+            // Close thread
         }
     }
 }

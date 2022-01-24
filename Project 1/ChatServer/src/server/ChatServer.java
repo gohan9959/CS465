@@ -163,7 +163,7 @@ public class ChatServer
     {
 
         // Lambda function which performs the specified action for each user
-        /*registeredUsers.forEach((user) ->
+        registeredUsers.forEach((user) ->
                                 {
                                     try
                                     {
@@ -171,13 +171,13 @@ public class ChatServer
                                         Socket userSocket = new Socket(user.getIp(), user.getPort());
 
                                         // Start Sender thread which sends the message
-                                        //new Thread(new ServerSender(userSocket, note)).start();
+                                        new Thread(new ServerSender(userSocket, note)).start();
                                     }
                                     catch (IOException ioe)
                                     {
                                         ioe.printStackTrace();
                                     }
-                                });*/
+                                });
 
         System.out.println("Message Sent to All Users Successfully!\n");
     }
