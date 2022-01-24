@@ -1,6 +1,5 @@
 package server;
 
-import chat.Sender;
 import message.Message;
 import message.MessageTypes;
 import chat.NodeInfo;

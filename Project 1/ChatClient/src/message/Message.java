@@ -1,7 +1,5 @@
 package message;
 
-import chat.Sender;
-
 import java.io.Serializable;
 
 /**
