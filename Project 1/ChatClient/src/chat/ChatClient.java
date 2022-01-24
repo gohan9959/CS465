@@ -105,86 +105,93 @@ public class ChatClient implements Runnable
         }
     }
 
-    @Override
-    /**
-     * Implementation of interface Runnable
-     *
-     * Called by main() to handle client setup and then call sender and receiver threads
-     */
-    public void run()
+    public void joinToServer() throws IOException
     {
-
-        System.out.println("Chat Client Started");
-        System.out.println("===================\n");
-
         // init whether the user is attempting to join a server
         boolean joining = false;
+        ClientSender sender;
+        ClientReceiver receiver;
 
-        // If user not recognized as Joined to a server
-        if (!joinedStatus)
-        {
-            System.out.println("Currently not connected to a chat server.\n");
-            System.out.println("Please enter which server you would like to join");
-            System.out.println("Use the following format: 'JOIN <IP Address> <Port Number>'\n");
-
-            // since user not already joined then they are attempting to join a server now
-            joining = true;
-
-            // handle user join
-            Scanner read = new Scanner(System.in);
-            while (true)
+        while (true) {
+            // If user not recognized as Joined to a server
+            if (!joinedStatus)
             {
-                String userInput;
 
-                System.out.print("Command: ");
-                userInput = read.nextLine();
-                String[] inputArr = userInput.split(" ");
+                System.out.println("Currently not connected to a chat server.\n");
+                System.out.println("Please enter which server you would like to join");
+                System.out.println("Use the following format: 'JOIN <IP Address> <Port Number>'\n");
 
-                if (inputArr[0].equals("JOIN"))
+                // since user not already joined then they are attempting to join a server now
+                joining = true;
+
+                // handle user join
+                Scanner read = new Scanner(System.in);
+                while (true)
                 {
-                    // handle invalid use of JOIN
-                    if (inputArr.length < 3)
+                    String userInput;
+
+                    System.out.print("Command: ");
+                    userInput = read.nextLine();
+                    String[] inputArr = userInput.split(" ");
+
+                    if (inputArr[0].equals("JOIN"))
                     {
-                        System.out.println("Invalid number of arguments for join");
-                        System.out.println("Use the following format: 'JOIN <IP Address> <Port Number>'\n");
-                        continue;
+                        // handle invalid use of JOIN
+                        if (inputArr.length < 3)
+                        {
+                            System.out.println("Invalid number of arguments for join");
+                            System.out.println("Use the following format: 'JOIN <IP Address> <Port Number>'\n");
+                            continue;
+                        }
+
+                        // update IP and port to user inputs
+                        //serverIP = inputArr[1];
+                        //serverPort = Integer.parseInt(inputArr[2]);
+
+                        // TODO: Fix this, not updating file
+                        // update property file
+                        properties.setProperty("JOINED", "1");
+                        properties.setProperty("SERVER_IP", serverIP);
+                        properties.setProperty("SERVER_PORT", Integer.toString(serverPort));
+
+                        System.out.print("Please enter an alias for server to recognize you as: ");
+                        logicalName = read.nextLine();
+                        properties.setProperty("NAME", logicalName);
+
+                        // since entered valid JOIN statement we close the loop and start connecting
+                        break;
                     }
-
-                    // update IP and port to user inputs
-                    //serverIP = inputArr[1];
-                    //serverPort = Integer.parseInt(inputArr[2]);
-
-                    // TODO: Fix this, not updating file
-                    // update property file
-                    properties.setProperty("JOINED", "1");
-                    properties.setProperty("SERVER_IP", serverIP);
-                    properties.setProperty("SERVER_PORT", Integer.toString(serverPort));
-
-                    System.out.print("Please enter an alias for server to recognize you as: ");
-                    logicalName = read.nextLine();
-                    properties.setProperty("NAME", logicalName);
-
-                    // since entered valid JOIN statement we close the loop and start connecting
-                    break;
-                }
-                else if (userInput.equals("SHUTDOWN"))
-                {
-                    System.out.println("Shutting down client.");
-                    System.exit(1);
-                }
-                else // Invalid input
-                {
-                    System.out.println("Invalid argument at this time please enter a valid argument");
-                    System.out.println("Use the following format: 'JOIN <IP Address> <Port Number>'");
-                    System.out.println("Or to close the program: 'SHUTDOWN'\n");
+                    else if (userInput.equals("SHUTDOWN"))
+                    {
+                        System.out.println("Shutting down client.");
+                        System.exit(1);
+                    }
+                    else // Invalid input
+                    {
+                        System.out.println("Invalid argument at this time please enter a valid argument");
+                        System.out.println("Use the following format: 'JOIN <IP Address> <Port Number>'");
+                        System.out.println("Or to close the program: 'SHUTDOWN'\n");
+                    }
                 }
 
+                //read.close();
             }
-        }
+        
+            // start the sender/receiver threads
+            receiver = new ClientReceiver(serverSocket);
+            receiver.start();
+            sender = new ClientSender(serverSocket, serverIP, serverPort, logicalName, joining);
+            sender.start();
 
-        // start the sender/receiver threads
-        (new ClientReceiver(serverIP, serverPort, logicalName)).start();
-        (new ClientSender(serverIP, serverPort, logicalName, joining)).start();
+            while(sender.isAlive())
+            {
+                // Wait for sender to be shut down
+            }
+
+            receiver.closeConnection();
+
+            System.out.println("Left the chat server.\n");
+        }
     }
 
     /**
@@ -205,7 +212,12 @@ public class ChatClient implements Runnable
             propertiesFile = "ChatClient/config/Server.properties";
         }
 
-        (new ChatClient(propertiesFile)).run();
+        ChatClient chatClient = new ChatClient(propertiesFile);
+
+        System.out.println("Chat Client Started");
+        System.out.println("===================\n");
+
+        chatClient.joinToServer();
     }
 
 }

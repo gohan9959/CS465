@@ -70,35 +70,31 @@ public class ServerReceiver extends Thread
 
 
             // read message from user
+        while(true){
+
             try {
                 message = (Message) fromClient.readObject();
             } catch (IOException | ClassNotFoundException ignored) {
             }
 
-            assert message != null;
-            if(message.getMessageType() == MessageTypes.TYPE_JOIN)
-            {
-                ChatServer.joinUser((NodeInfo) message.getMessageContent());
+            if(message instanceof Message){
+                if(message.getMessageType() == MessageTypes.TYPE_JOIN)
+                {
+                    ChatServer.joinUser((NodeInfo) message.getMessageContent());
+                }
+                else if(message.getMessageType() == MessageTypes.TYPE_LEAVE
+                        || message.getMessageType() == MessageTypes.TYPE_SHUTDOWN)
+                {
+                    ChatServer.leaveUser((NodeInfo) message.getMessageContent());
+                    break;
+                }
+                else if(message.getMessageType() == MessageTypes.TYPE_NOTE) // type Note
+                {
+                    System.out.printf("Received Note: %s\n\n", message.getMessageContent());
+                    ChatServer.sendNoteToAll(message);
+                }
+                message = null;
             }
-            else if(message.getMessageType() == MessageTypes.TYPE_LEAVE)
-            {
-                ChatServer.leaveUser((NodeInfo) message.getMessageContent());
-                //break;
-            }
-            else if(message.getMessageType() == MessageTypes.TYPE_SHUTDOWN)
-            {
-                //break;
-            }
-            else // type Note
-            {
-                System.out.printf("Received Note: %s\n\n", message.getMessageContent());
-                ChatServer.sendNoteToAll(message);
-            }
-
-
-        try {
-            client.close();
-        } catch (IOException ignored) {
         }
     }
 }

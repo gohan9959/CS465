@@ -113,6 +113,8 @@ public class ClientSender extends Thread
             closeConnection();
         }
 
+        System.out.println("You may now start sending messages.");
+
         // loop as long as sender should be open
         while (active)
         {
@@ -121,8 +123,6 @@ public class ClientSender extends Thread
             String userInputString = "";
 
             // Loop until user closes connecting
-            System.out.print("Enter Message: ");
-
             try
             {
                 // read char from user
@@ -146,6 +146,8 @@ public class ClientSender extends Thread
             {
                 message = new Message(MessageTypes.TYPE_SHUTDOWN, nodeInfo, logicalName);
                 active = false;
+                System.out.println("Shutting down client.");
+                System.exit(0);
             }
             else // NOTE Message
             {
