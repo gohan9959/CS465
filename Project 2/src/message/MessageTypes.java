@@ -3,7 +3,7 @@ package message;
 /**
  * Interface of all message types.
  *
- * @author Conrad Murphy
+ * @author Conrad Murphy, Zachary Wilson-Long
  */
 public interface MessageTypes
 {
