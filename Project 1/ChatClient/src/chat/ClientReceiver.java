@@ -62,7 +62,11 @@ public class ClientReceiver extends Thread
             Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, "Cannot connect to server", ex);
             System.exit(1);
         }
+    }
 
+    public void closeConnection() throws IOException
+    {
+        serverConnection.close();
     }
 
     /**

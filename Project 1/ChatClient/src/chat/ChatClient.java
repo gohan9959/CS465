@@ -114,7 +114,6 @@ public class ChatClient
      */
     public void startClient() throws IOException
     {
-
         // init whether the user is attempting to join a server
         serverSocket = new ServerSocket(8882);
         boolean joining = false;
@@ -191,7 +190,7 @@ public class ChatClient
             }
 
             receiver.closeConnection();
-
+          
             System.out.println("Left the chat server.\n");
         }
     }
