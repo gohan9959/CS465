@@ -26,7 +26,6 @@ public class ClientSender extends Thread
     /**
      * Objects used to handle server connectivity
      */
-    ServerSocket hostSocket;
     Socket chatConnection = null;
     ObjectOutputStream toChat = null;
 
@@ -51,9 +50,8 @@ public class ClientSender extends Thread
      * @param logicalName   logical name of client/user
      * @param message       object containing message to send
      */
-    public ClientSender(ServerSocket hostSocket, String receiverIP, int receiverPort, String logicalName, Message message)
+    public ClientSender(String receiverIP, int receiverPort, String logicalName, Message message)
     {
-        this.hostSocket = hostSocket;
         this.receiverIP = receiverIP;
         this.receiverPort = receiverPort;
         this.logicalName = logicalName;
