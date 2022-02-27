@@ -79,19 +79,13 @@ public class ClientSender extends Thread
 
     /**
      * Handles server connection for the client
+     * 
+     * @throws IOException
      */
-    public void connectToReceiver()
+    public void connectToReceiver() throws IOException
     {
-        try
-        {
-            chatConnection = new Socket(receiverIP, receiverPort);
-            toChat = new ObjectOutputStream(chatConnection.getOutputStream());
-        }
-        catch (IOException ex)
-        {
-            Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, "Cannot connect to receiver", ex);
-            System.exit(1);
-        }
+        chatConnection = new Socket(receiverIP, receiverPort);
+        toChat = new ObjectOutputStream(chatConnection.getOutputStream());
     }
 
     /**
@@ -101,7 +95,14 @@ public class ClientSender extends Thread
     public void run()
     {
         // Send message to user
-        sendMessageToUser(message);
+        try
+        {
+            sendMessageToUser();
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -144,22 +145,16 @@ public class ClientSender extends Thread
     }
 
     /**
-     * Sends a given message to the connected chat users
-     *
-     * @param message server connected to
+     * Sends message to connected chat user.
      */
-    public void sendMessageToUser(Message message)
+    public void sendMessageToUser() throws IOException
     {
+        // Connect to other client
         connectToReceiver();
-        try
-        {
-            toChat.writeObject(message);
-        }
-        catch (IOException ex)
-        {
-            Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, "Cannot send message", ex);
-            System.exit(1);
-        }
+        
+        // Write object to other client
+        toChat.writeObject(message);
+
         // close connection to server after sending message
         closeConnection();
     }

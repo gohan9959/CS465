@@ -1,17 +1,16 @@
 package chat;
 
-import message.Message;
-import message.MessageTypes;
-import message.NodeInfo;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 import java.util.Properties;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import message.Message;
+import message.MessageTypes;
+import message.NodeInfo;
 import utils.PropertyHandler;
 
 public class ChatClient implements MessageTypes
@@ -32,9 +31,24 @@ public class ChatClient implements MessageTypes
     private static boolean isShutdown;
 
     /**
-     * Client's own NodeInfo
+     * Client's own server socket IP
      */
-    private static NodeInfo userInfo;
+    private static String selfIp;
+
+    /**
+     * Client's own server socket port
+     */
+    private static int selfPort;
+
+    /**
+     * Client's own logical name
+     */
+    private static String selfLogicalName;
+
+    /**
+     * Client's own NodeInfo object
+     */
+    private static NodeInfo selfNodeInfo;
 
     /**
      * Client's server socket with which to accept messages.
@@ -54,11 +68,6 @@ public class ChatClient implements MessageTypes
 
         // Declare properties file
         String propertiesFile = null;
-
-        // Declare node info elements
-        String serverIP;
-        int serverPort = -1;
-        String logicalName;
 
         // Declare server socket properties
         Properties serverProperties = null;
@@ -93,9 +102,9 @@ public class ChatClient implements MessageTypes
         }
 
         // Attempt to read server IP
-        serverIP = serverProperties.getProperty("SERVER_IP");
+        selfIp = serverProperties.getProperty("SERVER_IP");
         // Failed to read server IP, likely due to IP not existing
-        if (serverIP == null)
+        if (selfIp == null)
         {
             // Log failure and exit
             errorLogger.log(Level.SEVERE, "Cannot read server IP.");
@@ -105,7 +114,7 @@ public class ChatClient implements MessageTypes
         // Attempt to read server socket port
         try
         {
-            serverPort = Integer.parseInt(serverProperties.getProperty("SERVER_PORT"));
+            selfPort = Integer.parseInt(serverProperties.getProperty("SERVER_PORT"));
         }
         // Failed to read server port, likely due to port not existing or not being an integer
         catch (NumberFormatException ex)
@@ -118,7 +127,7 @@ public class ChatClient implements MessageTypes
         // Attempt to create server socket
         try
         {
-            serverSocket = new ServerSocket(serverPort);
+            serverSocket = new ServerSocket(selfPort);
         }
         // Failed to create server socket
         catch (IOException ex)
@@ -150,8 +159,7 @@ public class ChatClient implements MessageTypes
                     firstJoinAttempt = false;
                 }
 
-                // These instructions will ALWAYS be printed on every join
-                // attempt.
+                // These instructions will ALWAYS be printed on every join attempt.
                 System.out.println("Use the following format:");
                 System.out.println("- 'JOIN' to create a new chat room");
                 System.out.println("- 'JOIN <IP Address> <Port Number>' to join an existing chat room");
@@ -226,13 +234,13 @@ public class ChatClient implements MessageTypes
             {
                 // Get logical name
                 System.out.println("What is your display name?");
-                logicalName = inputReader.nextLine();
+                selfLogicalName = inputReader.nextLine();
 
                 // Create client NodeInfo
-                userInfo = new NodeInfo(serverIP, serverPort, logicalName);
+                selfNodeInfo = new NodeInfo(selfIp, selfPort, selfLogicalName);
 
                 // Start receiver
-                new Thread(new ClientReceiver(serverSocket)).start();
+                new Thread(new ClientReceiver(serverSocket, selfNodeInfo)).start();
 
                 // Set send/receive flag
                 startedReceive = true;
@@ -268,6 +276,10 @@ public class ChatClient implements MessageTypes
             }
         }
 
+        ////////////////////////////////
+        // END MAIN SEND/RECEIVE LOOP //
+        ////////////////////////////////
+
         // Close user input stream
         inputReader.close();
     }
@@ -285,11 +297,11 @@ public class ChatClient implements MessageTypes
     /**
      * Add user to list of registered members.
      * 
-     * @param user NodeInfo user to be added.
+     * @param newUser NodeInfo user to be added.
      */
-    public static void addUser(NodeInfo user)
+    public static void addUser(NodeInfo newUser)
     {
-        registeredUsers.add(user);
+        registeredUsers.add(newUser);
     }
 
     /**
@@ -299,11 +311,24 @@ public class ChatClient implements MessageTypes
      * @param port Port number of existing client's server socket.
      * @return True if join was successful; false otherwise.
      */
-    private static Boolean joinToChat(String ip, int port)
+    private static boolean joinToChat(String ip, int port)
     {
+        try
+        {
+            // Create JOIN message
+            Message joinMessage = new Message(JOIN, selfNodeInfo, selfLogicalName);
 
+            // Create ClientSender and send join message
+            (new ClientSender(ip, port, selfLogicalName, joinMessage)).sendMessageToUser();
 
-        return false; // TODO
+            // Return success
+            return true;
+        }
+        catch (IOException ex)
+        {
+            // Return failure if error occurred
+            return false;
+        }
     }
 
     /**
@@ -314,7 +339,7 @@ public class ChatClient implements MessageTypes
      */
     public static void leaveFromChat()
     {
-        sendToAll(new Message(LEAVE, userInfo));
+        sendToAll(new Message(LEAVE, selfNodeInfo), true);
         isConnected = false;
     }
 
@@ -324,16 +349,32 @@ public class ChatClient implements MessageTypes
     public static void orderShutdown()
     {
         // Create shutdown message and send to all
-        sendToAll(new Message(SHUTDOWN, null));
+        sendToAll(new Message(SHUTDOWN, null), true);
     }
 
-    public static void receiveJoiningUser(NodeInfo user)
+    /**
+     * Add joining user to the mesh.
+     * 
+     * Send list of registered users to new user, then instruct all registered
+     * users to add new user to their lists.
+     * 
+     * @param newUser NodeInfo user which is joining.
+     */
+    public static void receiveJoiningUser(NodeInfo newUser)
     {
-        // Notify all users to add newly joined
-        sendToAll(new Message(ADD, user));
+        // Notify all users, except self, to add newly joined
+        sendToAll(new Message(ADD, newUser), false);
+
+        // Add user to own list independently of the sendToAll method, to prevent
+        // concurrency issues
+        addUser(newUser);
+
+        // Create ADD LIST containing registered users
+        Message arrayMessage = new Message(ADD_LIST, registeredUsers, selfLogicalName);
 
         // Send members list to newly joined
-        // TODO
+        new Thread(new ClientSender(newUser.getIp(), newUser.getPort(),
+                selfLogicalName, arrayMessage)).start();
     }
 
     /**
@@ -347,15 +388,15 @@ public class ChatClient implements MessageTypes
     /**
      * Remove specified user from registered user list.
      * 
-     * @param user NodeInfo user to be removed.
+     * @param leavingUser NodeInfo user to be removed.
      */
-    public static void removeUser(NodeInfo user)
+    public static void removeUser(NodeInfo leavingUser)
     {
         // Lambda function which searches for matching user in registered user list
         // and deletes accordingly
         registeredUsers.forEach( (registeredUser) -> 
         {
-            if (user.isEqual(registeredUser))
+            if (leavingUser.isEqual(registeredUser))
             {
                 registeredUsers.remove(registeredUser);
             }
@@ -370,21 +411,27 @@ public class ChatClient implements MessageTypes
     public static void sendNote(String note)
     {
         // Create note message and send to all
-        sendToAll(new Message(NOTE, note));
+        sendToAll(new Message(NOTE, note), true);
     }
 
     /**
-     * Send any type of message to all registered users in the user list, including self.
+     * Send any type of message to all registered users in the user list.
      * 
      * @param message Message to be sent to all users.
+     * @param sendToSelf Flag which determines whether to send message to self as well.
      */
-    private static void sendToAll(Message message)
+    private static void sendToAll(Message message, boolean sendToSelf)
     {
         // Lambda function which creates sender and sends message to each registered user
         registeredUsers.forEach( (registeredUser) ->
         {
-            new Thread(new ClientSender(registeredUser.getIp(), registeredUser.getPort(),
-                    registeredUser.getLogicalName(), message)).start();
+            // Check that the user is not self, if sendToSelf flag is false
+            if (sendToSelf || !(registeredUser.isEqual(selfNodeInfo)))
+            {
+                // Create sender and send message
+                new Thread(new ClientSender(registeredUser.getIp(), registeredUser.getPort(),
+                        registeredUser.getLogicalName(), message)).start();
+            }
         });
     }
 }
