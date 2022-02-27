@@ -102,9 +102,6 @@ public class ClientSender extends Thread
     @Override
     public void run()
     {
-        System.out.println("\nConnection Successful...");
-        System.out.printf("Alias: [%s] on Server: [%s]:[%d]\n\n", logicalName, receiverIP, receiverPort);
-
         // Send message to user
         sendMessageToUser(message);
     }
