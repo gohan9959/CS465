@@ -33,10 +33,10 @@ public class ClientSender extends Thread
     /**
      * Server info
      */
-    String hostIP;
-    int hostPort;
+    String receiverIP;
+    int receiverPort;
     String logicalName;
-    boolean joining;
+    Message message;
 
     /**
      * Object used for reading input
@@ -46,31 +46,25 @@ public class ClientSender extends Thread
     /**
      * Constructor that sets up sender thread
      *
-     * @param hostIP    ip of server connecting to
-     * @param hostPort  port of server connecting to
-     * @param logicalName logical name of client/user
-     * @param joining indicates whether or not the client
+     * @param receiverIP    ip of message receiver
+     * @param receiverPort  port of message receiver
+     * @param logicalName   logical name of client/user
+     * @param message       object containing message to send
      */
-    public ClientSender(ServerSocket hostSocket, String hostIP, int hostPort, String logicalName, boolean joining)
+    public ClientSender(ServerSocket hostSocket, String receiverIP, int receiverPort, String logicalName, Message message)
     {
-        this.hostSocket = this.hostSocket;
-        this.hostIP = this.hostIP;
-        this.hostPort = this.hostPort;
+        this.hostSocket = hostSocket;
+        this.receiverIP = receiverIP;
+        this.receiverPort = receiverPort;
         this.logicalName = logicalName;
-        this.joining = joining;
+        this.message = message;
 
         // open up stdin
         userInput = new Scanner(System.in);
     }
 
-    // Just to supress errors for now
-    public ClientSender()
-    {
-
-    }
-
     /**
-     * closes server connection
+     * closes connection with receiver
      */
     public void closeConnection()
     {
@@ -88,16 +82,16 @@ public class ClientSender extends Thread
     /**
      * Handles server connection for the client
      */
-    public void connectToServer()
+    public void connectToReceiver()
     {
         try
         {
-            chatConnection = new Socket(hostIP, hostPort);
+            chatConnection = new Socket(receiverIP, receiverPort);
             toChat = new ObjectOutputStream(chatConnection.getOutputStream());
         }
         catch (IOException ex)
         {
-            Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, "Cannot connect to server", ex);
+            Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, "Cannot connect to receiver", ex);
             System.exit(1);
         }
     }
@@ -108,78 +102,16 @@ public class ClientSender extends Thread
     @Override
     public void run()
     {
-        Message message;
-        boolean active = true;
-        NodeInfo nodeInfo;
-
         System.out.println("\nConnection Successful...");
-        System.out.printf("Alias: [%s] on Server: [%s]:[%d]\n\n", logicalName, hostIP, hostPort);
+        System.out.printf("Alias: [%s] on Server: [%s]:[%d]\n\n", logicalName, receiverIP, receiverPort);
 
+        connectToReceiver();
 
-        // if the user wants to join the server send a join message
-        if (joining)
-        {
-            connectToServer();
+        // Send message to server
+        sendMessageToUser(message);
 
-            nodeInfo = new NodeInfo(hostSocket.getInetAddress().getHostAddress(), hostSocket.getLocalPort(),
-                                    logicalName);
-
-            message = new Message(MessageTypes.JOIN, nodeInfo);
-            sendMessageToChat(message);
-
-            closeConnection();
-        }
-
-        System.out.println("You may now begin sending messages.\n");
-
-        // loop as long as sender should be open
-        while (active)
-        {
-
-            String userInputString = "";
-
-            // Loop until user closes connecting
-            try
-            {
-                // read char from user
-                userInputString = this.userInput.nextLine();
-            }
-            catch (Exception e)
-            {
-                Logger.getLogger(ClientSender.class.getName()).log(Level.SEVERE, null, e);
-            }
-
-            connectToServer();
-
-            // Handles User Inputs
-            if (userInputString.equals("LEAVE"))
-            {
-                // TODO: Reset property values to show client as not in a server
-                nodeInfo = new NodeInfo(hostSocket.getInetAddress().getHostAddress(), hostSocket.getLocalPort(),
-                                        logicalName);
-                message = new Message(MessageTypes.LEAVE, nodeInfo);
-                active = false;
-            }
-            else if (userInputString.equals("SHUTDOWN"))
-            {
-                nodeInfo = new NodeInfo(hostSocket.getInetAddress().getHostAddress(), hostSocket.getLocalPort(),
-                                        logicalName);
-                message = new Message(MessageTypes.SHUTDOWN, nodeInfo, logicalName);
-                active = false;
-                System.out.println("Shutting down client.\n");
-                System.exit(0);
-            }
-            else // NOTE Message
-            {
-                message = new Message(MessageTypes.NOTE, userInputString, logicalName);
-            }
-
-            // Send message to server
-            sendMessageToChat(message);
-
-            // close connection to server after sending message
-            closeConnection();
-        }
+        // close connection to server after sending message
+        closeConnection();
     }
 
     /**
@@ -226,7 +158,7 @@ public class ClientSender extends Thread
      *
      * @param message server connected to
      */
-    public void sendMessageToChat(Message message)
+    public void sendMessageToUser(Message message)
     {
         try
         {
