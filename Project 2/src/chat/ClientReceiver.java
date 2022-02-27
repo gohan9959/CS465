@@ -27,22 +27,22 @@ public class ClientReceiver implements Runnable{
                 recieveStream = new ObjectInputStream(socket.getInputStream());
                 message = (Message)recieveStream.readObject();
                 if(message instanceof Message){
-                    if(message.getType() == MessageTypes.JOIN){
+                    if(message.getMessageType() == MessageTypes.JOIN){
                         ChatClient.receiveJoiningUser((NodeInfo)message.getMessageContent());
                     }
-                    else if(message.getType() == MessageTypes.ADD){
+                    else if(message.getMessageType() == MessageTypes.ADD){
                         ChatClient.addUser((NodeInfo)message.getMessageContent());
                     }
-                    else if(message.getType() == MessageTypes.ADD_LIST){
+                    else if(message.getMessageType() == MessageTypes.ADD_LIST){
                         //Placeholder for client ADDLIST method.
                     }
-                    else if(message.getType() == MessageTypes.NOTE){
-                        System.out.println(message.getName() + ": " + (String)message.getMessageContent());
+                    else if(message.getMessageType() == MessageTypes.NOTE){
+                        System.out.println(message.getSender() + ": " + (String)message.getMessageContent());
                     }
-                    else if(message.getType() == MessageTypes.LEAVE){
+                    else if(message.getMessageType() == MessageTypes.LEAVE){
                         ChatClient.removeUser((NodeInfo)message.getMessageContent());
                     }
-                    else if(message.getType() == MessageTypes.SHUTDOWN){
+                    else if(message.getMessageType() == MessageTypes.SHUTDOWN){
                         ChatClient.receiveShutdown();
                     }
                 }
