@@ -1,6 +1,7 @@
 package chat;
 
 import message.Message;
+import message.MessageTypes;
 import message.NodeInfo;
 
 import java.io.IOException;
@@ -13,12 +14,12 @@ import java.util.Scanner;
 
 import utils.PropertyHandler;
 
-public class ChatClient
+public class ChatClient implements MessageTypes
 {
     /**
      * List of users registered to the chat.
      */
-    private static ArrayList registeredUsers;
+    private static ArrayList<NodeInfo> registeredUsers;
 
     /**
      * Flag which determines connection status of client.
@@ -29,6 +30,11 @@ public class ChatClient
      * Flag which determines whether to shut down client.
      */
     private static boolean isShutdown;
+
+    /**
+     * Client's own NodeInfo
+     */
+    private static NodeInfo userInfo;
 
     /**
      * Client's server socket with which to accept messages.
@@ -43,25 +49,24 @@ public class ChatClient
         // Initialize operation flags
         isConnected = false;
         isShutdown = false;
-        Boolean firstJoinAttempt = true;
-        Boolean startedSendAndReceive = false;
+        Boolean firstJoinAttempt = true; // Might not be needed
+        Boolean startedReceive = false;
 
         // Declare properties file
         String propertiesFile = null;
 
-        // Declare server socket port
+        // Declare node info elements
+        String serverIP;
         int serverPort = -1;
+        String logicalName;
 
         // Declare server socket properties
         Properties serverProperties = null;
 
         // Declare user input objects
-        Scanner userInput;
+        Scanner inputReader;
+        String inputString;
         String[] inputArray;
-
-        // Declare sender and receiver
-        ClientSender sender;
-        ClientReceiver receiver;
 
         // Attempt to fetch properties file
         try
@@ -84,6 +89,16 @@ public class ChatClient
         {
             // Log failure and exit
             errorLogger.log(Level.SEVERE, "Cannot read properties file.", ex);
+            System.exit(1);
+        }
+
+        // Attempt to read server IP
+        serverIP = serverProperties.getProperty("SERVER_IP");
+        // Failed to read server IP, likely due to IP not existing
+        if (serverIP == null)
+        {
+            // Log failure and exit
+            errorLogger.log(Level.SEVERE, "Cannot read server IP.");
             System.exit(1);
         }
 
@@ -113,7 +128,7 @@ public class ChatClient
         }
 
         // Create user input scanner
-        userInput = new Scanner(System.in);
+        inputReader = new Scanner(System.in);
 
         //////////////////////////////////
         // BEGIN MAIN SEND/RECEIVE LOOP //
@@ -144,7 +159,7 @@ public class ChatClient
                 
 
                 // Read next command and split it into its arguments
-                inputArray = userInput.nextLine().split(" ");
+                inputArray = inputReader.nextLine().split(" ");
 
                 // Case JOIN command
                 if (inputArray[0].equals("JOIN"))
@@ -152,6 +167,8 @@ public class ChatClient
                     // Check for standalone JOIN command
                     if (inputArray.length == 1)
                     {
+                        // Indicate creation of new chat room
+                        isConnected = true;
                         System.out.println("Created new chat room.\n");
                     }
                     // Check for three arguments--JOIN, IP, port
@@ -203,56 +220,116 @@ public class ChatClient
 
             } // End "if not connected" block
 
-            // Client has connected but has not yet created its sender and receiver. This happens
+            // Client has connected but has not yet created its receiver. This happens
             // exactly once after a join succeeds.
-            else if (!startedSendAndReceive)
+            else if (!startedReceive)
             {
-                sender = new ClientSender();
-                receiver = new ClientReceiver();
+                // Get logical name
+                System.out.println("What is your display name?");
+                logicalName = inputReader.nextLine();
+
+                // Create client NodeInfo
+                userInfo = new NodeInfo(serverIP, serverPort, logicalName);
+
+                // Start receiver
+                new Thread(new ClientReceiver(serverSocket)).start();
 
                 // Set send/receive flag
-                startedSendAndReceive = true;
+                startedReceive = true;
 
                 // Set first attempt flag to display full instructions after leaving chat
                 firstJoinAttempt = true;
             }
 
-            // Client is connected. Remain on standby with sender and receiver active. Do nothing here
-            // in main.
+            // Client is connected and may begin sending input.
+            else
+            {
+                // Block for user input
+                inputString = inputReader.nextLine();
+
+                // Parse into array form
+                inputArray = inputString.split(" ");
+
+                // Check for command LEAVE
+                if (inputArray[0].equals("LEAVE"))
+                {
+                    leaveFromChat();
+                }
+                // Check for command SHUTDOWN
+                else if (inputArray[0].equals("SHUTDOWN"))
+                {
+                    orderShutdown();
+                }
+                // Otherwise, send note
+                else
+                {
+                    sendNote(inputString);
+                }
+            }
         }
 
         // Close user input stream
-        userInput.close();
+        inputReader.close();
     }
 
+    /**
+     * Set list of registered users.
+     * 
+     * @param userList ArrayList of registered users which was received by ClientReceiver.
+     */
+    public static void addList(ArrayList<NodeInfo> userList)
+    {
+        registeredUsers = userList;
+    }
+
+    /**
+     * Add user to list of registered members.
+     * 
+     * @param user NodeInfo user to be added.
+     */
     public static void addUser(NodeInfo user)
     {
-
+        registeredUsers.add(user);
     }
 
+    /**
+     * Attempt to join to an existing client's chat mesh.
+     * 
+     * @param ip IP address of existing client's server socket.
+     * @param port Port number of existing client's server socket.
+     * @return True if join was successful; false otherwise.
+     */
     private static Boolean joinToChat(String ip, int port)
     {
+
+
         return false; // TODO
     }
 
     public static void leaveFromChat()
     {
-
+        // Notify all clients to remove user from their list
+        sendToAll(new Message(LEAVE, userInfo));
     }
 
     public static void orderShutdown()
     {
-
+        // Create shutdown message and send to all
+        sendToAll(new Message(SHUTDOWN, null));
     }
 
     public static void receiveJoiningUser(NodeInfo user)
     {
+        // Notify all users to add newly joined
+        sendToAll(new Message(ADD, user));
 
+        // Send members list to newly joined
+        
     }
 
     public static void receiveShutdown()
     {
-
+        isShutdown = true;
     }
 
     public static void removeUser(NodeInfo user)
@@ -262,7 +339,8 @@ public class ChatClient
 
     public static void sendNote(String note)
     {
-
+        // Create note message and send to all
+        sendToAll(new Message(NOTE, note));
     }
 
     private static void sendToAll(Message message)
