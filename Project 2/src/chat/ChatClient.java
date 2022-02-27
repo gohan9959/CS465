@@ -306,12 +306,21 @@ public class ChatClient implements MessageTypes
         return false; // TODO
     }
 
+    /**
+     * Leave from chat.
+     * 
+     * Notify all other users to remove this client from their user list,
+     * then set connection flag.
+     */
     public static void leaveFromChat()
     {
-        // Notify all clients to remove user from their list
         sendToAll(new Message(LEAVE, userInfo));
+        isConnected = false;
     }
 
+    /**
+     * Order all users to shut down themselves down.
+     */
     public static void orderShutdown()
     {
         // Create shutdown message and send to all
@@ -324,27 +333,58 @@ public class ChatClient implements MessageTypes
         sendToAll(new Message(ADD, user));
 
         // Send members list to newly joined
-        
+        // TODO
     }
 
+    /**
+     * Receive the command to shut down client by setting shutdown flag.
+     */
     public static void receiveShutdown()
     {
         isShutdown = true;
     }
 
+    /**
+     * Remove specified user from registered user list.
+     * 
+     * @param user NodeInfo user to be removed.
+     */
     public static void removeUser(NodeInfo user)
     {
-
+        // Lambda function which searches for matching user in registered user list
+        // and deletes accordingly
+        registeredUsers.forEach( (registeredUser) -> 
+        {
+            if (user.isEqual(registeredUser))
+            {
+                registeredUsers.remove(registeredUser);
+            }
+        });
     }
 
+    /**
+     * Send message of type note to all users.
+     * 
+     * @param note Note message to send.
+     */
     public static void sendNote(String note)
     {
         // Create note message and send to all
         sendToAll(new Message(NOTE, note));
     }
 
+    /**
+     * Send any type of message to all registered users in the user list, including self.
+     * 
+     * @param message Message to be sent to all users.
+     */
     private static void sendToAll(Message message)
     {
-
+        // Lambda function which creates sender and sends message to each registered user
+        registeredUsers.forEach( (registeredUser) ->
+        {
+            new Thread(new ClientSender(registeredUser.getIp(), registeredUser.getPort(),
+                    registeredUser.getLogicalName(), message)).start();
+        });
     }
 }
