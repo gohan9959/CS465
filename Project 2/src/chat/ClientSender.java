@@ -105,13 +105,8 @@ public class ClientSender extends Thread
         System.out.println("\nConnection Successful...");
         System.out.printf("Alias: [%s] on Server: [%s]:[%d]\n\n", logicalName, receiverIP, receiverPort);
 
-        connectToReceiver();
-
-        // Send message to server
+        // Send message to user
         sendMessageToUser(message);
-
-        // close connection to server after sending message
-        closeConnection();
     }
 
     /**
@@ -160,6 +155,7 @@ public class ClientSender extends Thread
      */
     public void sendMessageToUser(Message message)
     {
+        connectToReceiver();
         try
         {
             toChat.writeObject(message);
@@ -169,6 +165,8 @@ public class ClientSender extends Thread
             Logger.getLogger(ChatClient.class.getName()).log(Level.SEVERE, "Cannot send message", ex);
             System.exit(1);
         }
+        // close connection to server after sending message
+        closeConnection();
     }
 }
 
