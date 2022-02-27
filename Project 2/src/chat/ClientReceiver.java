@@ -14,14 +14,18 @@ public class ClientReceiver implements Runnable{
 
     private Message message;
 
-    public ClientReceiver(ServerSocket serverSocket){
+    private NodeInfo userInfo;
+
+    public ClientReceiver(ServerSocket serverSocket, NodeInfo userInfo){
         this.serverSocket = serverSocket;
+        this.userInfo = userInfo;
     }
 
     public void run(){
         Socket socket;
         ObjectInputStream recieveStream;
-        while(true){
+        boolean leave = false;
+        while(!leave){
             try{
                 socket = serverSocket.accept(); 
                 recieveStream = new ObjectInputStream(socket.getInputStream());
@@ -40,10 +44,16 @@ public class ClientReceiver implements Runnable{
                         System.out.println(message.getSender() + ": " + (String)message.getMessageContent());
                     }
                     else if(message.getMessageType() == MessageTypes.LEAVE){
-                        ChatClient.removeUser((NodeInfo)message.getMessageContent());
+                        if(message.getSender() == userInfo.getLogicalName()){
+                            leave = true;
+                        }
+                        else{
+                            ChatClient.removeUser((NodeInfo)message.getMessageContent());
+                        }
                     }
                     else if(message.getMessageType() == MessageTypes.SHUTDOWN){
                         ChatClient.receiveShutdown();
+                        leave = true;
                     }
                 }
             } 
