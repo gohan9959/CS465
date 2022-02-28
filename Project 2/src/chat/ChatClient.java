@@ -451,12 +451,19 @@ public class ChatClient implements MessageTypes
         // Lambda function which creates sender and sends message to each registered user
         registeredUsers.forEach( (registeredUser) ->
         {
-            // Check that the user is not self, if sendToSelf flag is false
-            if (sendToSelf || !(registeredUser.isEqual(selfNodeInfo)))
+            try 
             {
-                // Create sender and send message
-                new Thread(new ClientSender(registeredUser.getIp(), registeredUser.getPort(),
-                        registeredUser.getLogicalName(), message)).start();
+                // Check that the user is not self, if sendToSelf flag is false
+                if (sendToSelf || !(registeredUser.isEqual(selfNodeInfo)))
+                {
+                    // Create sender and send message
+                    (new ClientSender(registeredUser.getIp(), registeredUser.getPort(),
+                            registeredUser.getLogicalName(), message)).sendMessageToUser();
+                }
+            }
+            catch (IOException ex)
+            {
+                ex.printStackTrace();
             }
         });
     }
