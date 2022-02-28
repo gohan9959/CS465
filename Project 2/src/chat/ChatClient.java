@@ -63,19 +63,12 @@ public class ChatClient implements MessageTypes
         // Initialize operation flags
         isConnected = false;
         isShutdown = false;
-        Boolean firstJoinAttempt = true; // Might not be needed
-        Boolean startedReceive = false;
 
         // Declare properties file
         String propertiesFile = null;
 
         // Declare server socket properties
         Properties serverProperties = null;
-
-        // Declare user input objects
-        Scanner inputReader;
-        String inputString;
-        String[] inputArray;
 
         // Attempt to fetch properties file
         try
@@ -135,6 +128,24 @@ public class ChatClient implements MessageTypes
             errorLogger.log(Level.SEVERE, "Cannot start server socket.", ex);
             System.exit(1);
         }
+
+        // Start the server loop
+        startServerLoop();
+    }
+
+    /**
+     * Run main server loop.
+     */
+    public static void startServerLoop()
+    {
+        // Initialize operation flags
+        Boolean firstJoinAttempt = true;
+        Boolean startedReceive = false;
+
+        // Declare user input objects
+        Scanner inputReader;
+        String inputString;
+        String[] inputArray;
 
         // Initialize empty list of users
         registeredUsers = new ArrayList<NodeInfo>();
