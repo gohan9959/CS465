@@ -1,14 +1,17 @@
 package chat;
 
-import message.*;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+
+import message.Message;
+import message.MessageTypes;
+import message.NodeInfo;
 
 
-public class ClientReceiver implements Runnable{
+public class ClientReceiver implements Runnable, MessageTypes{
 
     private ServerSocket serverSocket;
 
@@ -25,25 +28,26 @@ public class ClientReceiver implements Runnable{
         Socket socket;
         ObjectInputStream recieveStream;
         boolean leave = false;
+
         while(!leave){
             try{
-                socket = serverSocket.accept(); 
+                socket = serverSocket.accept();
                 recieveStream = new ObjectInputStream(socket.getInputStream());
                 message = (Message)recieveStream.readObject();
                 if(message instanceof Message){
-                    if(message.getMessageType() == MessageTypes.JOIN){
+                    if(message.getMessageType() == JOIN){
                         ChatClient.receiveJoiningUser((NodeInfo)message.getMessageContent());
                     }
-                    else if(message.getMessageType() == MessageTypes.ADD){
+                    else if(message.getMessageType() == ADD){
                         ChatClient.addUser((NodeInfo)message.getMessageContent());
                     }
-                    else if(message.getMessageType() == MessageTypes.ADD_LIST){
-                        //Placeholder for client ADDLIST method.
+                    else if(message.getMessageType() == ADD_LIST){
+                        ChatClient.addList((ArrayList<NodeInfo>) message.getMessageContent());
                     }
-                    else if(message.getMessageType() == MessageTypes.NOTE){
+                    else if(message.getMessageType() == NOTE){
                         System.out.println(message.getSender() + ": " + (String)message.getMessageContent());
                     }
-                    else if(message.getMessageType() == MessageTypes.LEAVE){
+                    else if(message.getMessageType() == LEAVE){
                         if(message.getSender() == userInfo.getLogicalName()){
                             leave = true;
                         }
@@ -51,7 +55,7 @@ public class ClientReceiver implements Runnable{
                             ChatClient.removeUser((NodeInfo)message.getMessageContent());
                         }
                     }
-                    else if(message.getMessageType() == MessageTypes.SHUTDOWN){
+                    else if(message.getMessageType() == SHUTDOWN){
                         ChatClient.receiveShutdown();
                         leave = true;
                     }
@@ -63,7 +67,6 @@ public class ClientReceiver implements Runnable{
             catch(ClassNotFoundException cfe){
                 cfe.printStackTrace();
             }
-            
         }
 
     }

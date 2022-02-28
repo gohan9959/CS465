@@ -64,11 +64,6 @@ public class ClientReceiver extends Thread
         }
     }
 
-    public void closeConnection() throws IOException
-    {
-        serverConnection.close();
-    }
-
     /**
      * Close server connection and stop the thread.
      *
