@@ -373,12 +373,12 @@ public class ChatClient implements MessageTypes
             // Send message to remove self first, to avoid concurrency issues 
             new ClientSender(selfIp, selfPort, selfLogicalName, leaveMessage)
                 .sendMessageToUser();
-
-            // Clear list of users
-            registeredUsers.clear();
                 
             // Send leave message to everyone else
             sendToAll(new Message(LEAVE, selfNodeInfo), false);
+
+            // Clear list of users
+            registeredUsers.clear();
 
             // Set connected flag
             isConnected = false;
