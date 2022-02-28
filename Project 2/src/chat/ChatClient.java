@@ -365,7 +365,9 @@ public class ChatClient implements MessageTypes
      */
     public static void leaveFromChat()
     {
-        sendToAll(new Message(LEAVE, selfNodeInfo), true);
+        removeUser(selfNodeInfo);
+
+        sendToAll(new Message(LEAVE, selfNodeInfo), false);
         isConnected = false;
     }
 
@@ -420,13 +422,8 @@ public class ChatClient implements MessageTypes
     {
         // Lambda function which searches for matching user in registered user list
         // and deletes accordingly
-        registeredUsers.forEach( (registeredUser) -> 
-        {
-            if (leavingUser.isEqual(registeredUser))
-            {
-                registeredUsers.remove(registeredUser);
-            }
-        });
+        registeredUsers.removeIf( (registeredUser) -> 
+                registeredUser.isEqual(leavingUser));
     }
 
     /**
@@ -451,19 +448,12 @@ public class ChatClient implements MessageTypes
         // Lambda function which creates sender and sends message to each registered user
         registeredUsers.forEach( (registeredUser) ->
         {
-            try 
+            // Check that the user is not self, if sendToSelf flag is false
+            if (sendToSelf || !(registeredUser.isEqual(selfNodeInfo)))
             {
-                // Check that the user is not self, if sendToSelf flag is false
-                if (sendToSelf || !(registeredUser.isEqual(selfNodeInfo)))
-                {
-                    // Create sender and send message
-                    (new ClientSender(registeredUser.getIp(), registeredUser.getPort(),
-                            registeredUser.getLogicalName(), message)).sendMessageToUser();
-                }
-            }
-            catch (IOException ex)
-            {
-                ex.printStackTrace();
+                // Create sender and send message
+                new Thread(new ClientSender(registeredUser.getIp(), registeredUser.getPort(),
+                        registeredUser.getLogicalName(), message)).start();
             }
         });
     }
