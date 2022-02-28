@@ -48,12 +48,12 @@ public class ClientReceiver implements Runnable, MessageTypes{
                         System.out.println(message.getSender() + ": " + (String)message.getMessageContent());
                     }
                     else if(message.getMessageType() == LEAVE){
-                        if(message.getSender() == userInfo.getLogicalName()){
-                            leave = true;
-                        }
-                        else{
+                        //if(message.getSender() == userInfo.getLogicalName()){
+                            //leave = true;
+                        //}
+                        //else{
                             ChatClient.removeUser((NodeInfo)message.getMessageContent());
-                        }
+                        //}
                     }
                     else if(message.getMessageType() == SHUTDOWN){
                         ChatClient.receiveShutdown();
