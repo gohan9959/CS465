@@ -365,10 +365,28 @@ public class ChatClient implements MessageTypes
      */
     public static void leaveFromChat()
     {
-        removeUser(selfNodeInfo);
+        // Create leave message
+        Message leaveMessage = new Message(LEAVE, selfNodeInfo);
 
-        sendToAll(new Message(LEAVE, selfNodeInfo), false);
-        isConnected = false;
+        try
+        {
+            // Send message to remove self first, to avoid concurrency issues 
+            new ClientSender(selfIp, selfPort, selfLogicalName, leaveMessage)
+                .sendMessageToUser();
+
+            // Clear list of users
+            registeredUsers.clear();
+                
+            // Send leave message to everyone else
+            sendToAll(new Message(LEAVE, selfNodeInfo), false);
+
+            // Set connected flag
+            isConnected = false;
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
     }
 
     /**
