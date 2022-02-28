@@ -1,20 +1,18 @@
 package chat;
 
-import message.Message;
-import message.MessageTypes;
-import message.NodeInfo;
-
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Enumeration;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import message.Message;
 
 /**
  * Handles the sending of messages by the Client to the Server
@@ -151,7 +149,7 @@ public class ClientSender extends Thread
     {
         // Connect to other client
         connectToReceiver();
-        
+
         // Write object to other client
         toChat.writeObject(message);
 

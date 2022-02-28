@@ -85,7 +85,7 @@ public class ChatClient implements MessageTypes
         // Use default properties file location, if none given
         catch (ArrayIndexOutOfBoundsException ex)
         {
-            propertiesFile = "ChatClient/config/Server.properties";
+            propertiesFile = "config/Server.properties";
         }
 
         // Attempt to read properties file
@@ -136,8 +136,18 @@ public class ChatClient implements MessageTypes
             System.exit(1);
         }
 
+        // Initialize empty list of users
+        registeredUsers = new ArrayList<NodeInfo>();
+
         // Create user input scanner
         inputReader = new Scanner(System.in);
+
+        // Get logical name
+        System.out.println("What is your display name?\n");
+        selfLogicalName = inputReader.nextLine();
+
+        // Create client NodeInfo
+        selfNodeInfo = new NodeInfo(selfIp, selfPort, selfLogicalName);
 
         //////////////////////////////////
         // BEGIN MAIN SEND/RECEIVE LOOP //
@@ -177,7 +187,10 @@ public class ChatClient implements MessageTypes
                     {
                         // Indicate creation of new chat room
                         isConnected = true;
-                        System.out.println("Created new chat room.\n");
+                        System.out.println("\nCreated new chat room.");
+
+                        // Add self to members list
+                        addUser(selfNodeInfo);
                     }
                     // Check for three arguments--JOIN, IP, port
                     else if (inputArray.length == 3)
@@ -190,32 +203,32 @@ public class ChatClient implements MessageTypes
                             // Connection success
                             if (isConnected)
                             {
-                                System.out.println("Successfully joined to existing chat room.\n");
+                                System.out.println("\nSuccessfully joined to existing chat room.");
                             }
                             // Connection failed
                             else
                             {
-                                System.out.println("Could not join existing chat room.\n");
+                                System.out.println("\nCould not join existing chat room.\n");
                             }
                         }
                         // Failed to read server port
                         catch (NumberFormatException ex)
                         {
-                            System.out.println("Failed to read port number.");
+                            System.out.println("\nFailed to read port number.\n");
                         }
                         
                     }
                     // Invalid JOIN command
                     else
                     {
-                        System.out.println("Invalid number of arguments for JOIN.");
+                        System.out.println("\nInvalid number of arguments for JOIN.\n");
                     }
                 }
                 // Case SHUTDOWN command
                 else if (inputArray[0].equals("SHUTDOWN"))
                 {
                     // Print shutdown
-                    System.out.println("Shutting down client.\n");
+                    System.out.println("\nShutting down client.\n");
 
                     // Set shutdown flag
                     isShutdown = true;
@@ -223,8 +236,11 @@ public class ChatClient implements MessageTypes
                 // Invalid command input
                 else
                 {
-                    System.out.println("Invalid command.");
+                    System.out.println("\nInvalid command.\n");
                 }
+
+                // Unset startedReceive flag
+                startedReceive = false;
 
             } // End "if not connected" block
 
@@ -232,12 +248,8 @@ public class ChatClient implements MessageTypes
             // exactly once after a join succeeds.
             else if (!startedReceive)
             {
-                // Get logical name
-                System.out.println("What is your display name?");
-                selfLogicalName = inputReader.nextLine();
-
-                // Create client NodeInfo
-                selfNodeInfo = new NodeInfo(selfIp, selfPort, selfLogicalName);
+                // Print confirmation to begin accepting user input
+                System.out.println("You may now begin sending messages.\n");
 
                 // Start receiver
                 new Thread(new ClientReceiver(serverSocket, selfNodeInfo)).start();
@@ -282,6 +294,9 @@ public class ChatClient implements MessageTypes
 
         // Close user input stream
         inputReader.close();
+
+        // Close receiver connection
+        System.exit(0);
     }
 
     /**
@@ -411,7 +426,7 @@ public class ChatClient implements MessageTypes
     public static void sendNote(String note)
     {
         // Create note message and send to all
-        sendToAll(new Message(NOTE, note), true);
+        sendToAll(new Message(NOTE, note, selfLogicalName), true);
     }
 
     /**
