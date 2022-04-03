@@ -1,29 +1,65 @@
 package server;
 
-import account.Account;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Transaction {
     
-    int TID;
-    int TNUM;
-    String IP;
-    int port;
-    Account Account1;
-    Account Account2;
+    /**
+     * Transaction ID
+     */
+    protected int TID;
 
-    public Transaction(int TID, int TNUM, String IP, int port){
+    /**
+     * Transaction number--number of most recently committed transaction
+     */
+    protected int TNUM;
+    
+    /**
+     * Read set of transaction, containing IDs of all accounts read
+     */
+    protected ArrayList<Integer> readSet;
+
+    /**
+     * Write set of transaction, containing pairs of values as follows:
+     * <ID of account written, value written into account>
+     */
+    protected HashMap<Integer, Integer> writeSet;
+
+    /**
+     * Constructor.
+     * 
+     * @param TID Transaction ID.
+     * @param TNUM Transaction number--index of most recently committed
+     * transaction.
+     */
+    public Transaction(int TID, int TNUM)
+    {
         this.TID = TID;
         this.TNUM = TNUM;
-        this.IP = IP;
-        this.port = port;
+
+        readSet = new ArrayList<Integer>();
+        writeSet = new HashMap<Integer, Integer>();
     }
 
-    public Transaction(int TID, int TNUM, String IP, int port, Account Account1, Account Account2){
-        this.TID = TID;
-        this.TNUM = TNUM;
-        this.IP = IP;
-        this.port = port;
-        this.Account1 = Account1;
-        this.Account2 = Account2;
+    public int getTID()
+    {
+        return TID;
+    }
+
+    public int getTNUM()
+    {
+        return TNUM;
+    }
+
+    /**
+     * Attempt to read account balance from write set.
+     * 
+     * @param accountID ID of account to be read.
+     * @return Account ID / balance values, or null if not found.
+     */
+    public int attemptToRead(int accountID)
+    {
+        return writeSet.get(accountID);
     }
 }
