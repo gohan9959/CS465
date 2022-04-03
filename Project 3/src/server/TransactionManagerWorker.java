@@ -2,6 +2,7 @@ package server;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import message.Message;
@@ -9,50 +10,70 @@ import message.MessageTypes;
 
 public class TransactionManagerWorker implements Runnable
 {
-    private Socket socket;
-    private ObjectInputStream recieveAction;
+    private Socket clientConnection;
 
-    public TransactionManagerWorker(Socket socket){
-        this.socket = socket;
+    private ObjectInputStream receiveAction;
+
+    private ObjectOutputStream sendResponse;
+
+    public TransactionManagerWorker(Socket socket)
+    {
+        try
+        {
+            // Initialize input and output streams
+            this.clientConnection = socket;
+            this.receiveAction = new ObjectInputStream(socket.getInputStream());
+            this.sendResponse = new ObjectOutputStream(socket.getOutputStream());
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
     }
 
-    public void run(){
+    public void run()
+    {
+        boolean transactionClosed = false;
         Message transactionMessage;
-        try{
-            recieveAction = new ObjectInputStream(socket.getInputStream());
-        }
-        catch(IOException e){
-            e.printStackTrace();
-            System.exit(1);
-        }
-        while(true){
-            try{
-                transactionMessage = (Message) recieveAction.readObject();
-                if(transactionMessage.getMessageType() == MessageTypes.OPEN_TRANSACTION){
+        int messageType;
+
+        while (!transactionClosed)
+        {
+            try
+            {
+                transactionMessage = (Message) receiveAction.readObject();
+                messageType = transactionMessage.getMessageType();
+
+                if(messageType == MessageTypes.OPEN_TRANSACTION)
+                {
                     //TODO Call TIDgen, TNUMgen.
                     //TODO Create Trasaction Object.
                     //TODO Store Transaction Object.
                     //TODO Return Transaction ID.
                     
                 }
-                else if(transactionMessage.getMessageType() == MessageTypes.READ_REQUEST){
+                else if (messageType == MessageTypes.READ_REQUEST)
+                {
                     //TODO Call Account Manger Function.
                     //TODO Create new transaction object, delete old one from arraylist and add the new one.
                 }
-                else if(transactionMessage.getMessageType() == MessageTypes.WRITE_REQUEST){
+                else if (messageType == MessageTypes.WRITE_REQUEST)
+                {
                     //TODO Call Account Manager Function.
                     //TODO Update values in accounts object in transaction object.
 
                 }
-                else if(transactionMessage.getMessageType() == MessageTypes.CLOSE_TRANSACTION){
+                else if (messageType == MessageTypes.CLOSE_TRANSACTION)
+                {
                     //TODO Call Transaction Manager Verify.
                     //TODO Send Status of the transaction.
                     //TODO Delete transaction from list.
                     break;
                 }
             }
-            catch (IOException | ClassNotFoundException ignored)
+            catch (IOException | ClassNotFoundException ex)
             {
+                ex.printStackTrace();
             }
         }
     }
