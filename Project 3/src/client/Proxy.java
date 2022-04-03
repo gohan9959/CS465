@@ -21,7 +21,7 @@ public class Proxy implements MessageTypes
     public Proxy() throws IOException
     {
         // Configure node info and server socket
-        PropertyHandler properties = new PropertyHandler("Client.properties");
+        PropertyHandler properties = new PropertyHandler("config/Client.properties");
         int port = Integer.parseInt(properties.getProperty("SERVER_PORT"));
         this.receiver = new ServerSocket(port);
 
@@ -42,7 +42,7 @@ public class Proxy implements MessageTypes
         try
         {
             // Get transaction server properties
-            PropertyHandler serverProperties = new PropertyHandler("Server.properties");
+            PropertyHandler serverProperties = new PropertyHandler("config/Server.properties");
             String serverIP = serverProperties.getProperty("SERVER_IP");
             int serverPort = Integer.parseInt(serverProperties.getProperty("SERVER_PORT"));
 

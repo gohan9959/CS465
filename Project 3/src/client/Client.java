@@ -11,8 +11,9 @@ import java.util.logging.Logger;
 public class Client
 {
 
-    private Proxy proxy;
-
+    /**
+     * Handles reading/writing to/from the property file
+     */
     private Properties properties;
 
     /**
@@ -36,6 +37,11 @@ public class Client
 
     }
 
+    /**
+     * Picks a random account number from accounts on the server.
+     *
+     * @return random account number
+     */
     private int randomAccountNumber()
     {
         int[] accounts = {123, 231, 20};
@@ -54,6 +60,8 @@ public class Client
     {
         // get number of transactions
         int numTransactions = Integer.parseInt(properties.getProperty("NUM_TRANSACTIONS"));
+
+        System.out.println("Num trans: " + Integer.toString(numTransactions));
 
         // init random variable
         Random random = new Random();
@@ -75,16 +83,16 @@ public class Client
             int writeAmount = random.nextInt(100) + 1;
 
 
-            System.out.printf("Attempting Transaction:\n" +
+            System.out.printf("Attempting Transaction #%d:\n" +
                               "[Moving $%d from account #%d to #%d]\n\n",
-                              writeAmount, fromAccountNum, toAccountNum);
+                              transIndex + 1, writeAmount, fromAccountNum, toAccountNum);
 
 
             // Keep retrying until transaction is successful
             boolean transSuccess = false;
             while(!transSuccess)
             {
-                proxy = new Proxy();
+                Proxy proxy = new Proxy();
 
                 // start transaction
                 proxy.openTransaction();
@@ -130,16 +138,15 @@ public class Client
         }
         catch (ArrayIndexOutOfBoundsException ex)
         {
-            propertiesFile = "ChatClient/config/Server.properties";
+            propertiesFile = "config/Client.properties";
         }
 
         Client client = new Client(propertiesFile);
 
-        System.out.println("Chat Client Started");
+        System.out.println("Transaction Client Started");
         System.out.println("===================\n");
 
         client.startClient();
     }
-
 
 }
