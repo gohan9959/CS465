@@ -24,6 +24,5 @@ public class ClientWorker implements Runnable
 
     public void run()
     {
-
     }
 }
