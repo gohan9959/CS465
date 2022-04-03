@@ -4,27 +4,45 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class TransactionServer
+import message.MessageTypes;
+import utils.PropertyHandler;
+
+public class TransactionServer implements MessageTypes
 {
     private static int port;
+
+    private static TransactionManager transactionManager;
+
     private static ServerSocket serverSocket;
 
-    public void runTransaction() throws IOException {
-        port = 8080;
+    public TransactionServer() throws IOException
+    {
+        PropertyHandler properties = new PropertyHandler("Server.properties");
+        port = Integer.parseInt(properties.getProperty("SERVER_PORT"));
         serverSocket = new ServerSocket(port);
-        Socket socket;
-        while(true){
-            socket = serverSocket.accept();
-            new Thread(new TransactionManagerWorker(socket)).start();
+
+        transactionManager = new TransactionManager();
+    }
+
+    public void runServerLoop() throws IOException
+    {
+        Socket clientConnection;
+
+        while(true)
+        {
+            clientConnection = serverSocket.accept();
+            transactionManager.startTransaction(clientConnection);
         }
     }
     public static void main(String[] args)
     {
-        TransactionServer transactionServer = new TransactionServer();
-        try{
-        transactionServer.runTransaction();
+        try
+        {
+            TransactionServer transactionServer = new TransactionServer();
+            transactionServer.runServerLoop();
         }
-        catch(IOException e){
+        catch (IOException e)
+        {
             e.printStackTrace();
             System.exit(1);
         }
