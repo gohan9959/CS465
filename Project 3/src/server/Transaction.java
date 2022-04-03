@@ -3,8 +3,12 @@ package server;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Transaction {
-    
+/**
+ * Hold transactional data, such as read set, write set, and most recently
+ * committed transaction number for verification purposes.
+ */
+public class Transaction
+{
     /**
      * Transaction ID
      */
@@ -42,11 +46,22 @@ public class Transaction {
         writeSet = new HashMap<Integer, Integer>();
     }
 
+    /**
+     * Get transaction ID.
+     * 
+     * @return Transaction ID.
+     */
     public int getTID()
     {
         return TID;
     }
 
+    /**
+     * Get transaction number--index of the last committed transaction when
+     * this one was opened.
+     * 
+     * @return Transaction number.
+     */
     public int getTNUM()
     {
         return TNUM;
@@ -56,10 +71,22 @@ public class Transaction {
      * Attempt to read account balance from write set.
      * 
      * @param accountID ID of account to be read.
-     * @return Account ID / balance values, or null if not found.
+     * @return Balance value from write set, or null if not found.
      */
     public int attemptToRead(int accountID)
     {
         return writeSet.get(accountID);
+    }
+
+    /**
+     * Check if requested account was modified in this transaction's write
+     * set.
+     * 
+     * @param accountID Account ID.
+     * @return True if specified account is in write set; false otherwise.
+     */
+    public boolean checkWriteSetOverlap(int accountID)
+    {
+        return writeSet.containsKey(accountID);
     }
 }

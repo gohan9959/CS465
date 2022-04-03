@@ -11,14 +11,29 @@ import message.MessageTypes;
 
 public class TransactionManagerWorker implements Runnable, MessageTypes
 {
+    /**
+     * Socket connection to client
+     */
     private Socket clientConnection;
 
+    /**
+     * Stream for receiving messages from client
+     */
     private ObjectInputStream receiveAction;
 
+    /**
+     * Stream for sending response messages
+     */
     private ObjectOutputStream sendResponse;
 
+    /**
+     * Transaction manager
+     */
     private TransactionManager transactionManager;
 
+    /**
+     * Transaction which this thread is working with
+     */
     private Transaction transaction;
 
     /**
@@ -47,7 +62,10 @@ public class TransactionManagerWorker implements Runnable, MessageTypes
         }
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+     * Listen for transaction actions requested by client. Runtime ends when
+     * client decides to close the transaction.
+     */
     public void run()
     {
         boolean transactionClosed = false;
@@ -55,8 +73,10 @@ public class TransactionManagerWorker implements Runnable, MessageTypes
         int messageType;
         int accountID;
         Integer balance;
-        HashMap<Integer, Integer> writeRequestContent;
+        HashMap<?, ?> writeRequestContent;
+        boolean commitResult;
 
+        // Loop through transaction actions
         while (!transactionClosed)
         {
             try
@@ -97,18 +117,30 @@ public class TransactionManagerWorker implements Runnable, MessageTypes
                 else if (messageType == MessageTypes.WRITE_REQUEST)
                 {
                     // For each (one) write request, add values into write set
-                    writeRequestContent = (HashMap<Integer, Integer>)
+                    writeRequestContent = (HashMap<?, ?>)
                             transactionMessage.getMessageContent();
                     writeRequestContent.forEach((requestID, requestBal) ->
                     {
-                        transaction.writeSet.put(requestID, requestBal);
+                        transaction.writeSet.put((int) requestID, (int) requestBal);
                     });
                 }
                 else if (messageType == MessageTypes.CLOSE_TRANSACTION)
                 {
-                    //TODO Call Transaction Manager Verify.
-                    //TODO Send Status of the transaction.
-                    //TODO Delete transaction from list.
+                    // Verify transaction
+                    commitResult = transactionManager.verify(transaction);
+
+                    // Send commit result
+                    if (commitResult)
+                    {
+                        messageType = TRANSACTION_COMMITTED;
+                    }
+                    else
+                    {
+                        messageType = TRANSACTION_ABORTED;
+                    }
+                    responseMessage = new Message(messageType, commitResult);
+
+                    // Set closed transaction flag
                     transactionClosed = true;
                 }
             }
@@ -118,6 +150,7 @@ public class TransactionManagerWorker implements Runnable, MessageTypes
             }
         }
 
+        // Close connection
         try
         {
             clientConnection.close();
