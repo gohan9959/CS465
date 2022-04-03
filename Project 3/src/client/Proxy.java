@@ -10,15 +10,32 @@ import message.Message;
 import message.MessageTypes;
 import utils.PropertyHandler;
 
+/**
+ * Proxy object which sends messages to transaction server. Requires access
+ * to client properties to start server socket, and server properties to
+ * connect to server.
+ */
 public class Proxy implements MessageTypes
 {
+    /**
+     * Most recent message saved from ProxyReceiver
+     */
     private Message recentMessage;
 
+    /**
+     * Receiving side of connection to server
+     */
     private ServerSocket receiver;
 
+    /**
+     * Sending side of connection to server
+     */
     private Socket serverConnection;
 
-    public Proxy() throws IOException
+    /**
+     * Constructor. Requires access to client properties.
+     */
+    public Proxy()
     {
         // Configure node info and server socket
         PropertyHandler properties = new PropertyHandler("config/Client.properties");
@@ -33,7 +50,7 @@ public class Proxy implements MessageTypes
     /**
      * Open a transaction.
      * 
-     * Requires access to both client and server properties in order to connect.
+     * Requires access to server properties in order to connect.
      * 
      * @return Transaction ID of newly opened transaction.
      */
@@ -150,7 +167,7 @@ public class Proxy implements MessageTypes
             Thread receiverThread = new Thread(new ProxyReceiver(this, receiver));
             receiverThread.start();
 
-            // Send message of type READ_REQUEST, contains account number from which to read
+            // Send message of type CLOSE_TRANSACTION, contains no content
             ObjectOutputStream toServer = new ObjectOutputStream(serverConnection.getOutputStream());
             toServer.writeObject(new Message(CLOSE_TRANSACTION, null));
             toServer.close();
