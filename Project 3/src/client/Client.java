@@ -61,8 +61,6 @@ public class Client
         // get number of transactions
         int numTransactions = Integer.parseInt(properties.getProperty("NUM_TRANSACTIONS"));
 
-        System.out.println("Num trans: " + Integer.toString(numTransactions));
-
         // init random variable
         Random random = new Random();
 
