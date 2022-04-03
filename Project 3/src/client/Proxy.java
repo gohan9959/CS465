@@ -37,21 +37,14 @@ public class Proxy implements MessageTypes
      */
     public Proxy()
     {
-        try
-        {
-            // Configure node info and server socket
-            PropertyHandler properties = new PropertyHandler("Client.properties");
-            int port = Integer.parseInt(properties.getProperty("SERVER_PORT"));
-            this.receiver = new ServerSocket(port);
+        // Configure node info and server socket
+        PropertyHandler properties = new PropertyHandler("config/Client.properties");
+        int port = Integer.parseInt(properties.getProperty("SERVER_PORT"));
+        this.receiver = new ServerSocket(port);
 
-            // Set other fields to dummy values
-            this.recentMessage = null;
-            this.serverConnection = null;
-        }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
-        }
+        // Set other fields to dummy values
+        this.recentMessage = null;
+        this.serverConnection = null;
     }
 
     /**
@@ -66,7 +59,7 @@ public class Proxy implements MessageTypes
         try
         {
             // Get transaction server properties
-            PropertyHandler serverProperties = new PropertyHandler("Server.properties");
+            PropertyHandler serverProperties = new PropertyHandler("config/Server.properties");
             String serverIP = serverProperties.getProperty("SERVER_IP");
             int serverPort = Integer.parseInt(serverProperties.getProperty("SERVER_PORT"));
 
