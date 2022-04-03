@@ -1,8 +1,8 @@
 package client;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 
@@ -12,39 +12,37 @@ import utils.PropertyHandler;
 
 /**
  * Proxy object which sends messages to transaction server. Requires access
- * to client properties to start server socket, and server properties to
- * connect to server.
+ * to server properties to connect to server.
  */
 public class Proxy implements MessageTypes
 {
-    /**
-     * Most recent message saved from ProxyReceiver
-     */
-    private Message recentMessage;
-
-    /**
-     * Receiving side of connection to server
-     */
-    private ServerSocket receiver;
-
     /**
      * Sending side of connection to server
      */
     private Socket serverConnection;
 
     /**
-     * Constructor. Requires access to client properties.
+     * Outbound message stream to server
+     */
+    private ObjectOutputStream toServer;
+
+    /**
+     * Inbound message stream to client
+     */
+    private ObjectInputStream fromServer;
+
+    /**
+     * Constructor.
+     * 
+     * Sets fields to dummy values. These fields are initialized upon calling
+     * openTransaction.
      */
     public Proxy()
     {
-        // Configure node info and server socket
-        PropertyHandler properties = new PropertyHandler("config/Client.properties");
-        int port = Integer.parseInt(properties.getProperty("SERVER_PORT"));
-        this.receiver = new ServerSocket(port);
-
-        // Set other fields to dummy values
-        this.recentMessage = null;
+        // Set fields to null values
         this.serverConnection = null;
+        this.toServer = null;
+        this.fromServer = null;
     }
 
     /**
@@ -63,26 +61,22 @@ public class Proxy implements MessageTypes
             String serverIP = serverProperties.getProperty("SERVER_IP");
             int serverPort = Integer.parseInt(serverProperties.getProperty("SERVER_PORT"));
 
-            // Start receiver
-            Thread receiverThread = new Thread(new ProxyReceiver(this, receiver));
-            receiverThread.start();
-
             // Connect to transaction server
             serverConnection = new Socket(serverIP, serverPort);
+            toServer = new ObjectOutputStream(serverConnection.getOutputStream());
+            fromServer = new ObjectInputStream(serverConnection.getInputStream());
 
-            // Send message of type OPEN_TRANSACTION, contains no content
-            ObjectOutputStream toServer = new ObjectOutputStream(serverConnection.getOutputStream());
+            // Send message
             toServer.writeObject(new Message(OPEN_TRANSACTION, null));
-            toServer.close();
-            
-            // Wait for response
-            receiverThread.join();
+
+            // Receive message as response
+            Message response = (Message) fromServer.readObject();
 
             // Return transaction ID from response message content
-            int transactionID = (int) recentMessage.getMessageContent();
+            int transactionID = (int) response.getMessageContent();
             return transactionID;
         }
-        catch (IOException | InterruptedException ex)
+        catch (IOException | ClassNotFoundException ex)
         {
             ex.printStackTrace();
             return -1;
@@ -101,23 +95,17 @@ public class Proxy implements MessageTypes
     {
         try
         {
-            // Start receiver
-            Thread receiverThread = new Thread(new ProxyReceiver(this, receiver));
-            receiverThread.start();
-
             // Send message of type READ_REQUEST, contains account number from which to read
-            ObjectOutputStream toServer = new ObjectOutputStream(serverConnection.getOutputStream());
             toServer.writeObject(new Message(READ_REQUEST, accountNumber));
-            toServer.close();
 
             // Wait for response
-            receiverThread.join();
+            Message response = (Message) fromServer.readObject();
 
             // Return account balance from response message content
-            int accountBalance = (int) recentMessage.getMessageContent();
+            int accountBalance = (int) response.getMessageContent();
             return accountBalance;
         }
-        catch (IOException | InterruptedException ex)
+        catch (IOException | ClassNotFoundException ex)
         {
             ex.printStackTrace();
             return -999999;
@@ -142,9 +130,7 @@ public class Proxy implements MessageTypes
 
             // Send message of type WRITE_REQUEST, contains hash map of account number and
             // balance to be written into it
-            ObjectOutputStream toServer = new ObjectOutputStream(serverConnection.getOutputStream());
             toServer.writeObject(new Message(WRITE_REQUEST, accountWrite));
-            toServer.close();
         }
         catch (IOException ex)
         {
@@ -170,32 +156,22 @@ public class Proxy implements MessageTypes
             // Send message of type CLOSE_TRANSACTION, contains no content
             ObjectOutputStream toServer = new ObjectOutputStream(serverConnection.getOutputStream());
             toServer.writeObject(new Message(CLOSE_TRANSACTION, null));
-            toServer.close();
 
             // Wait for response
-            receiverThread.join();
+            Message response = (Message) fromServer.readObject();
 
             // Close connection
+            toServer.close();
             serverConnection.close();
 
             // Return transaction status from response message content
-            boolean transactionResult = (boolean) recentMessage.getMessageContent();
+            boolean transactionResult = (boolean) response.getMessageContent();
             return transactionResult;
         }
-        catch (IOException | InterruptedException ex)
+        catch (IOException | ClassNotFoundException ex)
         {
             ex.printStackTrace();
             return false;
         }
-    }
-
-    /**
-     * Used exclusively by ProxyReceiver to receive incoming message.
-     * 
-     * @param message Message to be received and saved.
-     */
-    protected void receiveMessage(Message message)
-    {
-        recentMessage = message;
     }
 }
