@@ -31,7 +31,7 @@ public class TransactionServer implements MessageTypes
         while(true)
         {
             clientConnection = serverSocket.accept();
-            transactionManager.startTransaction(clientConnection);
+            transactionManager.startWorker(clientConnection);
         }
     }
     public static void main(String[] args)

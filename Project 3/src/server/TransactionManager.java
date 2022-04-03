@@ -15,7 +15,7 @@ public class TransactionManager
     /**
      * List of completed transactions
      */
-    private ArrayList<Transaction> transactions;
+    private ArrayList<Transaction> committedTransactions;
 
     /**
      * Transaction ID, or TID for short. Holds latest assigned transaction ID.
@@ -28,8 +28,12 @@ public class TransactionManager
      */
     private int transactionNum;
 
+    /**
+     * Constructor.
+     */
     public TransactionManager()
     {
+        // Set values to -1--this is more convenient for other methods than 0
         transactionID = -1;
         transactionNum = -1;
     }
@@ -39,9 +43,28 @@ public class TransactionManager
      * 
      * @param clientConnection
      */
-    public void startTransaction(Socket clientConnection)
+    public void startWorker(Socket clientConnection)
     {
-        new Thread(new TransactionManagerWorker(clientConnection)).start();
+        new Thread(new TransactionManagerWorker(this, clientConnection)).start();
+    }
+
+    public Transaction openTransaction()
+    {
+        int TID = generateTID();
+        int TNUM = generateTNUM();
+        Transaction newTransaction = new Transaction(TID, TNUM);
+
+        return newTransaction;
+    }
+
+    public int readFromAccount(int accountID)
+    {
+        return accountManager.readAccountBalance(accountID);
+    }
+
+    public void verify()
+    {
+        
     }
 
     /**
@@ -49,7 +72,7 @@ public class TransactionManager
      * 
      * @return New transaction ID.
      */
-    public int generateTID()
+    private int generateTID()
     {
         return ++transactionID;
     }
@@ -60,14 +83,9 @@ public class TransactionManager
      * 
      * @return New transaction number.
      */
-    public int generateTNUM()
+    private int generateTNUM()
     {
         return transactionNum;
-    }
-
-    public void verify()
-    {
-        
     }
 
 }
