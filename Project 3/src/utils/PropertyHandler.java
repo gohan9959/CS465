@@ -1,7 +1,7 @@
 package utils;
 
+import java.util.*;
 import java.io.*;
-import java.util.Properties;
 
 
 /**
@@ -19,6 +19,7 @@ public class PropertyHandler extends Properties
      *
      * @param propertyFileString File name containing properties on a relative path
      * @throws FileNotFoundException
+     * @throws java.io.FileNotFoundException
      */
     public PropertyHandler(String propertyFileString) throws FileNotFoundException, IOException
     {
