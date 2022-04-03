@@ -1,20 +1,17 @@
 package client;
 
-import account.Account;
 import utils.PropertyHandler;
-import account.TransactionAction;
 
 import java.io.IOException;
 import java.util.Properties;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Client
 {
 
-    private ProxyServer proxy;
+    private Proxy proxy;
 
     private Properties properties;
 
@@ -87,17 +84,18 @@ public class Client
             boolean transSuccess = false;
             while(!transSuccess)
             {
+                proxy = new Proxy();
 
                 // start transaction
                 proxy.openTransaction();
 
                 // attempt read an write to account 1
-                proxy.readBalance(fromAccountNum);
-                proxy.writeBalance(fromAccountNum, -writeAmount);
+                proxy.read(fromAccountNum);
+                proxy.write(fromAccountNum, -writeAmount);
 
                 // attempt read and write to account 2
-                proxy.readBalance(toAccountNum);
-                proxy.writeBalance(toAccountNum, writeAmount);
+                proxy.read(toAccountNum);
+                proxy.write(toAccountNum, writeAmount);
 
                 // determine if transaction succeeded otherwise repeat attempt
                 if (proxy.closeTransaction())
