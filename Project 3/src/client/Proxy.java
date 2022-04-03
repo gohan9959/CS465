@@ -149,10 +149,6 @@ public class Proxy implements MessageTypes
     {
         try
         {
-            // Start receiver
-            Thread receiverThread = new Thread(new ProxyReceiver(this, receiver));
-            receiverThread.start();
-
             // Send message of type CLOSE_TRANSACTION, contains no content
             ObjectOutputStream toServer = new ObjectOutputStream(serverConnection.getOutputStream());
             toServer.writeObject(new Message(CLOSE_TRANSACTION, null));
