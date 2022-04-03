@@ -50,7 +50,7 @@ public class Client
      * <p>
      * Called by main() to handle client setup and then call sender and receiver threads
      */
-    public void startClient() throws IOException
+    public void startClient()
     {
         // get number of transactions
         int numTransactions = Integer.parseInt(properties.getProperty("NUM_TRANSACTIONS"));
@@ -90,12 +90,12 @@ public class Client
                 proxy.openTransaction();
 
                 // attempt read an write to account 1
-                proxy.read(fromAccountNum);
-                proxy.write(fromAccountNum, -writeAmount);
+                int fromAccountBal = proxy.read(fromAccountNum);
+                proxy.write(fromAccountNum, fromAccountBal - writeAmount);
 
                 // attempt read and write to account 2
-                proxy.read(toAccountNum);
-                proxy.write(toAccountNum, writeAmount);
+                int toAccountBal = proxy.read(toAccountNum);
+                proxy.write(toAccountNum, toAccountBal + writeAmount);
 
                 // determine if transaction succeeded otherwise repeat attempt
                 if (proxy.closeTransaction())
