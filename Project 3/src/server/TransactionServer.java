@@ -17,7 +17,7 @@ public class TransactionServer implements MessageTypes
 
     public TransactionServer() throws IOException
     {
-        PropertyHandler properties = new PropertyHandler("Server.properties");
+        PropertyHandler properties = new PropertyHandler("config/Server.properties");
         port = Integer.parseInt(properties.getProperty("SERVER_PORT"));
         serverSocket = new ServerSocket(port);
 
