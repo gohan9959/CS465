@@ -44,11 +44,10 @@ public class Client
      */
     private int randomAccountNumber()
     {
-        int[] accounts = {123, 231, 20};
-        int num_of_accounts = 3;
+        int num_of_accounts = Integer.parseInt(properties.getProperty("NUM_ACCOUNTS"));
 
         Random random = new Random();
-        return accounts[random.nextInt(num_of_accounts)];
+        return random.nextInt(num_of_accounts);
     }
 
     /**
