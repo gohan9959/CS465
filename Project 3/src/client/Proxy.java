@@ -10,26 +10,6 @@ import message.Message;
 import message.MessageTypes;
 import utils.PropertyHandler;
 
-<<<<<<< Updated upstream
-public class Proxy implements MessageTypes
-{
-    private Message recentMessage;
-
-    private ServerSocket receiver;
-
-    private Socket serverConnection;
-
-    public Proxy() throws IOException
-    {
-        // Configure node info and server socket
-        PropertyHandler properties = new PropertyHandler("Client.properties");
-        int port = Integer.parseInt(properties.getProperty("SERVER_PORT"));
-        this.receiver = new ServerSocket(port);
-
-        // Set other fields to dummy values
-        this.recentMessage = null;
-        this.serverConnection = null;
-=======
 /**
  * Proxy object which sends messages to transaction server. Requires access
  * to server properties to connect to server.
@@ -63,7 +43,6 @@ public class Proxy implements MessageTypes
         this.serverConnection = null;
         this.toServer = null;
         this.fromServer = null;
->>>>>>> Stashed changes
     }
 
     /**
@@ -170,15 +149,6 @@ public class Proxy implements MessageTypes
     {
         try
         {
-<<<<<<< Updated upstream
-            // Start receiver
-            Thread receiverThread = new Thread(new ProxyReceiver(this, receiver));
-            receiverThread.start();
-
-            // Send message of type READ_REQUEST, contains account number from which to read
-=======
-            // Send message of type CLOSE_TRANSACTION, contains no content
->>>>>>> Stashed changes
             ObjectOutputStream toServer = new ObjectOutputStream(serverConnection.getOutputStream());
             toServer.writeObject(new Message(CLOSE_TRANSACTION, null));
 
