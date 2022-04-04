@@ -15,19 +15,36 @@ public class TransactionServer implements MessageTypes
 
     private static ServerSocket serverSocket;
 
+    /**
+     * Constructor
+     *
+     * @throws IOException
+     */
     public TransactionServer() throws IOException
     {
+        // get port from properties file and then open a socket
         PropertyHandler properties = new PropertyHandler("config/Server.properties");
         port = Integer.parseInt(properties.getProperty("SERVER_PORT"));
         serverSocket = new ServerSocket(port);
 
+        // create a transaction manager to be used by server
         transactionManager = new TransactionManager();
     }
 
+    /**
+     * main loop in which server manages connections
+     *
+     * @throws IOException
+     */
     public void runServerLoop() throws IOException
     {
         Socket clientConnection;
 
+        System.out.println("Transaction server initiated\n" +
+                           "Accepting incoming transactions\n" +
+                           "===============================\n");
+
+        // accept connections and then manage incoming transactions
         while(true)
         {
             clientConnection = serverSocket.accept();
@@ -35,6 +52,11 @@ public class TransactionServer implements MessageTypes
         }
     }
 
+    /**
+     * Initiates constructor and attempts to start server loop
+     *
+     * @param args standard java arguments
+     */
     public static void main(String[] args)
     {
         try

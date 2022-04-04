@@ -86,7 +86,7 @@ public class Client
 
 
             System.out.printf("Attempting Transaction #%d:\n" +
-                              "[Moving $%d from account #%d to #%d]\n\n",
+                              "[Transferring $%d from account #%d to #%d]\n",
                               transIndex + 1, writeAmount, fromAccountNum, toAccountNum);
 
 
@@ -122,7 +122,7 @@ public class Client
             }
 
             // if loop exits than transaction must have been completed
-            System.out.println("Transaction successful");
+            System.out.println("Transaction successful\n");
 
         }
     }
@@ -148,7 +148,7 @@ public class Client
         Client client = new Client(propertiesFile);
 
         System.out.println("Transaction Client Started");
-        System.out.println("===================\n");
+        System.out.println("==========================\n");
 
         client.startClient();
     }

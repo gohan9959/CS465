@@ -92,6 +92,9 @@ public class TransactionManagerWorker implements Runnable, MessageTypes
                     // Send transaction ID
                     responseMessage = new Message(OPEN_TRANSACTION, transaction.TID);
                     sendResponse.writeObject(responseMessage);
+
+                    System.out.printf("[TransactionManagerWorker] Transaction #%d - OPEN_TRANSACTION\n",
+                                      transaction.TID);
                     
                 }
                 else if (messageType == MessageTypes.READ_REQUEST)
@@ -113,6 +116,10 @@ public class TransactionManagerWorker implements Runnable, MessageTypes
                     // Send amount read
                     responseMessage = new Message(READ_REQUEST, balance);
                     sendResponse.writeObject(responseMessage);
+
+                    System.out.printf("[Transaction Worker] Transaction #%d - READ_REQUEST > Account #%d\n",
+                                      transaction.TID, accountID);
+
                 }
                 else if (messageType == MessageTypes.WRITE_REQUEST)
                 {
@@ -123,6 +130,9 @@ public class TransactionManagerWorker implements Runnable, MessageTypes
                     {
                         transaction.writeSet.put((int) requestID, (int) requestBal);
                     });
+
+                    System.out.printf("[TransactionManagerWorker] Transaction #%d - WRITE_REQUEST > Account #%d, " +
+                                      "balance $%d\n", transaction.TID, requestID, requestBal);
                 }
                 else if (messageType == MessageTypes.CLOSE_TRANSACTION)
                 {
@@ -143,6 +153,9 @@ public class TransactionManagerWorker implements Runnable, MessageTypes
 
                     // Set closed transaction flag
                     transactionClosed = true;
+
+                    System.out.printf("[TransactionManagerWorker] Transaction #%d - CLOSED_TRANSACTION - Committed\n",
+                                      transaction.TID);
                 }
             }
             catch (IOException | ClassNotFoundException ex)
