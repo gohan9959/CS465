@@ -132,30 +132,34 @@ public class TransactionManagerWorker implements Runnable, MessageTypes
                     });
 
                     System.out.printf("[TransactionManagerWorker] Transaction #%d - WRITE_REQUEST > Account #%d, " +
-                                      "balance $%d\n", transaction.TID, requestID, requestBal);
+                                      "balance $%d\n", transaction.TID, 1, 1);// requestID, requestBal);
                 }
                 else if (messageType == MessageTypes.CLOSE_TRANSACTION)
                 {
                     // Verify transaction
                     commitResult = transactionManager.verify(transaction);
 
+                    System.out.printf("[TransactionManagerWorker] Transaction #%d - CLOSED_TRANSACTION - ",
+                                      transaction.TID);
+
                     // Send commit result
                     if (commitResult)
                     {
                         messageType = TRANSACTION_COMMITTED;
+
+                        System.out.println("COMMITTED\n");
                     }
                     else
                     {
                         messageType = TRANSACTION_ABORTED;
+
+                        System.out.println("ABORTED\n");
                     }
                     responseMessage = new Message(messageType, commitResult);
                     sendResponse.writeObject(responseMessage);
 
                     // Set closed transaction flag
                     transactionClosed = true;
-
-                    System.out.printf("[TransactionManagerWorker] Transaction #%d - CLOSED_TRANSACTION - Committed\n",
-                                      transaction.TID);
                 }
             }
             catch (IOException | ClassNotFoundException ex)
