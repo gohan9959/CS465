@@ -131,8 +131,7 @@ public class TransactionManagerWorker implements Runnable, MessageTypes
                         transaction.writeSet.put((int) requestID, (int) requestBal);
                     });
 
-                    System.out.printf("[TransactionManagerWorker] Transaction #%d - WRITE_REQUEST > Account #%d, " +
-                                      "balance $%d\n", transaction.TID, 1, 1);// requestID, requestBal);
+                    System.out.printf("[TransactionManagerWorker] Transaction #%d - WRITE_REQUEST", transaction.TID);// requestID, requestBal);
                 }
                 else if (messageType == MessageTypes.CLOSE_TRANSACTION)
                 {
