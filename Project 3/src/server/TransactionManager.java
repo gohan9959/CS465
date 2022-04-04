@@ -48,6 +48,11 @@ public class TransactionManager
         new Thread(new TransactionManagerWorker(this, clientConnection)).start();
     }
 
+    /**
+     * Open a transaction.
+     * 
+     * @return Newly created transaction.
+     */
     public Transaction openTransaction()
     {
         int TID = generateTID();
@@ -57,14 +62,77 @@ public class TransactionManager
         return newTransaction;
     }
 
+    /**
+     * Tell account manager to read directly from account balance.
+     * 
+     * @param accountID Account ID.
+     * @return Balance read from account.
+     */
     public int readFromAccount(int accountID)
     {
         return accountManager.readAccountBalance(accountID);
     }
 
-    public void verify()
+    /**
+     * Verify that transaction can be committed.
+     * 
+     * @param newTransaction Transaction to be validated.
+     * @return True if committed; false if aborted.
+     */
+    public synchronized boolean verify(Transaction newTransaction)
     {
-        
+        int transactionIndex, readIndex, readID;
+        boolean successful = true;
+        Transaction oldTransaction;
+
+        // Consider all transactions with TNUM greater than new transaction's
+        // TNUM but less than most recently committed TNUM
+        for (transactionIndex = newTransaction.TNUM + 1;
+                transactionIndex < transactionNum; transactionIndex++)
+        {
+            oldTransaction = committedTransactions.get(transactionIndex);
+
+            // Check all accounts that were read from
+            for (readIndex = 0; readIndex < newTransaction.readSet.size();
+                    readIndex++)
+            {
+                // If read set overlaps with old write set, set failure flag
+                readID = newTransaction.readSet.get(readIndex);
+
+                if (oldTransaction.checkWriteSetOverlap(readID))
+                {
+                    successful = false;
+                }
+            }
+        }
+
+        if (successful)
+        {
+            commitTransaction(newTransaction);
+        }
+
+        return successful;
+    }
+
+    /**
+     * Commit transaction by adding to list of completed transactions
+     * and instructing AccountManager to update raw data.
+     * 
+     * @param transaction Transaction to be committed.
+     */
+    private synchronized void commitTransaction(Transaction transaction)
+    {
+        // Add to committed
+        committedTransactions.add(transaction);
+
+        // Increment transaction number
+        ++transactionNum;
+
+        // Commit write set
+        transaction.writeSet.forEach((accountID, balance) ->
+        {
+            accountManager.writeAccountBalance(accountID, balance);
+        });
     }
 
     /**
@@ -87,5 +155,4 @@ public class TransactionManager
     {
         return transactionNum;
     }
-
 }
