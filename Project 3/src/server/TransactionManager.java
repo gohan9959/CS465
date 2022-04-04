@@ -33,9 +33,13 @@ public class TransactionManager
      */
     public TransactionManager()
     {
+        // Create field objects
+        this.accountManager = new AccountManager();
+        this.committedTransactions = new ArrayList<Transaction>();
+
         // Set values to -1--this is more convenient for other methods than 0
-        transactionID = -1;
-        transactionNum = -1;
+        this.transactionID = -1;
+        this.transactionNum = -1;
     }
 
     /**

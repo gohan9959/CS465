@@ -73,9 +73,14 @@ public class Transaction
      * @param accountID ID of account to be read.
      * @return Balance value from write set, or null if not found.
      */
-    public int attemptToRead(int accountID)
+    public Integer attemptToRead(int accountID)
     {
-        return writeSet.get(accountID);
+        if (writeSet.containsKey(accountID))
+        {
+            return writeSet.get(accountID);
+        }
+
+        return null;
     }
 
     /**

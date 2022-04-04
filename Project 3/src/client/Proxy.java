@@ -150,15 +150,10 @@ public class Proxy implements MessageTypes
         try
         {
             // Send message of type CLOSE_TRANSACTION, contains no content
-            ObjectOutputStream toServer = new ObjectOutputStream(serverConnection.getOutputStream());
             toServer.writeObject(new Message(CLOSE_TRANSACTION, null));
 
             // Wait for response
             Message response = (Message) fromServer.readObject();
-
-            // Close connection
-            toServer.close();
-            serverConnection.close();
 
             // Return transaction status from response message content
             boolean transactionResult = (boolean) response.getMessageContent();
