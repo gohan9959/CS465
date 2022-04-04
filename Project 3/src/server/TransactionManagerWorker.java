@@ -117,7 +117,7 @@ public class TransactionManagerWorker implements Runnable, MessageTypes
                     responseMessage = new Message(READ_REQUEST, balance);
                     sendResponse.writeObject(responseMessage);
 
-                    System.out.printf("[Transaction Worker] Transaction #%d - READ_REQUEST > Account #%d\n",
+                    System.out.printf("[TransactionManagerWorker] Transaction #%d - READ_REQUEST > Account #%d\n",
                                       transaction.TID, accountID);
 
                 }
