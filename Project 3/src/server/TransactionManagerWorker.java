@@ -101,7 +101,7 @@ public class TransactionManagerWorker implements Runnable, MessageTypes
                     balance = transaction.attemptToRead(accountID);
 
                     // Check for failed write
-                    if (balance != null)
+                    if (balance == null)
                     {
                         // Read from account
                         balance = transactionManager.readFromAccount(accountID);
@@ -139,6 +139,7 @@ public class TransactionManagerWorker implements Runnable, MessageTypes
                         messageType = TRANSACTION_ABORTED;
                     }
                     responseMessage = new Message(messageType, commitResult);
+                    sendResponse.writeObject(responseMessage);
 
                     // Set closed transaction flag
                     transactionClosed = true;

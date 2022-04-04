@@ -1,6 +1,9 @@
 package account;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import utils.PropertyHandler;
 
 public class AccountManager
 {
@@ -8,7 +11,26 @@ public class AccountManager
 
     public AccountManager()
     {
+        // Create new account list
         accountList = new ArrayList<Account>();
+
+        try
+        {
+            // Get number of accounts
+            PropertyHandler properties = new PropertyHandler("config/Server.properties");
+            int numAccounts = Integer.parseInt(properties.getProperty("NUM_ACCOUNTS"));
+            int startBal = Integer.parseInt(properties.getProperty("STARTING_BALANCE"));
+
+            // Fill account list
+            for (int index = 0; index < numAccounts; index++)
+            {
+                accountList.add(new Account(startBal));
+            }
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
     }
 
     /**
