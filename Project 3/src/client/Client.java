@@ -8,8 +8,18 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+/**
+ * Class that handles client interaction with the transactional server
+ *
+ * @author Zachary Wilson-Long
+ */
 public class Client
 {
+    /**
+     * Handles randomization
+     */
+    private Random random;
 
     /**
      * Handles reading/writing to/from the property file
@@ -35,6 +45,7 @@ public class Client
             System.exit(1);
         }
 
+        random = new Random();
     }
 
     /**
@@ -45,8 +56,6 @@ public class Client
     private int randomAccountNumber()
     {
         int num_of_accounts = Integer.parseInt(properties.getProperty("NUM_ACCOUNTS"));
-
-        Random random = new Random();
         return random.nextInt(num_of_accounts);
     }
 
@@ -60,11 +69,7 @@ public class Client
         // get number of transactions
         int numTransactions = Integer.parseInt(properties.getProperty("NUM_TRANSACTIONS"));
 
-        // init random variable
-        Random random = new Random();
-
-        int transIndex;
-        for (transIndex = 0; transIndex < numTransactions; transIndex++)
+        for (int transIndex = 0; transIndex < numTransactions; transIndex++)
         {
 
             // get two random account numbers
@@ -89,6 +94,8 @@ public class Client
             boolean transSuccess = false;
             while(!transSuccess)
             {
+
+                // create new proxy
                 Proxy proxy = new Proxy();
 
                 // start transaction
@@ -145,5 +152,4 @@ public class Client
 
         client.startClient();
     }
-
 }

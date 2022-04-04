@@ -34,6 +34,7 @@ public class TransactionServer implements MessageTypes
             transactionManager.startWorker(clientConnection);
         }
     }
+
     public static void main(String[] args)
     {
         try
