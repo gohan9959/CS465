@@ -4,7 +4,7 @@ package account;
 /**
  * Object representing the "bank" accounts stored on the server
  *
- * @Author Conrad Murphy
+ * @author Conrad Murphy
  */
 public class Account
 {

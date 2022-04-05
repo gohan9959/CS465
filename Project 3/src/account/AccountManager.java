@@ -5,10 +5,18 @@ import java.util.ArrayList;
 
 import utils.PropertyHandler;
 
+/**
+ * Manages accounts being stored on the server
+ *
+ * @author Conrad Murphy
+ */
 public class AccountManager
 {
     private ArrayList<Account> accountList;
 
+    /**
+     * Constructor initiates accounts on the server by given values from server property file
+     */
     public AccountManager()
     {
         // Create new account list

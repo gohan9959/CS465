@@ -79,8 +79,11 @@ public class Client implements Runnable
             }
             while (fromAccountNum == toAccountNum);
 
-            // random amount between 1 to 100
-            int writeAmount = random.nextInt(100) + 1;
+            // get number of transactions
+            int startingBalance = Integer.parseInt(properties.getProperty("STARTING_BALANCE"));
+
+            // random amount between 1 to the starting balances of accounts
+            int writeAmount = random.nextInt(startingBalance) + 1;
 
 
             System.out.printf("Attempting Transaction #%d:\n" +

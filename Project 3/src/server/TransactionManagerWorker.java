@@ -9,6 +9,11 @@ import java.util.HashMap;
 import message.Message;
 import message.MessageTypes;
 
+/**
+ * Worker created as a thread to conduct transactions for each client
+ *
+ * @author Harshith Shakelli
+ */
 public class TransactionManagerWorker implements Runnable, MessageTypes
 {
     /**

@@ -6,6 +6,8 @@ import java.util.HashMap;
 /**
  * Hold transactional data, such as read set, write set, and most recently
  * committed transaction number for verification purposes.
+ *
+ * @author Harshith Shakelli
  */
 public class Transaction
 {
