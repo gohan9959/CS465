@@ -4,6 +4,10 @@ import java.io.IOException;
 
 import utils.PropertyHandler;
 
+/**
+ * Create multiple instances of Client to run in parallel, depending on client
+ * properties.
+ */
 public class ClientDriver
 {
     public static void main(String[] args)
