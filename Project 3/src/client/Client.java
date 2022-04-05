@@ -145,16 +145,26 @@ public class Client implements Runnable
             int startBal = Integer.parseInt(properties.getProperty("STARTING_BALANCE"));
             int totalMoney = numAccounts * startBal;
 
-            // Open transaction which reads each account's balance
-            Proxy proxy = new Proxy();
-            proxy.openTransaction();
-
+            // Start transaction to read all balances
+            boolean committed = false;
             int totalSoFar = 0;
-            for (int index = 0; index < numAccounts; index++)
+            while (!committed)
             {
-                totalSoFar += proxy.read(index);
+                totalSoFar = 0;
+
+                Proxy proxy = new Proxy();
+                proxy.openTransaction();
+
+                for (int index = 0; index < numAccounts; index++)
+                {
+                    totalSoFar += proxy.read(index);
+                }
+
+                if (proxy.closeTransaction())
+                {
+                    committed = true;
+                }
             }
-            proxy.closeTransaction();
 
             // Print results
             if (totalSoFar == totalMoney)

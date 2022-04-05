@@ -97,7 +97,7 @@ public class TransactionManager
         // Consider all transactions with TNUM greater than new transaction's
         // TNUM but less than most recently committed TNUM
         for (transactionIndex = newTransaction.TNUM + 1;
-                transactionIndex < transactionNum; transactionIndex++)
+                transactionIndex <= transactionNum; transactionIndex++)
         {
             oldTransaction = committedTransactions.get(transactionIndex);
 
