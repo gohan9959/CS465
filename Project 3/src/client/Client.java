@@ -8,13 +8,12 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  * Class that handles client interaction with the transactional server
  *
  * @author Zachary Wilson-Long
  */
-public class Client
+public class Client implements Runnable
 {
     /**
      * Handles randomization
@@ -60,11 +59,10 @@ public class Client
     }
 
     /**
-     * Implementation of interface Runnable
-     * <p>
-     * Called by main() to handle client setup and then call sender and receiver threads
+     * Implementation of interface Runnable. Called by main to begin sending
+     * transactions.
      */
-    public void startClient()
+    public void run()
     {
         // get number of transactions
         int numTransactions = Integer.parseInt(properties.getProperty("NUM_TRANSACTIONS"));
@@ -116,14 +114,60 @@ public class Client
                 }
                 else
                 {
-                    System.out.println("Transaction failed, restarting...\n");
+                    System.out.print("Transaction failed, restarting...\n");
                 }
 
             }
 
             // if loop exits than transaction must have been completed
-            System.out.println("Transaction successful\n");
+            System.out.print("Transaction successful\n");
 
+        }
+
+        // Create special transaction which checks that all data is valid
+        checkValidData();
+    }
+
+    /**
+     * Start a new transaction which reads from every account in the database,
+     * ensuring that combined money is the same as it was from the start. 
+     */
+    public void checkValidData()
+    {
+        try
+        {
+            // Get expected total money across all accounts
+            PropertyHandler properties = new PropertyHandler("config/Server.properties");
+            int numAccounts = Integer.parseInt(properties.getProperty("NUM_ACCOUNTS"));
+            int startBal = Integer.parseInt(properties.getProperty("STARTING_BALANCE"));
+            int totalMoney = numAccounts * startBal;
+
+            // Open transaction which reads each account's balance
+            Proxy proxy = new Proxy();
+            proxy.openTransaction();
+
+            int totalSoFar = 0;
+            for (int index = 0; index < numAccounts; index++)
+            {
+                totalSoFar += proxy.read(index);
+            }
+            proxy.closeTransaction();
+
+            // Print results
+            if (totalSoFar == totalMoney)
+            {
+                System.out.printf("\nValid data confirmed! Accounts started and "
+                        + "ended with %d total money.\n\n", totalMoney);
+            }
+            else
+            {
+                System.out.printf("\nINVALID DATA! Accounts started with %d money, "
+                        + "ended with %d.\n\n", totalMoney, totalSoFar);
+            }
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
         }
     }
 
@@ -150,6 +194,6 @@ public class Client
         System.out.println("Transaction Client Started");
         System.out.println("==========================\n");
 
-        client.startClient();
+        client.run();
     }
 }

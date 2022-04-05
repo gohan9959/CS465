@@ -75,6 +75,7 @@ public class TransactionManagerWorker implements Runnable, MessageTypes
         Integer balance;
         HashMap<?, ?> writeRequestContent;
         boolean commitResult;
+        String outputString;
 
         // Loop through transaction actions
         while (!transactionClosed)
@@ -129,31 +130,33 @@ public class TransactionManagerWorker implements Runnable, MessageTypes
                     writeRequestContent.forEach((requestID, requestBal) ->
                     {
                         transaction.writeSet.put((int) requestID, (int) requestBal);
+                        System.out.printf("[TransactionManagerWorker] Transaction #%d - WRITE_REQUEST "
+                                + "> Account #%d, new balance $%d\n", transaction.TID, requestID, requestBal);
                     });
-
-                    System.out.printf("[TransactionManagerWorker] Transaction #%d - WRITE_REQUEST", transaction.TID);// requestID, requestBal);
                 }
                 else if (messageType == MessageTypes.CLOSE_TRANSACTION)
                 {
                     // Verify transaction
                     commitResult = transactionManager.verify(transaction);
 
-                    System.out.printf("[TransactionManagerWorker] Transaction #%d - CLOSED_TRANSACTION - ",
-                                      transaction.TID);
+                    outputString = "[TransactionManagerWorker] Transaction #"
+                            + transaction.getTID() + " - CLOSED_TRANSACTION - ";
 
                     // Send commit result
                     if (commitResult)
                     {
                         messageType = TRANSACTION_COMMITTED;
 
-                        System.out.println("COMMITTED\n");
+                        outputString += "COMMITTED\n";
                     }
                     else
                     {
                         messageType = TRANSACTION_ABORTED;
 
-                        System.out.println("ABORTED\n");
+                        outputString += "ABORTED\n";
                     }
+                    System.out.print(outputString);
+
                     responseMessage = new Message(messageType, commitResult);
                     sendResponse.writeObject(responseMessage);
 
