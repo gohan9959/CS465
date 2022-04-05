@@ -1,0 +1,238 @@
+Attempting Transaction #1:
+[Transferring $6 from account #5 to #2]
+Attempting Transaction #1:
+[Transferring $6 from account #6 to #9]
+Attempting Transaction #1:
+[Transferring $8 from account #7 to #4]
+Attempting Transaction #1:
+[Transferring $9 from account #2 to #5]
+Attempting Transaction #1:
+[Transferring $10 from account #5 to #2]
+Attempting Transaction #1:
+[Transferring $5 from account #6 to #1]
+Attempting Transaction #1:
+[Transferring $9 from account #7 to #5]
+Attempting Transaction #1:
+[Transferring $2 from account #7 to #9]
+Attempting Transaction #1:
+[Transferring $10 from account #6 to #4]
+Attempting Transaction #1:
+[Transferring $1 from account #7 to #9]
+Transaction successful
+Attempting Transaction #2:
+[Transferring $1 from account #4 to #3]
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #2:
+[Transferring $9 from account #0 to #7]
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #2:
+[Transferring $2 from account #2 to #7]
+Transaction successful
+Attempting Transaction #2:
+[Transferring $1 from account #0 to #3]
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #2:
+[Transferring $4 from account #9 to #7]
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #3:
+[Transferring $8 from account #9 to #3]
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #3:
+[Transferring $10 from account #9 to #8]
+Transaction successful
+Attempting Transaction #3:
+[Transferring $10 from account #4 to #8]
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #2:
+[Transferring $1 from account #0 to #8]
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #2:
+[Transferring $3 from account #6 to #0]
+Transaction successful
+Attempting Transaction #4:
+[Transferring $8 from account #4 to #0]
+Transaction successful
+Attempting Transaction #3:
+[Transferring $9 from account #5 to #0]
+Transaction successful
+Attempting Transaction #2:
+[Transferring $8 from account #3 to #7]
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #3:
+[Transferring $7 from account #4 to #7]
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #4:
+[Transferring $1 from account #6 to #7]
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #2:
+[Transferring $9 from account #7 to #5]
+Transaction successful
+Attempting Transaction #5:
+[Transferring $8 from account #7 to #3]
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #2:
+[Transferring $7 from account #5 to #4]
+Transaction successful
+Attempting Transaction #3:
+[Transferring $7 from account #6 to #2]
+Transaction failed, restarting...
+Transaction successful
+Transaction failed, restarting...
+Attempting Transaction #5:
+[Transferring $2 from account #2 to #5]
+Transaction successful
+Attempting Transaction #3:
+[Transferring $4 from account #8 to #5]
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #3:
+[Transferring $8 from account #7 to #5]
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #4:
+[Transferring $8 from account #2 to #9]
+Transaction successful
+Transaction successful
+Attempting Transaction #4:
+[Transferring $7 from account #9 to #1]
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #4:
+[Transferring $6 from account #3 to #5]
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #5:
+[Transferring $3 from account #1 to #3]
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #4:
+[Transferring $4 from account #7 to #5]
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction successful
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #3:
+[Transferring $10 from account #0 to #7]
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #5:
+[Transferring $10 from account #4 to #5]
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction failed, restarting...
+
+Valid data confirmed! Accounts started and ended with 100 total money.
+
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #4:
+[Transferring $1 from account #2 to #0]
+
+Valid data confirmed! Accounts started and ended with 100 total money.
+
+Transaction successful
+Attempting Transaction #4:
+[Transferring $8 from account #1 to #8]
+Transaction successful
+Attempting Transaction #5:
+[Transferring $3 from account #1 to #9]
+Transaction failed, restarting...
+Transaction successful
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #5:
+[Transferring $4 from account #2 to #6]
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #5:
+[Transferring $2 from account #8 to #5]
+
+Valid data confirmed! Accounts started and ended with 100 total money.
+
+Transaction successful
+Transaction successful
+Attempting Transaction #4:
+[Transferring $5 from account #3 to #7]
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction successful
+Transaction failed, restarting...
+Transaction successful
+Transaction successful
+Attempting Transaction #5:
+[Transferring $7 from account #3 to #4]
+Transaction successful
+Transaction failed, restarting...
+Transaction failed, restarting...
+Transaction successful
+Attempting Transaction #3:
+[Transferring $4 from account #6 to #7]
+Transaction successful
+Transaction successful
+Attempting Transaction #5:
+[Transferring $3 from account #6 to #4]
+Transaction successful
+Attempting Transaction #4:
+[Transferring $1 from account #5 to #4]
+Transaction successful
+Attempting Transaction #5:
+[Transferring $6 from account #3 to #2]
+Transaction failed, restarting...
+Transaction successful
+Transaction successful
+
+Valid data confirmed! Accounts started and ended with 100 total money.
+
+
+Valid data confirmed! Accounts started and ended with 100 total money.
+
+
+Valid data confirmed! Accounts started and ended with 100 total money.
+
+
+Valid data confirmed! Accounts started and ended with 100 total money.
+
+
+Valid data confirmed! Accounts started and ended with 100 total money.
+
+
+Valid data confirmed! Accounts started and ended with 100 total money.
+
+
+Valid data confirmed! Accounts started and ended with 100 total money.
