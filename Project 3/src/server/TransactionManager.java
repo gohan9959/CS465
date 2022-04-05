@@ -114,7 +114,13 @@ public class TransactionManager
         {
             commitTransaction(newTransaction);
 
-            System.out.printf("[TransactionManager] Transaction #%d - Successfully Validated\n", newTransaction.TID);
+            System.out.printf("[TransactionManager] Transaction #%d - "
+                    + "Successfully Validated\n", newTransaction.TID);
+        }
+        else
+        {
+            System.out.printf("[TransactionManager] Transaction #%d - Failed "
+                    + "Validation\n", newTransaction.TID);
         }
 
         return successful;
