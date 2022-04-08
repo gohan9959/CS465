@@ -7,6 +7,11 @@ import java.net.Socket;
 import message.MessageTypes;
 import utils.PropertyHandler;
 
+/**
+ * Main file responsible for all server funcitons including main server loop
+ *
+ * @author Harshith Shakelli
+ */
 public class TransactionServer implements MessageTypes
 {
     private static int port;

@@ -1,5 +1,10 @@
 package message;
 
+/**
+ * Interface of all message types.
+ *
+ * @author Conrad Murphy
+ */
 public interface MessageTypes
 {
     public static final int OPEN_TRANSACTION = 0;

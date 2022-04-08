@@ -1,0 +1,1131 @@
+Transaction server initiated
+Accepting incoming transactions
+===============================
+
+[TransactionManagerWorker] Transaction #0 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #2 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #9 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #0 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #7 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #5 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #4 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #3 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #4 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #3 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #3 - WRITE_REQUEST > Account #7, new balance $1
+[TransactionManagerWorker] Transaction #3 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #3 - WRITE_REQUEST > Account #5, new balance $19
+[TransactionManager] Transaction #3 - Successfully Validated
+[TransactionManagerWorker] Transaction #7 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #9 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #5 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #4 - WRITE_REQUEST > Account #6, new balance $4
+[TransactionManagerWorker] Transaction #4 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #6 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #3 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #9 - WRITE_REQUEST > Account #5, new balance $9
+[TransactionManagerWorker] Transaction #5 - WRITE_REQUEST > Account #2, new balance $1
+[TransactionManagerWorker] Transaction #5 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #9 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #7 - WRITE_REQUEST > Account #7, new balance $2
+[TransactionManagerWorker] Transaction #2 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #7 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #1 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #0 - WRITE_REQUEST > Account #6, new balance $0
+[TransactionManagerWorker] Transaction #9 - WRITE_REQUEST > Account #2, new balance $20
+[TransactionManagerWorker] Transaction #8 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #0 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #4 - WRITE_REQUEST > Account #9, new balance $16
+[TransactionManagerWorker] Transaction #2 - WRITE_REQUEST > Account #6, new balance $5
+[TransactionManagerWorker] Transaction #1 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #6 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #2 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #8 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #0 - WRITE_REQUEST > Account #4, new balance $20
+[TransactionManagerWorker] Transaction #1 - WRITE_REQUEST > Account #7, new balance $-1
+[TransactionManagerWorker] Transaction #7 - WRITE_REQUEST > Account #4, new balance $18
+[TransactionManagerWorker] Transaction #5 - WRITE_REQUEST > Account #5, new balance $28
+[TransactionManager] Transaction #9 - Failed Validation
+[TransactionManagerWorker] Transaction #1 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #2 - WRITE_REQUEST > Account #1, new balance $15
+[TransactionManagerWorker] Transaction #8 - WRITE_REQUEST > Account #5, new balance $13
+[TransactionManagerWorker] Transaction #6 - WRITE_REQUEST > Account #7, new balance $0
+[TransactionManagerWorker] Transaction #1 - WRITE_REQUEST > Account #9, new balance $12
+[TransactionManagerWorker] Transaction #9 - CLOSED_TRANSACTION - ABORTED
+[TransactionManager] Transaction #5 - Failed Validation
+[TransactionManagerWorker] Transaction #5 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #6 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #8 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #8 - WRITE_REQUEST > Account #2, new balance $16
+[TransactionManagerWorker] Transaction #6 - WRITE_REQUEST > Account #9, new balance $11
+[TransactionManager] Transaction #7 - Failed Validation
+[TransactionManagerWorker] Transaction #7 - CLOSED_TRANSACTION - ABORTED
+[TransactionManager] Transaction #0 - Successfully Validated
+[TransactionManagerWorker] Transaction #0 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManager] Transaction #4 - Failed Validation
+[TransactionManager] Transaction #6 - Failed Validation
+[TransactionManagerWorker] Transaction #6 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #4 - CLOSED_TRANSACTION - ABORTED
+[TransactionManager] Transaction #8 - Failed Validation
+[TransactionManagerWorker] Transaction #8 - CLOSED_TRANSACTION - ABORTED
+[TransactionManager] Transaction #1 - Failed Validation
+[TransactionManager] Transaction #2 - Failed Validation
+[TransactionManagerWorker] Transaction #2 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #1 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #10 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #10 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #10 - WRITE_REQUEST > Account #5, new balance $9
+[TransactionManagerWorker] Transaction #11 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #10 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #16 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #18 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #16 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #18 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #17 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #16 - WRITE_REQUEST > Account #7, new balance $-7
+[TransactionManagerWorker] Transaction #17 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #17 - WRITE_REQUEST > Account #7, new balance $-1
+[TransactionManagerWorker] Transaction #17 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #17 - WRITE_REQUEST > Account #9, new balance $12
+[TransactionManagerWorker] Transaction #10 - WRITE_REQUEST > Account #2, new balance $20
+[TransactionManagerWorker] Transaction #15 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #14 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #14 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #15 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #13 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #12 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #15 - WRITE_REQUEST > Account #7, new balance $-2
+[TransactionManagerWorker] Transaction #13 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #13 - WRITE_REQUEST > Account #0, new balance $1
+[TransactionManagerWorker] Transaction #13 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #13 - WRITE_REQUEST > Account #7, new balance $8
+[TransactionManagerWorker] Transaction #14 - WRITE_REQUEST > Account #6, new balance $-5
+[TransactionManagerWorker] Transaction #14 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #11 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #11 - WRITE_REQUEST > Account #4, new balance $19
+[TransactionManagerWorker] Transaction #15 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #14 - WRITE_REQUEST > Account #1, new balance $15
+[TransactionManagerWorker] Transaction #12 - READ_REQUEST > Account #2
+[TransactionManager] Transaction #17 - Successfully Validated
+[TransactionManagerWorker] Transaction #16 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #18 - WRITE_REQUEST > Account #6, new balance $-6
+[TransactionManagerWorker] Transaction #12 - WRITE_REQUEST > Account #2, new balance $1
+[TransactionManagerWorker] Transaction #17 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #12 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #19 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #18 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #18 - WRITE_REQUEST > Account #9, new balance $18
+[TransactionManagerWorker] Transaction #16 - WRITE_REQUEST > Account #4, new balance $28
+[TransactionManager] Transaction #14 - Successfully Validated
+[TransactionManagerWorker] Transaction #14 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManager] Transaction #13 - Failed Validation
+[TransactionManagerWorker] Transaction #13 - CLOSED_TRANSACTION - ABORTED
+[TransactionManager] Transaction #10 - Successfully Validated
+[TransactionManagerWorker] Transaction #10 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManager] Transaction #16 - Failed Validation
+[TransactionManagerWorker] Transaction #16 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #15 - WRITE_REQUEST > Account #9, new balance $13
+[TransactionManagerWorker] Transaction #11 - READ_REQUEST > Account #3
+[TransactionManager] Transaction #18 - Failed Validation
+[TransactionManagerWorker] Transaction #18 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #11 - WRITE_REQUEST > Account #3, new balance $11
+[TransactionManager] Transaction #11 - Successfully Validated
+[TransactionManagerWorker] Transaction #11 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #19 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #12 - WRITE_REQUEST > Account #5, new balance $28
+[TransactionManager] Transaction #12 - Failed Validation
+[TransactionManagerWorker] Transaction #12 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #19 - WRITE_REQUEST > Account #5, new balance $13
+[TransactionManager] Transaction #15 - Failed Validation
+[TransactionManagerWorker] Transaction #15 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #19 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #19 - WRITE_REQUEST > Account #2, new balance $26
+[TransactionManager] Transaction #19 - Failed Validation
+[TransactionManagerWorker] Transaction #19 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #20 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #20 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #20 - WRITE_REQUEST > Account #0, new balance $9
+[TransactionManagerWorker] Transaction #20 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #20 - WRITE_REQUEST > Account #3, new balance $12
+[TransactionManager] Transaction #20 - Successfully Validated
+[TransactionManagerWorker] Transaction #20 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #21 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #21 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #22 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #21 - WRITE_REQUEST > Account #2, new balance $18
+[TransactionManagerWorker] Transaction #21 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #21 - WRITE_REQUEST > Account #7, new balance $1
+[TransactionManager] Transaction #21 - Successfully Validated
+[TransactionManagerWorker] Transaction #21 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #22 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #22 - WRITE_REQUEST > Account #0, new balance $0
+[TransactionManagerWorker] Transaction #22 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #22 - WRITE_REQUEST > Account #7, new balance $10
+[TransactionManager] Transaction #22 - Failed Validation
+[TransactionManagerWorker] Transaction #22 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #23 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #23 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #24 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #23 - WRITE_REQUEST > Account #9, new balance $8
+[TransactionManagerWorker] Transaction #24 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #24 - WRITE_REQUEST > Account #6, new balance $-11
+[TransactionManagerWorker] Transaction #23 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #24 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #24 - WRITE_REQUEST > Account #9, new balance $18
+[TransactionManagerWorker] Transaction #23 - WRITE_REQUEST > Account #7, new balance $5
+[TransactionManager] Transaction #24 - Successfully Validated
+[TransactionManagerWorker] Transaction #24 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #25 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #26 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #26 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #25 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #26 - WRITE_REQUEST > Account #9, new balance $10
+[TransactionManagerWorker] Transaction #26 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #25 - WRITE_REQUEST > Account #7, new balance $-7
+[TransactionManagerWorker] Transaction #25 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #26 - WRITE_REQUEST > Account #3, new balance $20
+[TransactionManagerWorker] Transaction #32 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #33 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #31 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #27 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #33 - READ_REQUEST > Account #0
+[TransactionManager] Transaction #23 - Failed Validation
+[TransactionManagerWorker] Transaction #30 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #31 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #30 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #29 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #28 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #25 - WRITE_REQUEST > Account #4, new balance $27
+[TransactionManagerWorker] Transaction #29 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #29 - WRITE_REQUEST > Account #9, new balance $0
+[TransactionManagerWorker] Transaction #30 - WRITE_REQUEST > Account #4, new balance $9
+[TransactionManagerWorker] Transaction #30 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #31 - WRITE_REQUEST > Account #0, new balance $8
+[TransactionManager] Transaction #26 - Successfully Validated
+[TransactionManager] Transaction #25 - Successfully Validated
+[TransactionManagerWorker] Transaction #23 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #33 - WRITE_REQUEST > Account #0, new balance $0
+[TransactionManagerWorker] Transaction #33 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #33 - WRITE_REQUEST > Account #7, new balance $2
+[TransactionManager] Transaction #33 - Failed Validation
+[TransactionManagerWorker] Transaction #33 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #27 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #32 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #32 - WRITE_REQUEST > Account #7, new balance $0
+[TransactionManagerWorker] Transaction #32 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #27 - WRITE_REQUEST > Account #2, new balance $9
+[TransactionManagerWorker] Transaction #25 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #26 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #34 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #34 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #34 - WRITE_REQUEST > Account #0, new balance $0
+[TransactionManagerWorker] Transaction #34 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #34 - WRITE_REQUEST > Account #7, new balance $2
+[TransactionManager] Transaction #34 - Successfully Validated
+[TransactionManagerWorker] Transaction #34 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #27 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #27 - WRITE_REQUEST > Account #5, new balance $18
+[TransactionManager] Transaction #27 - Successfully Validated
+[TransactionManagerWorker] Transaction #27 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #31 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #30 - WRITE_REQUEST > Account #8, new balance $20
+[TransactionManagerWorker] Transaction #29 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #28 - READ_REQUEST > Account #5
+[TransactionManager] Transaction #30 - Failed Validation
+[TransactionManagerWorker] Transaction #30 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #28 - WRITE_REQUEST > Account #5, new balance $3
+[TransactionManagerWorker] Transaction #28 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #28 - WRITE_REQUEST > Account #2, new balance $15
+[TransactionManager] Transaction #28 - Failed Validation
+[TransactionManagerWorker] Transaction #28 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #37 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #37 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #37 - WRITE_REQUEST > Account #9, new balance $6
+[TransactionManagerWorker] Transaction #37 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #31 - WRITE_REQUEST > Account #8, new balance $11
+[TransactionManagerWorker] Transaction #35 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #36 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #32 - WRITE_REQUEST > Account #9, new balance $11
+[TransactionManagerWorker] Transaction #37 - WRITE_REQUEST > Account #7, new balance $6
+[TransactionManager] Transaction #31 - Failed Validation
+[TransactionManager] Transaction #37 - Successfully Validated
+[TransactionManager] Transaction #32 - Failed Validation
+[TransactionManagerWorker] Transaction #32 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #37 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #38 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #29 - WRITE_REQUEST > Account #8, new balance $20
+[TransactionManager] Transaction #29 - Failed Validation
+[TransactionManagerWorker] Transaction #29 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #38 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #38 - WRITE_REQUEST > Account #5, new balance $9
+[TransactionManagerWorker] Transaction #38 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #38 - WRITE_REQUEST > Account #0, new balance $9
+[TransactionManager] Transaction #38 - Successfully Validated
+[TransactionManagerWorker] Transaction #38 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #31 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #35 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #35 - WRITE_REQUEST > Account #6, new balance $-14
+[TransactionManagerWorker] Transaction #35 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #36 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #35 - WRITE_REQUEST > Account #0, new balance $12
+[TransactionManager] Transaction #35 - Failed Validation
+[TransactionManagerWorker] Transaction #35 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #36 - WRITE_REQUEST > Account #4, new balance $19
+[TransactionManagerWorker] Transaction #36 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #36 - WRITE_REQUEST > Account #0, new balance $17
+[TransactionManager] Transaction #36 - Failed Validation
+[TransactionManagerWorker] Transaction #36 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #39 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #39 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #39 - WRITE_REQUEST > Account #3, new balance $12
+[TransactionManagerWorker] Transaction #39 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #41 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #40 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #41 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #42 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #41 - WRITE_REQUEST > Account #7, new balance $5
+[TransactionManagerWorker] Transaction #43 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #41 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #41 - WRITE_REQUEST > Account #9, new balance $7
+[TransactionManager] Transaction #41 - Successfully Validated
+[TransactionManagerWorker] Transaction #41 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #44 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #44 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #44 - WRITE_REQUEST > Account #4, new balance $19
+[TransactionManagerWorker] Transaction #39 - WRITE_REQUEST > Account #7, new balance $14
+[TransactionManager] Transaction #39 - Failed Validation
+[TransactionManagerWorker] Transaction #44 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #44 - WRITE_REQUEST > Account #0, new balance $17
+[TransactionManager] Transaction #44 - Successfully Validated
+[TransactionManagerWorker] Transaction #44 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #43 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #39 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #42 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #42 - WRITE_REQUEST > Account #5, new balance $3
+[TransactionManagerWorker] Transaction #42 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #40 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #48 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #47 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #40 - WRITE_REQUEST > Account #4, new balance $20
+[TransactionManagerWorker] Transaction #46 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #40 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #45 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #43 - WRITE_REQUEST > Account #6, new balance $-14
+[TransactionManagerWorker] Transaction #43 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #43 - WRITE_REQUEST > Account #0, new balance $20
+[TransactionManagerWorker] Transaction #46 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #40 - WRITE_REQUEST > Account #7, new balance $12
+[TransactionManagerWorker] Transaction #49 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #50 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #47 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #50 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #48 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #48 - WRITE_REQUEST > Account #6, new balance $-12
+[TransactionManagerWorker] Transaction #50 - WRITE_REQUEST > Account #7, new balance $-4
+[TransactionManagerWorker] Transaction #48 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #48 - WRITE_REQUEST > Account #7, new balance $6
+[TransactionManagerWorker] Transaction #42 - WRITE_REQUEST > Account #2, new balance $15
+[TransactionManagerWorker] Transaction #50 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #51 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #47 - WRITE_REQUEST > Account #0, new balance $16
+[TransactionManagerWorker] Transaction #49 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #47 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #47 - WRITE_REQUEST > Account #8, new balance $11
+[TransactionManagerWorker] Transaction #46 - WRITE_REQUEST > Account #4, new balance $9
+[TransactionManager] Transaction #43 - Failed Validation
+[TransactionManagerWorker] Transaction #46 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #46 - WRITE_REQUEST > Account #8, new balance $20
+[TransactionManager] Transaction #47 - Successfully Validated
+[TransactionManagerWorker] Transaction #45 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #47 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManager] Transaction #42 - Successfully Validated
+[TransactionManagerWorker] Transaction #42 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #43 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #45 - WRITE_REQUEST > Account #9, new balance $-3
+[TransactionManagerWorker] Transaction #51 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #49 - WRITE_REQUEST > Account #3, new balance $12
+[TransactionManagerWorker] Transaction #50 - WRITE_REQUEST > Account #5, new balance $18
+[TransactionManagerWorker] Transaction #49 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #52 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #49 - WRITE_REQUEST > Account #7, new balance $14
+[TransactionManagerWorker] Transaction #45 - READ_REQUEST > Account #8
+[TransactionManager] Transaction #48 - Successfully Validated
+[TransactionManagerWorker] Transaction #48 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #51 - WRITE_REQUEST > Account #7, new balance $-3
+[TransactionManagerWorker] Transaction #45 - WRITE_REQUEST > Account #8, new balance $21
+[TransactionManagerWorker] Transaction #51 - READ_REQUEST > Account #3
+[TransactionManager] Transaction #45 - Failed Validation
+[TransactionManagerWorker] Transaction #45 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #52 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #52 - WRITE_REQUEST > Account #6, new balance $-15
+[TransactionManagerWorker] Transaction #52 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #52 - WRITE_REQUEST > Account #0, new balance $19
+[TransactionManager] Transaction #52 - Successfully Validated
+[TransactionManagerWorker] Transaction #53 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #54 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #51 - WRITE_REQUEST > Account #3, new balance $28
+[TransactionManagerWorker] Transaction #52 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManager] Transaction #40 - Failed Validation
+[TransactionManagerWorker] Transaction #40 - CLOSED_TRANSACTION - ABORTED
+[TransactionManager] Transaction #51 - Failed Validation
+[TransactionManager] Transaction #49 - Failed Validation
+[TransactionManagerWorker] Transaction #51 - CLOSED_TRANSACTION - ABORTED
+[TransactionManager] Transaction #50 - Failed Validation
+[TransactionManagerWorker] Transaction #50 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #49 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #53 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #54 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #53 - WRITE_REQUEST > Account #5, new balance $-4
+[TransactionManagerWorker] Transaction #54 - WRITE_REQUEST > Account #6, new balance $-22
+[TransactionManagerWorker] Transaction #54 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #54 - WRITE_REQUEST > Account #2, new balance $22
+[TransactionManagerWorker] Transaction #53 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #53 - WRITE_REQUEST > Account #4, new balance $26
+[TransactionManager] Transaction #46 - Failed Validation
+[TransactionManagerWorker] Transaction #46 - CLOSED_TRANSACTION - ABORTED
+[TransactionManager] Transaction #53 - Successfully Validated
+[TransactionManagerWorker] Transaction #53 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManager] Transaction #54 - Successfully Validated
+[TransactionManagerWorker] Transaction #54 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #56 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #56 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #56 - WRITE_REQUEST > Account #2, new balance $20
+[TransactionManagerWorker] Transaction #56 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #56 - WRITE_REQUEST > Account #5, new balance $-2
+[TransactionManager] Transaction #56 - Successfully Validated
+[TransactionManagerWorker] Transaction #56 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #55 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #57 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #55 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #55 - WRITE_REQUEST > Account #9, new balance $-3
+[TransactionManagerWorker] Transaction #58 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #57 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #55 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #58 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #55 - WRITE_REQUEST > Account #8, new balance $21
+[TransactionManager] Transaction #55 - Successfully Validated
+[TransactionManagerWorker] Transaction #55 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #57 - WRITE_REQUEST > Account #4, new balance $19
+[TransactionManagerWorker] Transaction #58 - WRITE_REQUEST > Account #8, new balance $7
+[TransactionManagerWorker] Transaction #58 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #58 - WRITE_REQUEST > Account #5, new balance $2
+[TransactionManager] Transaction #58 - Failed Validation
+[TransactionManagerWorker] Transaction #58 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #57 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #57 - WRITE_REQUEST > Account #7, new balance $13
+[TransactionManager] Transaction #57 - Successfully Validated
+[TransactionManagerWorker] Transaction #57 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #66 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #64 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #64 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #64 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #64 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #64 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #65 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #66 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #66 - WRITE_REQUEST > Account #9, new balance $-10
+[TransactionManagerWorker] Transaction #66 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #63 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #63 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #63 - WRITE_REQUEST > Account #7, new balance $5
+[TransactionManagerWorker] Transaction #63 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #63 - WRITE_REQUEST > Account #3, new balance $28
+[TransactionManager] Transaction #63 - Failed Validation
+[TransactionManagerWorker] Transaction #63 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #62 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #61 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #60 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #62 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #62 - WRITE_REQUEST > Account #7, new balance $5
+[TransactionManagerWorker] Transaction #62 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #59 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #61 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #62 - WRITE_REQUEST > Account #5, new balance $6
+[TransactionManager] Transaction #62 - Failed Validation
+[TransactionManagerWorker] Transaction #60 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #66 - WRITE_REQUEST > Account #1, new balance $22
+[TransactionManager] Transaction #66 - Successfully Validated
+[TransactionManagerWorker] Transaction #66 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #64 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #65 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #65 - WRITE_REQUEST > Account #7, new balance $4
+[TransactionManagerWorker] Transaction #65 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #65 - WRITE_REQUEST > Account #5, new balance $7
+[TransactionManager] Transaction #65 - Failed Validation
+[TransactionManagerWorker] Transaction #65 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #69 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #61 - WRITE_REQUEST > Account #2, new balance $12
+[TransactionManagerWorker] Transaction #61 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #67 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #60 - WRITE_REQUEST > Account #3, new balance $12
+[TransactionManagerWorker] Transaction #62 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #72 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #60 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #60 - WRITE_REQUEST > Account #7, new balance $21
+[TransactionManagerWorker] Transaction #59 - READ_REQUEST > Account #4
+[TransactionManager] Transaction #60 - Failed Validation
+[TransactionManagerWorker] Transaction #60 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #72 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #59 - WRITE_REQUEST > Account #4, new balance $9
+[TransactionManagerWorker] Transaction #72 - WRITE_REQUEST > Account #7, new balance $5
+[TransactionManagerWorker] Transaction #71 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #71 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #72 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #72 - WRITE_REQUEST > Account #5, new balance $6
+[TransactionManager] Transaction #72 - Successfully Validated
+[TransactionManagerWorker] Transaction #72 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #70 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #70 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #68 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #70 - WRITE_REQUEST > Account #7, new balance $-4
+[TransactionManagerWorker] Transaction #67 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #70 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #61 - WRITE_REQUEST > Account #9, new balance $-2
+[TransactionManager] Transaction #61 - Failed Validation
+[TransactionManagerWorker] Transaction #67 - WRITE_REQUEST > Account #3, new balance $14
+[TransactionManagerWorker] Transaction #70 - WRITE_REQUEST > Account #5, new balance $15
+[TransactionManager] Transaction #70 - Failed Validation
+[TransactionManagerWorker] Transaction #70 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #69 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #69 - WRITE_REQUEST > Account #8, new balance $17
+[TransactionManagerWorker] Transaction #64 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #64 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #64 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #64 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #64 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #64 - Failed Validation
+[TransactionManagerWorker] Transaction #64 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #69 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #69 - WRITE_REQUEST > Account #5, new balance $10
+[TransactionManager] Transaction #69 - Failed Validation
+[TransactionManagerWorker] Transaction #69 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #67 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #61 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #68 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #67 - WRITE_REQUEST > Account #5, new balance $12
+[TransactionManager] Transaction #67 - Failed Validation
+[TransactionManagerWorker] Transaction #71 - WRITE_REQUEST > Account #1, new balance $19
+[TransactionManagerWorker] Transaction #59 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #71 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #71 - WRITE_REQUEST > Account #3, new balance $23
+[TransactionManagerWorker] Transaction #67 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #78 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #77 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #76 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #76 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #76 - WRITE_REQUEST > Account #7, new balance $1
+[TransactionManagerWorker] Transaction #76 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #76 - WRITE_REQUEST > Account #5, new balance $10
+[TransactionManagerWorker] Transaction #75 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #74 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #73 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #68 - WRITE_REQUEST > Account #7, new balance $-3
+[TransactionManagerWorker] Transaction #68 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #68 - WRITE_REQUEST > Account #3, new balance $31
+[TransactionManagerWorker] Transaction #79 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #73 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #73 - WRITE_REQUEST > Account #3, new balance $15
+[TransactionManagerWorker] Transaction #74 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #75 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #75 - WRITE_REQUEST > Account #2, new balance $12
+[TransactionManagerWorker] Transaction #75 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #75 - WRITE_REQUEST > Account #9, new balance $-2
+[TransactionManagerWorker] Transaction #79 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #79 - WRITE_REQUEST > Account #3, new balance $17
+[TransactionManagerWorker] Transaction #79 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #79 - WRITE_REQUEST > Account #5, new balance $12
+[TransactionManagerWorker] Transaction #77 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #77 - WRITE_REQUEST > Account #7, new balance $-4
+[TransactionManagerWorker] Transaction #77 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #78 - READ_REQUEST > Account #0
+[TransactionManager] Transaction #71 - Successfully Validated
+[TransactionManagerWorker] Transaction #71 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #78 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #59 - WRITE_REQUEST > Account #8, new balance $31
+[TransactionManager] Transaction #59 - Failed Validation
+[TransactionManagerWorker] Transaction #59 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #77 - WRITE_REQUEST > Account #5, new balance $15
+[TransactionManager] Transaction #77 - Successfully Validated
+[TransactionManagerWorker] Transaction #77 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #78 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #78 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #78 - READ_REQUEST > Account #4
+[TransactionManager] Transaction #79 - Failed Validation
+[TransactionManagerWorker] Transaction #79 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #78 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #74 - WRITE_REQUEST > Account #8, new balance $17
+[TransactionManagerWorker] Transaction #74 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #74 - WRITE_REQUEST > Account #5, new balance $19
+[TransactionManager] Transaction #74 - Failed Validation
+[TransactionManagerWorker] Transaction #74 - CLOSED_TRANSACTION - ABORTED
+[TransactionManager] Transaction #75 - Successfully Validated
+[TransactionManagerWorker] Transaction #75 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #73 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #73 - WRITE_REQUEST > Account #7, new balance $13
+[TransactionManager] Transaction #73 - Failed Validation
+[TransactionManagerWorker] Transaction #73 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #78 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #78 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #78 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #78 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #78 - Failed Validation
+[TransactionManagerWorker] Transaction #78 - CLOSED_TRANSACTION - ABORTED
+[TransactionManager] Transaction #68 - Failed Validation
+[TransactionManagerWorker] Transaction #68 - CLOSED_TRANSACTION - ABORTED
+[TransactionManager] Transaction #76 - Failed Validation
+[TransactionManagerWorker] Transaction #76 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #80 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #80 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #80 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #80 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #80 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #80 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #80 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #80 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #80 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #80 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #80 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #80 - Successfully Validated
+[TransactionManagerWorker] Transaction #80 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #81 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #81 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #81 - WRITE_REQUEST > Account #4, new balance $9
+[TransactionManagerWorker] Transaction #81 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #81 - WRITE_REQUEST > Account #8, new balance $31
+[TransactionManager] Transaction #81 - Successfully Validated
+[TransactionManagerWorker] Transaction #81 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #82 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #82 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #82 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #82 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #90 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #82 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #82 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #89 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #82 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #89 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #82 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #88 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #82 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #88 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #82 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #88 - WRITE_REQUEST > Account #7, new balance $-8
+[TransactionManagerWorker] Transaction #82 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #82 - Successfully Validated
+[TransactionManagerWorker] Transaction #82 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #84 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #84 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #84 - WRITE_REQUEST > Account #3, new balance $17
+[TransactionManagerWorker] Transaction #83 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #83 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #83 - WRITE_REQUEST > Account #8, new balance $27
+[TransactionManagerWorker] Transaction #87 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #83 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #83 - WRITE_REQUEST > Account #5, new balance $19
+[TransactionManager] Transaction #83 - Successfully Validated
+[TransactionManagerWorker] Transaction #83 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #87 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #87 - WRITE_REQUEST > Account #2, new balance $11
+[TransactionManagerWorker] Transaction #87 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #87 - WRITE_REQUEST > Account #0, new balance $20
+[TransactionManager] Transaction #87 - Successfully Validated
+[TransactionManagerWorker] Transaction #87 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #86 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #86 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #85 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #85 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #84 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #84 - WRITE_REQUEST > Account #5, new balance $21
+[TransactionManager] Transaction #84 - Failed Validation
+[TransactionManagerWorker] Transaction #84 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #86 - WRITE_REQUEST > Account #3, new balance $15
+[TransactionManagerWorker] Transaction #86 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #85 - WRITE_REQUEST > Account #4, new balance $-1
+[TransactionManagerWorker] Transaction #88 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #89 - WRITE_REQUEST > Account #7, new balance $-12
+[TransactionManagerWorker] Transaction #89 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #89 - WRITE_REQUEST > Account #3, new balance $31
+[TransactionManagerWorker] Transaction #88 - WRITE_REQUEST > Account #5, new balance $19
+[TransactionManagerWorker] Transaction #90 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #91 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #91 - READ_REQUEST > Account #1
+[TransactionManager] Transaction #89 - Successfully Validated
+[TransactionManagerWorker] Transaction #89 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #85 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #85 - WRITE_REQUEST > Account #5, new balance $29
+[TransactionManagerWorker] Transaction #86 - WRITE_REQUEST > Account #7, new balance $4
+[TransactionManagerWorker] Transaction #91 - WRITE_REQUEST > Account #1, new balance $16
+[TransactionManager] Transaction #88 - Failed Validation
+[TransactionManagerWorker] Transaction #88 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #90 - WRITE_REQUEST > Account #0, new balance $9
+[TransactionManager] Transaction #85 - Failed Validation
+[TransactionManagerWorker] Transaction #85 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #91 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #90 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #90 - WRITE_REQUEST > Account #7, new balance $-2
+[TransactionManager] Transaction #90 - Failed Validation
+[TransactionManagerWorker] Transaction #90 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #92 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #92 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #92 - WRITE_REQUEST > Account #1, new balance $11
+[TransactionManagerWorker] Transaction #92 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #92 - WRITE_REQUEST > Account #8, new balance $35
+[TransactionManager] Transaction #92 - Successfully Validated
+[TransactionManagerWorker] Transaction #92 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #91 - WRITE_REQUEST > Account #9, new balance $1
+[TransactionManager] Transaction #91 - Failed Validation
+[TransactionManagerWorker] Transaction #91 - CLOSED_TRANSACTION - ABORTED
+[TransactionManager] Transaction #86 - Failed Validation
+[TransactionManagerWorker] Transaction #86 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #93 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #93 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #93 - WRITE_REQUEST > Account #3, new balance $25
+[TransactionManagerWorker] Transaction #93 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #93 - WRITE_REQUEST > Account #5, new balance $25
+[TransactionManager] Transaction #93 - Successfully Validated
+[TransactionManagerWorker] Transaction #93 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #94 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #94 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #94 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #94 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #94 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #94 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #94 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #94 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #94 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #94 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #94 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #94 - Successfully Validated
+[TransactionManagerWorker] Transaction #94 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #101 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #100 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #98 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #100 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #99 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #99 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #100 - WRITE_REQUEST > Account #0, new balance $10
+[TransactionManagerWorker] Transaction #100 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #100 - WRITE_REQUEST > Account #7, new balance $-2
+[TransactionManager] Transaction #100 - Successfully Validated
+[TransactionManagerWorker] Transaction #100 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #101 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #101 - WRITE_REQUEST > Account #8, new balance $33
+[TransactionManagerWorker] Transaction #101 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #101 - WRITE_REQUEST > Account #5, new balance $27
+[TransactionManager] Transaction #101 - Successfully Validated
+[TransactionManagerWorker] Transaction #101 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #95 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #97 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #95 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #95 - WRITE_REQUEST > Account #3, new balance $17
+[TransactionManagerWorker] Transaction #95 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #96 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #97 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #95 - WRITE_REQUEST > Account #7, new balance $6
+[TransactionManagerWorker] Transaction #96 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #97 - WRITE_REQUEST > Account #2, new balance $7
+[TransactionManagerWorker] Transaction #97 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #97 - WRITE_REQUEST > Account #6, new balance $-18
+[TransactionManagerWorker] Transaction #99 - WRITE_REQUEST > Account #4, new balance $-1
+[TransactionManagerWorker] Transaction #99 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #99 - WRITE_REQUEST > Account #5, new balance $37
+[TransactionManagerWorker] Transaction #98 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #96 - WRITE_REQUEST > Account #1, new balance $8
+[TransactionManager] Transaction #95 - Failed Validation
+[TransactionManagerWorker] Transaction #95 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #96 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #103 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #103 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #103 - WRITE_REQUEST > Account #3, new balance $20
+[TransactionManagerWorker] Transaction #103 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #103 - WRITE_REQUEST > Account #7, new balance $3
+[TransactionManagerWorker] Transaction #102 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #102 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #98 - WRITE_REQUEST > Account #7, new balance $-16
+[TransactionManager] Transaction #99 - Failed Validation
+[TransactionManagerWorker] Transaction #99 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #98 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #102 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #96 - WRITE_REQUEST > Account #9, new balance $1
+[TransactionManager] Transaction #97 - Successfully Validated
+[TransactionManagerWorker] Transaction #97 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManager] Transaction #96 - Successfully Validated
+[TransactionManagerWorker] Transaction #96 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #98 - WRITE_REQUEST > Account #5, new balance $31
+[TransactionManager] Transaction #98 - Failed Validation
+[TransactionManagerWorker] Transaction #98 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #102 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #102 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #102 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #102 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #102 - READ_REQUEST > Account #6
+[TransactionManager] Transaction #103 - Successfully Validated
+[TransactionManagerWorker] Transaction #103 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #102 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #102 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #102 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #102 - Failed Validation
+[TransactionManagerWorker] Transaction #102 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #104 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #107 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #106 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #105 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #107 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #105 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #106 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #105 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #105 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #105 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #105 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #105 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #105 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #107 - WRITE_REQUEST > Account #4, new balance $-1
+[TransactionManagerWorker] Transaction #107 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #107 - WRITE_REQUEST > Account #5, new balance $37
+[TransactionManager] Transaction #107 - Successfully Validated
+[TransactionManagerWorker] Transaction #107 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #110 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #105 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #110 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #105 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #105 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #105 - Failed Validation
+[TransactionManagerWorker] Transaction #105 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #110 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #110 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #110 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #110 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #110 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #110 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #110 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #110 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #110 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #110 - Failed Validation
+[TransactionManagerWorker] Transaction #110 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #106 - WRITE_REQUEST > Account #7, new balance $-1
+[TransactionManagerWorker] Transaction #106 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #106 - WRITE_REQUEST > Account #5, new balance $41
+[TransactionManager] Transaction #106 - Failed Validation
+[TransactionManagerWorker] Transaction #106 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #109 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #109 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #109 - WRITE_REQUEST > Account #3, new balance $13
+[TransactionManagerWorker] Transaction #109 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #109 - WRITE_REQUEST > Account #4, new balance $6
+[TransactionManager] Transaction #109 - Failed Validation
+[TransactionManagerWorker] Transaction #109 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #108 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #104 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #108 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #104 - WRITE_REQUEST > Account #3, new balance $12
+[TransactionManagerWorker] Transaction #108 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #104 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #104 - WRITE_REQUEST > Account #7, new balance $11
+[TransactionManager] Transaction #104 - Successfully Validated
+[TransactionManagerWorker] Transaction #104 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #108 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #108 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #108 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #108 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #108 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #108 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #112 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #112 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #113 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #111 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #115 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #115 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #114 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #111 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #114 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #111 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #114 - WRITE_REQUEST > Account #7, new balance $7
+[TransactionManagerWorker] Transaction #113 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #112 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #108 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #112 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #113 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #114 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #111 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #115 - WRITE_REQUEST > Account #3, new balance $5
+[TransactionManagerWorker] Transaction #111 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #114 - WRITE_REQUEST > Account #5, new balance $41
+[TransactionManagerWorker] Transaction #112 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #113 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #108 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #114 - Successfully Validated
+[TransactionManager] Transaction #108 - Failed Validation
+[TransactionManagerWorker] Transaction #108 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #112 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #112 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #111 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #111 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #111 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #111 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #111 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #111 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #111 - Failed Validation
+[TransactionManagerWorker] Transaction #111 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #112 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #112 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #112 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #115 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #112 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #112 - Failed Validation
+[TransactionManagerWorker] Transaction #112 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #115 - WRITE_REQUEST > Account #4, new balance $6
+[TransactionManager] Transaction #115 - Successfully Validated
+[TransactionManagerWorker] Transaction #115 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #113 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #113 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #114 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #113 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #117 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #117 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #116 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #118 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #117 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #118 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #113 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #118 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #117 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #116 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #117 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #118 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #118 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #118 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #118 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #118 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #118 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #116 - WRITE_REQUEST > Account #6, new balance $-22
+[TransactionManagerWorker] Transaction #118 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #116 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #116 - WRITE_REQUEST > Account #7, new balance $11
+[TransactionManager] Transaction #116 - Successfully Validated
+[TransactionManagerWorker] Transaction #118 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #118 - Failed Validation
+[TransactionManagerWorker] Transaction #118 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #117 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #117 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #117 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #117 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #117 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #117 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #117 - Failed Validation
+[TransactionManagerWorker] Transaction #117 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #113 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #119 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #116 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #119 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #113 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #113 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #113 - Failed Validation
+[TransactionManagerWorker] Transaction #113 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #119 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #119 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #125 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #124 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #123 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #124 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #122 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #123 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #122 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #121 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #122 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #120 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #121 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #122 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #123 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #124 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #124 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #125 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #119 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #125 - WRITE_REQUEST > Account #5, new balance $40
+[TransactionManagerWorker] Transaction #124 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #123 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #125 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #122 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #121 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #120 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #121 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #122 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #125 - WRITE_REQUEST > Account #4, new balance $7
+[TransactionManagerWorker] Transaction #123 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #124 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #119 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #123 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #124 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #124 - READ_REQUEST > Account #6
+[TransactionManager] Transaction #125 - Successfully Validated
+[TransactionManagerWorker] Transaction #125 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #123 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #124 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #123 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #122 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #122 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #122 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #122 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #122 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #122 - Failed Validation
+[TransactionManagerWorker] Transaction #122 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #121 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #121 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #121 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #121 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #121 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #121 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #120 - WRITE_REQUEST > Account #6, new balance $-25
+[TransactionManagerWorker] Transaction #121 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #121 - Failed Validation
+[TransactionManagerWorker] Transaction #121 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #120 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #120 - WRITE_REQUEST > Account #4, new balance $10
+[TransactionManager] Transaction #120 - Failed Validation
+[TransactionManagerWorker] Transaction #120 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #126 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #123 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #124 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #124 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #124 - Failed Validation
+[TransactionManagerWorker] Transaction #124 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #123 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #123 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #123 - Failed Validation
+[TransactionManagerWorker] Transaction #123 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #119 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #127 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #126 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #126 - WRITE_REQUEST > Account #3, new balance $-1
+[TransactionManagerWorker] Transaction #126 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #126 - WRITE_REQUEST > Account #2, new balance $13
+[TransactionManager] Transaction #126 - Successfully Validated
+[TransactionManagerWorker] Transaction #126 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #119 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #119 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #119 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #119 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #119 - Failed Validation
+[TransactionManagerWorker] Transaction #119 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #127 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #127 - WRITE_REQUEST > Account #6, new balance $-25
+[TransactionManagerWorker] Transaction #127 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #128 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #129 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #127 - WRITE_REQUEST > Account #4, new balance $10
+[TransactionManagerWorker] Transaction #129 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #128 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #128 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #128 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #133 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #133 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #132 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #131 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #131 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #130 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #129 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #130 - READ_REQUEST > Account #0
+[TransactionManager] Transaction #127 - Successfully Validated
+[TransactionManagerWorker] Transaction #130 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #127 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #129 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #130 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #129 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #131 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #131 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #131 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #131 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #131 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #131 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #129 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #132 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #133 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #128 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #133 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #128 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #129 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #129 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #131 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #130 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #130 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #131 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #130 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #131 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #130 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #129 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #132 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #133 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #128 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #133 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #128 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #133 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #129 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #130 - READ_REQUEST > Account #7
+[TransactionManager] Transaction #131 - Successfully Validated
+[TransactionManagerWorker] Transaction #130 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #129 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #130 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #133 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #134 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #133 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #133 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #132 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #128 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #133 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #128 - READ_REQUEST > Account #8
+[TransactionManager] Transaction #129 - Failed Validation
+[TransactionManagerWorker] Transaction #131 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #129 - CLOSED_TRANSACTION - ABORTED
+[TransactionManager] Transaction #133 - Successfully Validated
+[TransactionManagerWorker] Transaction #133 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #132 - READ_REQUEST > Account #3
+[TransactionManager] Transaction #130 - Successfully Validated
+[TransactionManagerWorker] Transaction #130 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #132 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #134 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #132 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #128 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #128 - Failed Validation
+[TransactionManagerWorker] Transaction #128 - CLOSED_TRANSACTION - ABORTED
+[TransactionManagerWorker] Transaction #134 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #134 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #134 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #134 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #134 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #134 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #134 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #132 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #134 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #134 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #134 - Successfully Validated
+[TransactionManagerWorker] Transaction #134 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #132 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #132 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #132 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #132 - Successfully Validated
+[TransactionManagerWorker] Transaction #132 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #135 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #135 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #135 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #135 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #135 - READ_REQUEST > Account #3
+[TransactionManagerWorker] Transaction #135 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #136 - OPEN_TRANSACTION
+[TransactionManagerWorker] Transaction #135 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #135 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #136 - READ_REQUEST > Account #0
+[TransactionManagerWorker] Transaction #136 - READ_REQUEST > Account #1
+[TransactionManagerWorker] Transaction #135 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #135 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #136 - READ_REQUEST > Account #2
+[TransactionManagerWorker] Transaction #135 - READ_REQUEST > Account #9
+[TransactionManagerWorker] Transaction #136 - READ_REQUEST > Account #3
+[TransactionManager] Transaction #135 - Successfully Validated
+[TransactionManagerWorker] Transaction #136 - READ_REQUEST > Account #4
+[TransactionManagerWorker] Transaction #135 - CLOSED_TRANSACTION - COMMITTED
+[TransactionManagerWorker] Transaction #136 - READ_REQUEST > Account #5
+[TransactionManagerWorker] Transaction #136 - READ_REQUEST > Account #6
+[TransactionManagerWorker] Transaction #136 - READ_REQUEST > Account #7
+[TransactionManagerWorker] Transaction #136 - READ_REQUEST > Account #8
+[TransactionManagerWorker] Transaction #136 - READ_REQUEST > Account #9
+[TransactionManager] Transaction #136 - Successfully Validated
+[TransactionManagerWorker] Transaction #136 - CLOSED_TRANSACTION - COMMITTED

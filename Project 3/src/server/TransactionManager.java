@@ -5,6 +5,11 @@ import java.util.ArrayList;
 
 import account.AccountManager;
 
+/**
+ * Responsible for accepting, validating, and coordinating transactions for the server
+ *
+ * @author Harshith Shakelli
+ */
 public class TransactionManager
 {
     /**
