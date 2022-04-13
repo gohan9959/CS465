@@ -59,10 +59,21 @@ public class Satellite extends Thread {
     @Override
     public void run() {
         
+        Socket client;
+        
         // create server socket
         // ---------------------------------------------------------------
         // ...
-        
+        int satellitePort = satelliteInfo.getPort();
+        try
+        {
+            ServerSocket satellite = new ServerSocket(satellitePort);
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+            System.exit(1);
+        }
         
         // start taking job requests in a server loop
         // ---------------------------------------------------------------
