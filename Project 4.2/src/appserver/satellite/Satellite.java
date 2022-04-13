@@ -58,11 +58,6 @@ public class Satellite extends Thread {
 
     @Override
     public void run() {
-
-        // register this satellite with the SatelliteManager on the server
-        // ---------------------------------------------------------------
-        // ...
-        
         
         // create server socket
         // ---------------------------------------------------------------
