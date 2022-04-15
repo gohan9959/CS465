@@ -31,28 +31,77 @@ public class Satellite extends Thread {
     private ConnectivityInfo satelliteInfo = new ConnectivityInfo();
     private ConnectivityInfo serverInfo = new ConnectivityInfo();
     private HTTPClassLoader classLoader = null;
-    private Hashtable toolsCache = null;
+    private Hashtable<String, Object> toolsCache = null;
+    
+    // Properties handlers
+    private PropertyHandler satelliteConfig = null;
+    private PropertyHandler serverConfig = null;
+    private PropertyHandler classLoaderConfig = null;
 
     public Satellite(String satellitePropertiesFile, String classLoaderPropertiesFile, String serverPropertiesFile) {
 
+        // init holder variables
+        int port;
+        String host;
+        String name;
+        String docRoot;
+        
         // read this satellite's properties and populate satelliteInfo object,
         // which later on will be sent to the server
-        // ...
         
+        try {
+            satelliteConfig = new PropertyHandler(satellitePropertiesFile);
+        } catch (IOException e) {
+            // no use carrying on, so bailing out ...
+            System.err.println("No config file found, bailing out ...");
+            System.exit(1);
+        }
+        
+        name = satelliteConfig.getProperty("NAME");
+        satelliteInfo.setName(name);
+        
+        port = Integer.parseInt(satelliteConfig.getProperty("PORT"));
+        satelliteInfo.setPort(port);
+  
         
         // read properties of the application server and populate serverInfo object
         // other than satellites, the as doesn't have a human-readable name, so leave it out
-        // ...
+        
+        try {
+            serverConfig = new PropertyHandler(serverPropertiesFile);
+        } catch (IOException e) {
+            // no use carrying on, so bailing out ...
+            System.err.println("No config file found, bailing out ...");
+            System.exit(1);
+        }
+        
+        host = serverConfig.getProperty("HOST");
+        serverInfo.setHost(host);
+        
+        port = Integer.parseInt(serverConfig.getProperty("PORT"));
+        serverInfo.setPort(port);
         
         
         // read properties of the code server and create class loader
         // -------------------
-        // ...
-
+        
+        try {
+            classLoaderConfig = new PropertyHandler(classLoaderPropertiesFile);
+        } catch (IOException e) {
+            // no use carrying on, so bailing out ...
+            System.err.println("No config file found, bailing out ...");
+            System.exit(1);
+        }
+        
+        host = classLoaderConfig.getProperty("HOST");
+        port = Integer.parseInt(classLoaderConfig.getProperty("PORT"));
+        
+        classLoader = new HTTPClassLoader(host, port);
+        
         
         // create tools cache
         // -------------------
-        // ...
+        toolsCache = new Hashtable<>();
         
     }
 
@@ -62,6 +111,8 @@ public class Satellite extends Thread {
         try
         {
             Socket client;
+
+            // TODO: (IN 4.3) SatelliteManager stuff
         
             // create server socket
             int satellitePort = satelliteInfo.getPort();
