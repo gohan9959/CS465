@@ -57,27 +57,28 @@ public class Satellite extends Thread {
     }
 
     @Override
-    public void run() {
-        
-        Socket client;
-        
-        // create server socket
-        // ---------------------------------------------------------------
-        // ...
-        int satellitePort = satelliteInfo.getPort();
+    public void run()
+    {
         try
         {
+            Socket client;
+        
+            // create server socket
+            int satellitePort = satelliteInfo.getPort();
             ServerSocket satellite = new ServerSocket(satellitePort);
+            
+            // start taking job requests in a server loop
+            while (true)
+            {
+                client = satellite.accept();
+                new SatelliteThread(client, this).start();
+            }
         }
         catch (IOException ex)
         {
             ex.printStackTrace();
             System.exit(1);
         }
-        
-        // start taking job requests in a server loop
-        // ---------------------------------------------------------------
-        // ...
     }
 
     // inner helper class that is instanciated in above server loop and processes single job requests
@@ -95,21 +96,32 @@ public class Satellite extends Thread {
         }
 
         @Override
-        public void run() {
-            // setting up object streams
-            // ...
-            
-            // reading message
-            // ...
-            
-            switch (message.getType()) {
-                case JOB_REQUEST:
-                    // processing job request
-                    // ...
-                    break;
+        public void run()
+        {
+            try
+            {
+                // setting up object streams
+                readFromNet = new ObjectInputStream(jobRequest.getInputStream());
+                writeToNet = new ObjectOutputStream(jobRequest.getOutputStream());
+                
+                // reading message
+                message = (Message) readFromNet.readObject();
+                
+                switch (message.getType())
+                {
+                    case JOB_REQUEST:
+                        // processing job request
+                        // ...
+                        break;
 
-                default:
-                    System.err.println("[SatelliteThread.run] Warning: Message type not implemented");
+                    default:
+                        System.err.println("[SatelliteThread.run] Warning: "
+                                + "Message type not implemented");
+                }
+            }
+            catch (IOException | ClassNotFoundException ex)
+            {
+                ex.printStackTrace();
             }
         }
     }
