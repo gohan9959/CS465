@@ -18,6 +18,7 @@ import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.PropertyHandler;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Class [Satellite] Instances of this class represent computing nodes that execute jobs by
@@ -31,7 +32,7 @@ public class Satellite extends Thread {
     private ConnectivityInfo satelliteInfo = new ConnectivityInfo();
     private ConnectivityInfo serverInfo = new ConnectivityInfo();
     private HTTPClassLoader classLoader = null;
-    private Hashtable<String, Object> toolsCache = null;
+    private Hashtable<String, Tool> toolsCache = null;
     
     // Properties handlers
     private PropertyHandler satelliteConfig = null;
@@ -48,7 +49,6 @@ public class Satellite extends Thread {
         
         // read this satellite's properties and populate satelliteInfo object,
         // which later on will be sent to the server
-        
         try {
             satelliteConfig = new PropertyHandler(satellitePropertiesFile);
         } catch (IOException e) {
@@ -56,7 +56,6 @@ public class Satellite extends Thread {
             System.err.println("No config file found, bailing out ...");
             System.exit(1);
         }
-        
         name = satelliteConfig.getProperty("NAME");
         satelliteInfo.setName(name);
         
@@ -74,7 +73,6 @@ public class Satellite extends Thread {
             System.err.println("No config file found, bailing out ...");
             System.exit(1);
         }
-        
         host = serverConfig.getProperty("HOST");
         serverInfo.setHost(host);
         
@@ -92,7 +90,6 @@ public class Satellite extends Thread {
             System.err.println("No config file found, bailing out ...");
             System.exit(1);
         }
-        
         host = classLoaderConfig.getProperty("HOST");
         port = Integer.parseInt(classLoaderConfig.getProperty("PORT"));
         
@@ -140,6 +137,7 @@ public class Satellite extends Thread {
         ObjectInputStream readFromNet = null;
         ObjectOutputStream writeToNet = null;
         Message message = null;
+        Job content = null;
 
         SatelliteThread(Socket jobRequest, Satellite satellite) {
             this.jobRequest = jobRequest;
@@ -155,30 +153,29 @@ public class Satellite extends Thread {
                 readFromNet = new ObjectInputStream(jobRequest.getInputStream());
                 writeToNet = new ObjectOutputStream(jobRequest.getOutputStream());
                 
-                Job job;
-                Tool tool;
-                
                 // reading message
                 message = (Message) readFromNet.readObject();
-                
+                content = (Job) message.getContent();
                 switch (message.getType())
                 {
                     case JOB_REQUEST:
-                        
-                        // processing job request
-                        // ...
-                        job = (Job)message.getContent();
-                    
-                        try {
-                            tool = getToolObject(job.getToolName());
-                        } catch (UnknownToolException ex) {
-                            Logger.getLogger(Satellite.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (InstantiationException ex) {
-                            Logger.getLogger(Satellite.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (IllegalAccessException ex) {
-                            Logger.getLogger(Satellite.class.getName()).log(Level.SEVERE, null, ex);
+                        try{
+                            Tool tool = getToolObject(content.getToolName());
+                            Object result = tool.go(content.getParameters());
+                            writeToNet.writeObject(result);
                         }
-                    
+                        catch (UnknownToolException UTE){
+                            System.err.println("Unknown Tool");
+                        }
+                        catch (ClassNotFoundException CE){
+                            System.err.println("Class Not Found");
+                        }
+                        catch (InstantiationException IE){
+                            System.err.println("Instantiation Exception");
+                        }
+                        catch(IllegalAccessException IE){
+                            System.err.println("Illegal Access");
+                        }
                         break;
 
                     default:
@@ -200,27 +197,19 @@ public class Satellite extends Thread {
      */
     public Tool getToolObject(String toolClassString) throws UnknownToolException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
-        Tool toolObject;
+        Tool toolObject = null;
         
-        String[] classPathList = toolClassString.split(".");
-        String toolClassName = classPathList[classPathList.length - 1];
-
-        if ((toolObject = (Tool)toolsCache.get(toolClassName)) == null) 
-        {
+        if ((toolObject = toolsCache.get(toolClassString)) == null) {            
             System.out.println("\nTool's Class: " + toolClassString);
-
-            Class<?> toolClass = classLoader.loadClass(toolClassString);
-            try {
-                toolObject = (Tool) toolClass.getDeclaredConstructor().newInstance();
-            } catch (InvocationTargetException ex) {
-                Logger.getLogger(Satellite.class.getName()).log(Level.SEVERE, null, ex);
-                System.err.println("[DynCalculator] getOperation() - InvocationTargetException");
+            if (toolClassString == null) {
+                throw new UnknownToolException();
             }
-            toolsCache.put(toolClassName, toolObject);
-        } 
-        else 
-        {
-            System.out.println("Operation: \"" + toolClassName + "\" already in Cache");
+
+            Class operationClass = classLoader.loadClass(toolClassString);
+            toolObject = (Tool) operationClass.newInstance();
+            toolsCache.put(toolClassString, toolObject);
+        } else {
+            System.out.println(toolClassString + "\" already in Cache");
         }
         
         return toolObject;
@@ -228,7 +217,14 @@ public class Satellite extends Thread {
 
     public static void main(String[] args) {
         // start the satellite
-        Satellite satellite = new Satellite(args[0], args[1], args[2]);
+        Satellite satellite = null;
+        if (args.length == 3){
+            satellite = new Satellite(args[0], args[1], args[2]);
+        }
+        else{
+            satellite = new Satellite("/config/Satellite.Earth.properties", "/config/Server.properties", "/config/WebServer.properties");
+        }
+        
         satellite.run();
     }
 }
