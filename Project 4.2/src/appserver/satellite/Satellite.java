@@ -155,14 +155,30 @@ public class Satellite extends Thread {
                 readFromNet = new ObjectInputStream(jobRequest.getInputStream());
                 writeToNet = new ObjectOutputStream(jobRequest.getOutputStream());
                 
+                Job job;
+                Tool tool;
+                
                 // reading message
                 message = (Message) readFromNet.readObject();
                 
                 switch (message.getType())
                 {
                     case JOB_REQUEST:
+                        
                         // processing job request
                         // ...
+                        job = (Job)message.getContent();
+                    
+                        try {
+                            tool = getToolObject(job.getToolName());
+                        } catch (UnknownToolException ex) {
+                            Logger.getLogger(Satellite.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (InstantiationException ex) {
+                            Logger.getLogger(Satellite.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IllegalAccessException ex) {
+                            Logger.getLogger(Satellite.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    
                         break;
 
                     default:
@@ -184,9 +200,28 @@ public class Satellite extends Thread {
      */
     public Tool getToolObject(String toolClassString) throws UnknownToolException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
-        Tool toolObject = null;
+        Tool toolObject;
+        
+        String[] classPathList = toolClassString.split(".");
+        String toolClassName = classPathList[classPathList.length - 1];
 
-        // ...
+        if ((toolObject = (Tool)toolsCache.get(toolClassName)) == null) 
+        {
+            System.out.println("\nTool's Class: " + toolClassString);
+
+            Class<?> toolClass = classLoader.loadClass(toolClassString);
+            try {
+                toolObject = (Tool) toolClass.getDeclaredConstructor().newInstance();
+            } catch (InvocationTargetException ex) {
+                Logger.getLogger(Satellite.class.getName()).log(Level.SEVERE, null, ex);
+                System.err.println("[DynCalculator] getOperation() - InvocationTargetException");
+            }
+            toolsCache.put(toolClassName, toolObject);
+        } 
+        else 
+        {
+            System.out.println("Operation: \"" + toolClassName + "\" already in Cache");
+        }
         
         return toolObject;
     }
