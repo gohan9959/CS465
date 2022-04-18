@@ -222,7 +222,8 @@ public class Satellite extends Thread {
             satellite = new Satellite(args[0], args[1], args[2]);
         }
         else{
-            satellite = new Satellite("/config/Satellite.Earth.properties", "/config/Server.properties", "/config/WebServer.properties");
+            satellite = new Satellite("/config/Satellite.Earth.properties",
+                    "/config/WebServer.properties", "/config/Server.properties");
         }
         
         satellite.run();
