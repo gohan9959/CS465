@@ -16,14 +16,16 @@ import utils.PropertyHandler;
  *
  * @author Dr.-Ing. Wolf-Dieter Otte
  */
-public class Server {
+public class Server
+{
 
     // Singleton objects - there is only one of them. For simplicity, this is not enforced though ...
     static SatelliteManager satelliteManager = null;
     static LoadManager loadManager = null;
     static ServerSocket serverSocket = null;
 
-    public Server(String serverPropertiesFile) {
+    public Server(String serverPropertiesFile)
+    {
 
         // create satellite manager and load manager
         // ...
@@ -32,43 +34,50 @@ public class Server {
         // ...
     }
 
-    public void run() {
+    public void run()
+    {
     // serve clients in server loop ...
     // when a request comes in, a ServerThread object is spawned
     // ...
     }
 
     // objects of this helper class communicate with satellites or clients
-    private class ServerThread extends Thread {
+    private class ServerThread extends Thread
+    {
 
         Socket client = null;
         ObjectInputStream readFromNet = null;
         ObjectOutputStream writeToNet = null;
         Message message = null;
 
-        private ServerThread(Socket client) {
+        private ServerThread(Socket client)
+        {
             this.client = client;
         }
 
         @Override
-        public void run() {
+        public void run()
+        {
             // set up object streams and read message
             // ...
 
             
             // process message
-            switch (message.getType()) {
+            switch (message.getType())
+            {
                 case REGISTER_SATELLITE:
                     // read satellite info
                     // ...
                     
                     // register satellite
-                    synchronized (Server.satelliteManager) {
+                    synchronized (Server.satelliteManager)
+                    {
                         // ...
                     }
 
                     // add satellite to loadManager
-                    synchronized (Server.loadManager) {
+                    synchronized (Server.loadManager)
+                    {
                         // ...
                     }
 
@@ -78,7 +87,8 @@ public class Server {
                     System.err.println("\n[ServerThread.run] Received job request");
 
                     String satelliteName = null;
-                    synchronized (Server.loadManager) {
+                    synchronized (Server.loadManager)
+                    {
                         // get next satellite from load manager
                         // ...
                         
@@ -105,12 +115,16 @@ public class Server {
     }
 
     // main()
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         // start the application server
         Server server = null;
-        if(args.length == 1) {
+        if(args.length == 1)
+        {
             server = new Server(args[0]);
-        } else {
+        }
+        else
+        {
             server = new Server("../../config/Server.properties");
         }
         server.run();
