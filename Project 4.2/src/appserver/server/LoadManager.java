@@ -26,8 +26,7 @@ public class LoadManager
     {
         synchronized (satellites)
         {
-            // implement policy that returns the satellite name according to a
-            // round robin methodology
+            // implement policy that returns the satellite name according to a round robin methodology
             lastSatelliteIndex++;
             if (lastSatelliteIndex >= satellites.size())
             {
