@@ -1,18 +1,40 @@
 package appserver.client;
 
+import appserver.comm.Message;
+import static appserver.comm.MessageTypes.JOB_REQUEST;
+import appserver.job.Job;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.util.Properties;
+import utils.PropertyHandler;
+
 /**
- *
+ * Class [FibonacciClient] client uses the Fibonacci tool
+ * 
  * @author Zachary
  */
 public class FibonacciClient extends Thread{
     
     private int parameter;
     
-    private int fibNumber;
+    String host = null;
+    int port;
+
+    Properties properties;
     
     public FibonacciClient(String config, int index)
     {
         // read config file
+                try {
+            properties = new PropertyHandler(config);
+            host = properties.getProperty("HOST");
+            System.out.println("[FibonacciClient] Host: " + host);
+            port = Integer.parseInt(properties.getProperty("PORT"));
+            System.out.println("[FibonacciClient] Port: " + port);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         
         parameter = index;
     }
@@ -20,10 +42,31 @@ public class FibonacciClient extends Thread{
     @Override
     public void run()
     {
-        // do fib stuff
-        fibNumber = 0;
-        
-        System.out.printf("Fibonacci of %d: %d\n", parameter, fibNumber);
+        try { 
+            // connect to application server
+            Socket server = new Socket(host, port);
+            
+            // hard-coded string of class, aka tool name ... plus one argument
+            String classString = "appserver.job.impl.Fibonacci";
+            
+            // create job and job request message
+            Job job = new Job(classString, parameter);
+            Message message = new Message(JOB_REQUEST, job);
+            
+            // sending job out to the application server in a message
+            ObjectOutputStream writeToNet = new ObjectOutputStream(server.getOutputStream());
+            writeToNet.writeObject(message);
+            
+            // reading result back in from application server
+            // for simplicity, the result is not encapsulated in a message
+            ObjectInputStream readFromNet = new ObjectInputStream(server.getInputStream());
+            Integer result = (Integer) readFromNet.readObject();
+            System.out.println("RESULT: " + result);
+            System.out.printf("Fibonacci of %d: %d\n", parameter, result);
+        } catch (Exception ex) {
+            System.err.println("[FibonacciClient.run] Error occurred");
+            ex.printStackTrace();
+        }
     }
     
     public static void main(String[] args)
