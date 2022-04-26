@@ -17,4 +17,5 @@ public class PlusOne implements Tool{
         helper = new PlusOneAux((Integer) parameters);
         return helper.getResult();
     }
+    
 }

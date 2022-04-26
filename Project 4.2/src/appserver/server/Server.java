@@ -45,11 +45,23 @@ public class Server
         }
     }
 
-    public void run()
+    public void run() throws IOException
     {
+        Socket clientSocket = null;
+        
+        System.out.println("""                    
+                                   Server Started
+                           Accepting incoming transactions
+                           ================================
+                           """);
+        
         // serve clients in server loop ...
-        // when a request comes in, a ServerThread object is spawned
-        // ...
+        while(true)
+        {
+            // when a request comes in, a ServerThread object is spawned
+            clientSocket = serverSocket.accept();
+            new Thread(new ServerThread(clientSocket)).start();
+        }
     }
 
     // objects of this helper class communicate with satellites or clients
@@ -160,7 +172,7 @@ public class Server
     }
 
     // main()
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
         // start the application server
         Server server = null;
