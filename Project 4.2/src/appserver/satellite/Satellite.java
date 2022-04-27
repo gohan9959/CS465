@@ -107,13 +107,22 @@ public class Satellite extends Thread {
     {
         try
         {
-            Socket client;
-
-            // TODO: (IN 4.3) SatelliteManager stuff
+            Socket client, appServer;
+            Message registrationMessage;
+            ObjectOutputStream writeToServer;
         
             // create server socket
             int satellitePort = satelliteInfo.getPort();
             ServerSocket satellite = new ServerSocket(satellitePort);
+
+            // connect to app server
+            appServer = new Socket(serverInfo.getHost(), serverInfo.getPort());
+            writeToServer = new ObjectOutputStream(appServer.getOutputStream());
+            
+            // register self to satellite manager
+            registrationMessage = new Message(REGISTER_SATELLITE, satelliteInfo);
+            writeToServer.writeObject(registrationMessage);
+            appServer.close();
             
             // start taking job requests in a server loop
             while (true)
@@ -136,7 +145,8 @@ public class Satellite extends Thread {
         Socket jobRequest = null;
         ObjectInputStream readFromNet = null;
         ObjectOutputStream writeToNet = null;
-        Message message = null;
+        Message messageReceived = null;
+        Message messageSent = null;
         Job content = null;
 
         SatelliteThread(Socket jobRequest, Satellite satellite) {
@@ -154,12 +164,12 @@ public class Satellite extends Thread {
                 writeToNet = new ObjectOutputStream(jobRequest.getOutputStream());
                 
                 // reading message
-                message = (Message) readFromNet.readObject();
-                content = (Job) message.getContent();
-                switch (message.getType())
+                messageReceived = (Message) readFromNet.readObject();
+                content = (Job) messageReceived.getContent();
+                switch (messageReceived.getType())
                 {
                     case JOB_REQUEST:
-                        try{
+                        try {
                             Tool tool = getToolObject(content.getToolName());
                             Object result = tool.go(content.getParameters());
                             writeToNet.writeObject(result);

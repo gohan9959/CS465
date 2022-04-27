@@ -26,7 +26,6 @@ public class Server
     public Server(String serverPropertiesFile)
     {
         // create satellite manager and load manager
-        // ...
         satelliteManager = new SatelliteManager();
         loadManager = new LoadManager();
         
@@ -55,7 +54,7 @@ public class Server
                            ================================
                            """);
         
-        // serve clients in server loop ...
+        // serve clients in server loop
         while(true)
         {
             // when a request comes in, a ServerThread object is spawned
@@ -153,7 +152,7 @@ public class Server
                         toSatellite.writeObject(message);
                         
                         // receive result from satellite
-                        Message response = (Message) fromSatellite.readObject();
+                        Object response = fromSatellite.readObject();
                         
                         // write result back to client
                         writeToNet.writeObject(response);
