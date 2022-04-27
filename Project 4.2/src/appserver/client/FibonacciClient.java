@@ -16,11 +16,20 @@ import utils.PropertyHandler;
  */
 public class FibonacciClient extends Thread{
     
+    /**
+     * Input parameter to get fib result from server
+     */
     private int parameter;
     
+    /**
+     * IP and port to connect to server
+     */
     String host = null;
     int port;
 
+    /**
+     * Used to load in properties file
+     */
     Properties properties;
     
     public FibonacciClient(String config, int index)
@@ -36,6 +45,7 @@ public class FibonacciClient extends Thread{
             ex.printStackTrace();
         }
         
+        // set our parameter to give to Fib as the index from which the client was created
         parameter = index;
     }
     
@@ -61,6 +71,7 @@ public class FibonacciClient extends Thread{
             // for simplicity, the result is not encapsulated in a message
             ObjectInputStream readFromNet = new ObjectInputStream(server.getInputStream());
             Integer result = (Integer) readFromNet.readObject();
+            
             System.out.println("RESULT: " + result);
             System.out.printf("Fibonacci of %d: %d\n", parameter, result);
         } catch (Exception ex) {
@@ -69,6 +80,7 @@ public class FibonacciClient extends Thread{
         }
     }
     
+    // Create fib clients to interact with the server
     public static void main(String[] args)
     {
         int index;
